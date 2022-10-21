@@ -1,0 +1,178 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=" .27"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_launcher_foreground"
+        app:layout_constraintEnd_toStartOf="@+id/safedom"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/safedom"
+        android:layout_width="212dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="20dp"
+        android:gravity="top"
+        android:text="SafeDom"
+        android:textColor="@color/white"
+        android:textSize="51dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/eslogan"
+        android:layout_width="212dp"
+        android:layout_height="64dp"
+        android:text="Tu salud, más cerca"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/safedom"
+        app:layout_constraintStart_toStartOf="@+id/safedom"
+        app:layout_constraintTop_toBottomOf="@+id/safedom" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".78"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="387dp"
+            android:fontFamily="@font/tt_commons_bold_italic"
+            android:text="Identifiquese"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_correo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="199dp"
+        android:layout_marginEnd="10dp"
+        android:minHeight="?android:attr/actionBarSize"
+        android:transitionGroup="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout">
+
+        <EditText
+            android:id="@+id/correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_redondo"
+            android:fontFamily="@font/tt_commons_bold_italic"
+            android:hint="Correo electrónico"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:textSize="14dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_contraseña"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:minHeight="?android:attr/actionBarSize"
+        android:transitionGroup="true"
+        app:layout_constraintEnd_toEndOf="@+id/til_correo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/til_correo"
+        app:layout_constraintTop_toBottomOf="@+id/til_correo">
+
+        <EditText
+            android:id="@+id/contraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/tt_commons_bold_italic"
+            android:background="@drawable/edit_text_redondo"
+            android:hint="Contraseña"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:textSize="14dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/inicio_sesión"
+        android:fontFamily="@font/tt_commons_bold_italic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="#FF7476"
+        android:onClick="inicioSesiónCorreo"
+        android:text="Iniciar Sesión"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/registro"
+        app:layout_constraintStart_toStartOf="@+id/til_contraseña"
+        app:layout_constraintTop_toBottomOf="@id/til_contraseña" />
+
+    <Button
+        android:id="@+id/registro"
+        android:fontFamily="@font/tt_commons_bold_italic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF7476"
+        android:onClick="registroCorreo"
+        android:text="Registro"
+        app:layout_constraintEnd_toEndOf="@+id/til_contraseña"
+        app:layout_constraintLeft_toRightOf="@+id/inicio_sesión"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/inicio_sesión" />
+
+    <Button
+        android:id="@+id/firebase_ui"
+        android:fontFamily="@font/tt_commons_bold_italic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#FF7476"
+        android:onClick="firebaseUI"
+        android:text="Iniciar sesión con FirebaseUI"
+        app:layout_constraintEnd_toEndOf="@+id/til_correo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/til_correo"
+        app:layout_constraintTop_toBottomOf="@+id/inicio_sesión" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
