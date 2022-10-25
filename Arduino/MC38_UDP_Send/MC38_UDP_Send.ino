@@ -12,6 +12,7 @@ const char * ssid = "ALCALA - MAS BLANCO";
 const char * password = "bloque3puerta5";
 int PORT = 1120;
 
+
 AsyncUDP udp;
 StaticJsonDocument<200> jsonBuffer; //tamaño maximo de los datos
 
@@ -37,7 +38,6 @@ void setup() {
 
 void loop() {
   readSensorValue();
-  jsonSendData();
 }
 
 //---------------------------------------------------------------
@@ -70,13 +70,16 @@ void WiFiConfiguration(){
 void readSensorValue(){
   M5.Lcd.fillScreen(BLACK); 
   M5.Lcd.setTextColor(WHITE);
+  jsonBuffer["DoorState"]="";
   do{
     cont2 = 0;
     if(cont1==0){
       digitalWrite(pinLed, HIGH);
       M5.Lcd.clear();
       M5.Lcd.setCursor(0, 10);
-      M5.Lcd.print("Puerta principal abierta");      
+      M5.Lcd.print("Puerta principal abierta");
+      jsonBuffer["DoorState"]="Puerta abierta";
+      jsonSendData();
     }else{
       digitalWrite(pinLed, HIGH);
     }
@@ -88,7 +91,9 @@ void readSensorValue(){
       digitalWrite(pinLed, LOW);
       M5.Lcd.clear();
       M5.Lcd.setCursor(0, 10);
-      M5.Lcd.print("Puerta principal cerrada");  
+      M5.Lcd.print("Puerta principal cerrada"); 
+      jsonBuffer["DoorState"]="Puerta cerrada";
+      jsonSendData();
     }else{
       digitalWrite(pinLed, LOW);
     }
@@ -100,17 +105,7 @@ void readSensorValue(){
 //---------------------------------------------------------------
 
 void jsonSendData(){
-
   char texto[200];
-  jsonBuffer["DoorState"]="";
-  
-  if(digitalRead(pinSensor)==HIGH){
-    jsonBuffer["DoorState"]="Puerta abierta";
-  }
-  if(digitalRead(pinSensor)==LOW){
-    jsonBuffer["DoorState"]="Puerta cerrada";
-  }
-
   serializeJson(jsonBuffer, texto);
   udp.broadcastTo(texto, PORT);
 }
