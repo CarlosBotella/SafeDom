@@ -85,11 +85,12 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundMode="none"
         android:id="@+id/til_nombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
@@ -101,21 +102,23 @@
         <EditText
             android:id="@+id/nombre"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/edit_text_redondo"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Nombre"
             android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"
+            android:inputType="textPersonName"
+            android:singleLine="false"
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundMode="none"
         android:id="@+id/til_apellidos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
@@ -132,16 +135,17 @@
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Apellidos"
             android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"
+            android:inputType="textPersonName"
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundMode="none"
         android:id="@+id/til_direccion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
@@ -163,11 +167,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundMode="none"
         android:id="@+id/til_CElec"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
@@ -189,11 +194,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundMode="none"
         android:id="@+id/til_pass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
@@ -215,11 +221,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundMode="none"
         android:id="@+id/til_Reppass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
@@ -235,9 +242,12 @@
             android:background="@drawable/edit_text_redondo"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Confirma Contraseña"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--TODO: Poner botones de siguiente y atrás-->
+<!--TODO: Hacer inputs más pequeños-->
