@@ -20,47 +20,36 @@ public class Casa {
     public User getCliente() {
         return Cliente;
     }
-
     public void setCliente(User cliente) {
         Cliente = cliente;
     }
-
     public User getFamiliar() {
         return Familiar;
     }
-
     public void setFamiliar(User familiar) {
         Familiar = familiar;
     }
-
     public User getDoctor() {
         return Doctor;
     }
-
     public void setDoctor(User doctor) {
         Doctor = doctor;
     }
-
     public String getDireccion() {
         return Direccion;
     }
-
     public void setDireccion(String direccion) {
         Direccion = direccion;
     }
-
     public String getCiudad() {
         return Ciudad;
     }
-
     public void setCiudad(String ciudad) {
         Ciudad = ciudad;
     }
-
     public int getCP() {
         return CP;
     }
-
     public void setCP(int CP) {
         this.CP = CP;
     }

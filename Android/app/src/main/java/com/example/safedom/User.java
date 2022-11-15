@@ -12,6 +12,8 @@ public class User {
     private String Direccion;
     private Enum Rol;
 
+
+
     public User(String userEmail, String pass, String nombre, String apellido, int telefono, String dob, String direccion, Enum rol) {
         UserEmail = userEmail;
         Pass = pass;
