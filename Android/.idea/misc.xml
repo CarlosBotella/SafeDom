@@ -8,8 +8,9 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/logo.xml" value="0.184" />
-        <entry key="app/src/main/res/layout/login.xml" value="0.19243316650390624" />
-        <entry key="app/src/main/res/layout/registrar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/prueba.xml" value="0.24166666666666667" />
+        <entry key="app/src/main/res/layout/registrar.xml" value="0.25211944580078127" />
       </map>
     </option>
   </component>
@@ -23,7 +24,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.19243316650390624" />
+        <option name="scale" value="0.25211944580078127" />
       </ProjectState>
     </option>
   </component>

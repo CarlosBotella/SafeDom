@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <com.google.android.material.textfield.TextInputLayout
-        app:boxBackgroundMode="none"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/til_nombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -99,11 +99,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_redondo"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Nombre"
             android:imeOptions="actionNext"
@@ -113,7 +112,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:boxBackgroundMode="none"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/til_apellidos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -127,11 +126,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_nombre">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/apellidos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/edit_text_redondo"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Apellidos"
             android:imeOptions="actionNext"
@@ -140,7 +138,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:boxBackgroundMode="none"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/til_direccion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -154,11 +152,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_apellidos">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/direccion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/edit_text_redondo"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Dirección"
             android:imeOptions="actionNext"
@@ -167,7 +164,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:boxBackgroundMode="none"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/til_CElec"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -181,11 +178,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_direccion">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/CElec"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/edit_text_redondo"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Correo electrónico"
             android:imeOptions="actionNext"
@@ -194,7 +190,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:boxBackgroundMode="none"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/til_pass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -208,11 +204,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_CElec">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/pass"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/edit_text_redondo"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Contraseña"
             android:imeOptions="actionNext"
@@ -221,7 +216,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:boxBackgroundMode="none"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/til_Reppass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -235,11 +230,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_pass">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Reppass"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/edit_text_redondo"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Confirma Contraseña"
             android:imeOptions="actionDone"
