@@ -85,6 +85,25 @@ public class CustomLoginActivity extends AppCompatActivity {
                     });
         }*/
     }
+
+    public void registroCodigo(View v) {
+        setContentView(R.layout.codigo);
+        /*if (verificaCampos()) {
+            dialogo.show();
+            auth.createUserWithEmailAndPassword(correo, contraseña)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                verificaSiUsuarioValidado();
+                            } else {
+                                dialogo.dismiss();
+                                mensaje(task.getException().getLocalizedMessage());
+                            }
+                        }
+                    });
+        }*/
+    }
     private void mensaje(String mensaje) {
         Snackbar.make(contenedor, mensaje, Snackbar.LENGTH_LONG).show();
     }

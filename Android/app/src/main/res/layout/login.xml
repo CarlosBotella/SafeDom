@@ -157,7 +157,7 @@
         android:layout_marginTop="80dp"
         android:backgroundTint="#FF7476"
         android:fontFamily="@font/tt_commons_bold_italic"
-        android:onClick="registroCorreo"
+        android:onClick="registroCodigo"
         android:text="Registro"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
         app:layout_constraintHorizontal_bias="0.5"

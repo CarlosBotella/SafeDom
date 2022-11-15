@@ -85,8 +85,8 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/til_nombre"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -112,8 +112,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/til_apellidos"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -138,8 +138,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_CElec"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/til_direccion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -153,32 +153,6 @@
         app:layout_constraintTop_toBottomOf="@+id/til_apellidos">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/direccion"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/tt_commons_bold_italic"
-            android:hint="Dirección"
-            android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"
-            android:textSize="14dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/til_CElec"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="10dp"
-        android:minHeight="?android:attr/actionBarSize"
-        android:transitionGroup="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_direccion">
-
-        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/CElec"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -190,8 +164,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/til_pass"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -216,8 +190,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/til_Reppass"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -241,7 +215,33 @@
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/siguiente_registro"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#FF7476"
+        android:fontFamily="@font/tt_commons_bold_italic"
+        android:text="Siguiente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/anterior_registro"
+        app:layout_constraintTop_toBottomOf="@+id/til_Reppass" />
+
+    <Button
+        android:id="@+id/anterior_registro"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#FF7476"
+        android:fontFamily="@font/tt_commons_bold_italic"
+        android:text="anterior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/siguiente_registro"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_Reppass" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--TODO: Poner botones de siguiente y atrás-->
-<!--TODO: Hacer inputs más pequeños-->
+    <!--TODO: Poner botones de siguiente y atrás-->
+    <!--TODO: Hacer inputs más pequeños-->
