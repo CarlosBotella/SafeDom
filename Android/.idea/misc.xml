@@ -3,13 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_item_otp_view.xml" value="0.184" />
+        <entry key="app/src/main/res/drawable/bg_item_otp_view_error.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/boton.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/edit_text_redondo.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/logo.xml" value="0.184" />
-        <entry key="app/src/main/res/layout/login.xml" value="0.19243316650390624" />
-        <entry key="app/src/main/res/layout/registrar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/codigo.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/prueba.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/prueba123.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/registrar.xml" value="0.18545074462890626" />
       </map>
     </option>
   </component>
@@ -23,7 +28,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.19243316650390624" />
+        <option name="scale" value="0.1" />
       </ProjectState>
     </option>
   </component>
