@@ -1,11 +1,15 @@
 package com.example.safedom;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +20,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+
+import org.checkerframework.checker.units.qual.A;
 
 public class CustomLoginActivity extends AppCompatActivity {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -36,7 +43,13 @@ public class CustomLoginActivity extends AppCompatActivity {
         dialogo = new ProgressDialog(this);
         dialogo.setTitle("Verificando usuario");
         dialogo.setMessage("Por favor espere...");
+
+
         verificaSiUsuarioValidado();
+    }
+    public void aceptar() {
+        Toast t=Toast.makeText(this,"Bienvenido a probar el programa.", Toast.LENGTH_SHORT);
+        t.show();
     }
 
     private void verificaSiUsuarioValidado() {
@@ -51,21 +64,40 @@ public class CustomLoginActivity extends AppCompatActivity {
     }
 
     public void inicioSesiónCorreo(View v) {
-        if (verificaCampos()) {
-            dialogo.show();
-            auth.signInWithEmailAndPassword(correo, contraseña)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                verificaSiUsuarioValidado();
-                            } else {
-                                dialogo.dismiss();
-                                mensaje(task.getException().getLocalizedMessage());
+        try {
+            if (verificaCampos()) {
+                dialogo.show();
+                auth.signInWithEmailAndPassword(correo, contraseña)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                if (task.isSuccessful()) {
+                                    Log.e("Pruebas: ", "onComplete inicioSesiónCorreo");
+                                    verificaSiUsuarioValidado();
+                                } else {
+                                    Log.e("Pruebas: ", "FALLO inicioSesiónCorreo");
+                                    dialogo.dismiss();
+                                    Log.e("Pruebas: ", String.valueOf(task.getException()));
+                                    mensaje(task.getException().getLocalizedMessage());
+                                }
                             }
-                        }
-                    });
+                        });
+            }
+        }catch (Exception e){
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
+            dialogo1.setTitle("Importante");
+            dialogo1.setMessage("El usuario o la contraseña no son correctos");
+            dialogo1.setCancelable(false);
+            dialogo1.setPositiveButton("Volver", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    aceptar();
+                }
+            });
+            dialogo1.show();
         }
+
+
     }
     /*public void registroCorreo(View v) {
         setContentView(R.layout.registrar);
@@ -104,30 +136,28 @@ public class CustomLoginActivity extends AppCompatActivity {
                     });
         }*/
     }
+
     private void mensaje(String mensaje) {
         Snackbar.make(contenedor, mensaje, Snackbar.LENGTH_LONG).show();
     }
+
     private boolean verificaCampos() {
+        boolean s=true;
         correo = etCorreo.getText().toString();
         contraseña = etContraseña.getText().toString();
-        tilCorreo.setError(""); tilContraseña.setError("");
+        tilCorreo.setError("");
+        tilContraseña.setError("");
         if (correo.isEmpty()) {
             tilCorreo.setError("Introduce un correo");
-        } else if (!correo.matches(".+@.+[.].+")) {
-            tilCorreo.setError("Correo no válido");
-        } else if (contraseña.isEmpty()) {
-            tilContraseña.setError("Introduce una contraseña");
-        } else if (contraseña.length()<6) {
-            tilContraseña.setError("Ha de contener al menos 6 caracteres");
-        } else if (!contraseña.matches(".*[0-9].*")) {
-            tilContraseña.setError("Ha de contener un número");
-        } else if (!contraseña.matches(".*[A-Z].*")) {
-            tilContraseña.setError("Ha de contener una letra mayúscula");
-        } else {
-            return true;
+            s=false;
         }
-        return false;
+        if (contraseña.isEmpty()) {
+            tilContraseña.setError("Introduce una contraseña");
+            s=false;
+        }
+        return s;
     }
+
     public void firebaseUI(View v) {
         startActivity(new Intent(this, LoginActivity.class));
     }

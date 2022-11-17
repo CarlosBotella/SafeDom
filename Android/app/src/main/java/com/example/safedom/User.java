@@ -13,17 +13,19 @@ public class User {
 
 
 
-    public User(String userEmail, String pass, String nombre, String apellido) {
+    public User(String userEmail, String pass, String nombre, String apellido,String rol) {
         UserEmail = userEmail;
         Pass = pass;
         Nombre = nombre;
         Apellido = apellido;
+        Rol = rol;
     }
     public  User(){
         UserEmail=getUserEmail();
         Pass=getPass();
         Nombre=getNombre();
         Apellido=getApellido();
+        Rol = getRol();
     }
     public String getUserEmail() {
         return UserEmail;

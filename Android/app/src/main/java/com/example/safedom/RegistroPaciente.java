@@ -11,6 +11,7 @@ import static java.util.Map.entry;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
@@ -21,10 +22,12 @@ public class RegistroPaciente extends AppCompatActivity {
     private String correo = "";
     private String contraseña = "";
     private String ccontraseña = "";
+    private String rol = "Paciente";//Paciente
     private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña;
     private TextInputLayout tilCorreo, tilContraseña, tilCcontraseña, tilNombre, tilApellido;
     Button bs;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,9 @@ public class RegistroPaciente extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(Validar()){
-                    db.collection("Users").document(correo).set(new User(correo,contraseña,nombre,apellido));
+                    db.collection("Users").document(correo).set(new User(correo,contraseña,nombre,apellido,rol));
+                    mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
+
                     startActivity(new Intent(RegistroPaciente.this,MainActivity.class));
                 }
             }
