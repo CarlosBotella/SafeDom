@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/tt_commons_bold_italic"
-        android:text="Identifíquese"
+        android:text="Introduzca la clave"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

@@ -87,7 +87,7 @@ public class CustomLoginActivity extends AppCompatActivity {
     }*/
 
     public void registroCodigo(View v) {
-        setContentView(R.layout.registrar);
+        startActivity(new Intent(this, Clave.class));
         /*if (verificaCampos()) {
             dialogo.show();
             auth.createUserWithEmailAndPassword(correo, contraseña)

@@ -1,5 +1,6 @@
 package com.example.safedom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,32 +18,36 @@ public class Clave extends AppCompatActivity {
     private String clavep = "1234";
     private String clavem = "9876";
     Button bs;
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Log.e("Pruebas", "onCreate" );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.codigo_inicio);
         etclave = (EditText) findViewById(R.id.clave);
         bs = (Button) findViewById(R.id.siguientem);
 
         bs.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 clave = etclave.getText().toString();
+                //Log.e("Pruebas", clave );
+                //Log.e("Pruebas", clavep );
                 if(Validar()) {
-                if(!Objects.equals(clave, clavep)&&!Objects.equals(clave, clavem)){
-                    etclave.setError("Introduce una clave valida");
+                    if(!Objects.equals(clave, clavep)&&!Objects.equals(clave, clavem)){
+                        etclave.setError("Introduce una clave valida");
                     }
                     else if (Objects.equals(clave, clavep)) {
-                    //== no funciona por eso usamos .equals
-                    setContentView(R.layout.registrar);
-                } else if (Objects.equals(clave, clavem)) {
-                    setContentView(R.layout.registro_medico);
+                        Log.e("Pruebas", clavep );
+                        //== no funciona por eso usamos .equals
+                        startActivity(new Intent(Clave.this,RegistroPaciente.class));
+                    } else if (Objects.equals(clave, clavem)) {
+                        startActivity(new Intent(Clave.this,RegistroMedico.class));
+                    }
                 }
-            }
             }
         });
     }
-
 
     public boolean Validar(){
         boolean s=true;
@@ -57,6 +62,7 @@ public class Clave extends AppCompatActivity {
         }
         return s;
     }
+
 
 
 }
