@@ -115,7 +115,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Clave"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
             android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
