@@ -30,7 +30,7 @@ public class UsuarioActivity extends AppCompatActivity {
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
         TextView nombre = findViewById(R.id.nombre);
         nombre.setText(usuario.getDisplayName());
-        TextView correo = findViewById(R.id.correo);
+        TextView correo = findViewById(R.id.clave);
         correo.setText(usuario.getEmail());
 
 
