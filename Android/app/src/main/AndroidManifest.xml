@@ -17,12 +17,25 @@
             android:label="Perfil" />
 
         <activity
+            android:name=".Clave"
+            android:exported="true"
+            android:label="SafeDom"
+            android:theme="@style/Theme.NoActionBar">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RegistroMedico"></activity>
+
+
+
+        <activity
             android:name=".CustomLoginActivity"
             android:exported="true"
             android:label="SafeDom"
             android:theme="@style/Theme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,7 +43,6 @@
         <activity android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -29,9 +29,9 @@ public class CustomLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        etCorreo = (EditText) findViewById(R.id.correo);
+        etCorreo = (EditText) findViewById(R.id.clave);
         etContraseña = (EditText) findViewById(R.id.contraseña);
-        tilCorreo = (TextInputLayout) findViewById(R.id.til_correo);
+        tilCorreo = (TextInputLayout) findViewById(R.id.til_clave);
         tilContraseña = (TextInputLayout) findViewById(R.id.til_contraseña);
         dialogo = new ProgressDialog(this);
         dialogo.setTitle("Verificando usuario");
@@ -67,9 +67,9 @@ public class CustomLoginActivity extends AppCompatActivity {
                     });
         }
     }
-    public void registroCorreo(View v) {
+    /*public void registroCorreo(View v) {
         setContentView(R.layout.registrar);
-        /*if (verificaCampos()) {
+        if (verificaCampos()) {
             dialogo.show();
             auth.createUserWithEmailAndPassword(correo, contraseña)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -83,11 +83,11 @@ public class CustomLoginActivity extends AppCompatActivity {
                             }
                         }
                     });
-        }*/
-    }
+        }
+    }*/
 
     public void registroCodigo(View v) {
-        setContentView(R.layout.codigo);
+        setContentView(R.layout.registrar);
         /*if (verificaCampos()) {
             dialogo.show();
             auth.createUserWithEmailAndPassword(correo, contraseña)

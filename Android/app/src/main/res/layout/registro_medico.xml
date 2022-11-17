@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/tt_commons_bold_italic"
-        android:text="Formulario Paciente"
+        android:text="Formulario Médico"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -210,6 +210,31 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:hint="Confirma Contraseña"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:textSize="14dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_id_medico"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="10dp"
+        android:minHeight="?android:attr/actionBarSize"
+        android:transitionGroup="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_Reppass">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/id_medico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/tt_commons_bold_italic"
+            android:hint="Numero de identificación"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:textSize="14dp" />
