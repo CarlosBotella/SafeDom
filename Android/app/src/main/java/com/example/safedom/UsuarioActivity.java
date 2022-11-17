@@ -73,5 +73,9 @@ public class UsuarioActivity extends AppCompatActivity {
                 });
     }
 
+    public void editarUsuario(View view){
+
+    }
+
 }
 
