@@ -15,11 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CustomLoginActivity extends AppCompatActivity {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -29,6 +34,9 @@ public class CustomLoginActivity extends AppCompatActivity {
     private EditText etCorreo, etContraseña;
     private TextInputLayout tilCorreo, tilContraseña;
     private ProgressDialog dialogo;
+    private String mail = "";
+    private FirebaseFirestore db= FirebaseFirestore.getInstance();
+    User user;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +49,6 @@ public class CustomLoginActivity extends AppCompatActivity {
         dialogo.setTitle("Verificando usuario");
         dialogo.setMessage("Por favor espere...");
 
-
         verificaSiUsuarioValidado();
     }
     public void aceptar() {
@@ -50,13 +57,25 @@ public class CustomLoginActivity extends AppCompatActivity {
     }
 
     private void verificaSiUsuarioValidado() {
-        if (auth.getCurrentUser() != null) {
-            Intent i = new Intent(this, VistaMedico.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK
-                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
-            finish();
+       /* FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+        mail=usuario.getEmail();
+        DocumentReference docRef = db.collection("Users").document(mail);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(User.class);
+            }
+        });*/
+        //if(user.getRol().toString()=="paciente") {
+            if (auth.getCurrentUser() != null) {
+                Intent i = new Intent(this, VistaMedico.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                finish();
+            //}
+
         }
     }
 

@@ -17,10 +17,10 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="92dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
-            android:text="Dirección:"
+            android:text="Teléfono:"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="62dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:text="Atura:"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="56dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:text="Peso:"
@@ -101,7 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="84dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:text="Apellido:"
