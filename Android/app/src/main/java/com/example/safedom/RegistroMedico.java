@@ -31,19 +31,19 @@ public class RegistroMedico extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro_medico);
-        etCorreo = (EditText) findViewById(R.id.CElec);
-        etContraseña = (EditText) findViewById(R.id.pass);
-        etCcontraseña = (EditText) findViewById(R.id.Reppass);
-        etNombre = (EditText) findViewById(R.id.nombre);
-        etApellido = (EditText) findViewById(R.id.apellidos);
+        etCorreo = (EditText) findViewById(R.id.Clec);
+        etContraseña = (EditText) findViewById(R.id.Pass);
+        etCcontraseña = (EditText) findViewById(R.id.Repass);
+        etNombre = (EditText) findViewById(R.id.Nombre);
+        etApellido = (EditText) findViewById(R.id.Apellido);
         etIdMedico =(EditText) findViewById(R.id.id_medico);
-        tilCorreo = (TextInputLayout) findViewById(R.id.til_CElec);
-        tilContraseña = (TextInputLayout) findViewById(R.id.til_pass);
-        tilCcontraseña = (TextInputLayout) findViewById(R.id.til_Reppass);
+        tilCorreo = (TextInputLayout) findViewById(R.id.til_Clec);
+        tilContraseña = (TextInputLayout) findViewById(R.id.til_Pass);
+        tilCcontraseña = (TextInputLayout) findViewById(R.id.til_Repass);
         tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
-        tilApellido = (TextInputLayout) findViewById(R.id.til_apellidos);
+        tilApellido = (TextInputLayout) findViewById(R.id.til_apellido);
         tilIdMedico = (TextInputLayout) findViewById(R.id.til_id_medico);
-        bs = (Button) findViewById(R.id.siguiente);
+        bs = (Button) findViewById(R.id.finalizar);
         bs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -54,7 +54,7 @@ public class CustomLoginActivity extends AppCompatActivity {
 
     private void verificaSiUsuarioValidado() {
         if (auth.getCurrentUser() != null) {
-            Intent i = new Intent(this, MainActivity.class);
+            Intent i = new Intent(this, VistaMedico.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -158,8 +158,6 @@ public class CustomLoginActivity extends AppCompatActivity {
         return s;
     }
 
-    public void firebaseUI(View v) {
-        startActivity(new Intent(this, LoginActivity.class));
-    }
+
 }
 

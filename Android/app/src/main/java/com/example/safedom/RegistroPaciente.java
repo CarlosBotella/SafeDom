@@ -6,7 +6,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import static java.util.Map.entry;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +13,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class RegistroPaciente extends AppCompatActivity {
@@ -23,8 +24,15 @@ public class RegistroPaciente extends AppCompatActivity {
     private String contraseña = "";
     private String ccontraseña = "";
     private String rol = "Paciente";//Paciente
-    private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña;
-    private TextInputLayout tilCorreo, tilContraseña, tilCcontraseña, tilNombre, tilApellido;
+    private String telefono = "";
+    private String genero= "";
+    private String dof = "";
+    private String altura= "";
+    private String peso = "";
+
+
+    private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña,etTelefono,etGenero,etDob,etAltura,etPeso;
+    private TextInputLayout tilCorreo, tilContraseña, tilCcontraseña, tilNombre, tilApellido,tilTelefono,tilGenero,tilDob,tilAltura,tilPeso;
     Button bs;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
@@ -33,26 +41,37 @@ public class RegistroPaciente extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registrar);
-        etCorreo = (EditText) findViewById(R.id.CElec);
-        etContraseña = (EditText) findViewById(R.id.pass);
-        etCcontraseña = (EditText) findViewById(R.id.Reppass);
-        etNombre = (EditText) findViewById(R.id.nombre);
-        etApellido = (EditText) findViewById(R.id.apellidos);
-        tilCorreo = (TextInputLayout) findViewById(R.id.til_CElec);
-        tilContraseña = (TextInputLayout) findViewById(R.id.til_pass);
-        tilCcontraseña = (TextInputLayout) findViewById(R.id.til_Reppass);
+        etCorreo = (EditText) findViewById(R.id.Clec);
+        etContraseña = (EditText) findViewById(R.id.Pass);
+        etCcontraseña = (EditText) findViewById(R.id.Repass);
+        etNombre = (EditText) findViewById(R.id.Nombre);
+        etApellido = (EditText) findViewById(R.id.Apellido);
+        etTelefono = (EditText) findViewById(R.id.Telefono);
+        etGenero = (EditText) findViewById(R.id.Genero);
+        etDob = (EditText) findViewById(R.id.Dof);
+        etAltura = (EditText) findViewById(R.id.Altura);
+        etPeso = (EditText) findViewById(R.id.Peso);
+        tilCorreo = (TextInputLayout) findViewById(R.id.til_Clec);
+        tilContraseña = (TextInputLayout) findViewById(R.id.til_Pass);
+        tilCcontraseña = (TextInputLayout) findViewById(R.id.til_Repass);
         tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
-        tilApellido = (TextInputLayout) findViewById(R.id.til_apellidos);
-        bs = (Button) findViewById(R.id.siguiente);
+        tilApellido = (TextInputLayout) findViewById(R.id.til_apellido);
+        tilTelefono = (TextInputLayout) findViewById(R.id.til_Telefono);
+        tilGenero = (TextInputLayout) findViewById(R.id.til_Genero);
+        tilDob = (TextInputLayout) findViewById(R.id.til_Dof);
+        tilAltura = (TextInputLayout) findViewById(R.id.til_altura);
+        tilPeso = (TextInputLayout) findViewById(R.id.til_peso);
+        bs = (Button) findViewById(R.id.finalizar);
 
         bs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(Validar()){
-                    db.collection("Users").document(correo).set(new User(correo,contraseña,nombre,apellido,rol));
+
+                    db.collection("Users").document(correo).set(new User(correo,contraseña,nombre,apellido,rol,telefono,genero,dof,altura,peso));
                     mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
 
-                    startActivity(new Intent(RegistroPaciente.this,MainActivity.class));
+                    startActivity(new Intent(RegistroPaciente.this,VistaPaciente.class));
                 }
             }
         });
@@ -65,6 +84,11 @@ public class RegistroPaciente extends AppCompatActivity {
         ccontraseña = etCcontraseña.getText().toString();
         nombre = etNombre.getText().toString();
         apellido = etApellido.getText().toString();
+        telefono=etTelefono.getText().toString();
+        genero = etGenero.getText().toString();
+        dof = etDob.getText().toString();
+        altura = etAltura.getText().toString();
+        peso=etPeso.getText().toString();
         if (correo.isEmpty()) {
             etCorreo.setError("Este campo no puede estar vacio");
             s = false;
@@ -75,8 +99,8 @@ public class RegistroPaciente extends AppCompatActivity {
         if (contraseña.isEmpty()) {
             etContraseña.setError("Este campo no puede estar vacio");
             s = false;
-        }else if (contraseña.length() < 8) {
-            etContraseña.setError("La contraseña ha de contener al menos 8 caracteres");
+        }else if (contraseña.length() < 6) {
+            etContraseña.setError("La contraseña ha de contener al menos 6 caracteres");
             s = false;
         }
 
@@ -94,7 +118,29 @@ public class RegistroPaciente extends AppCompatActivity {
         }else if (!Objects.equals(ccontraseña, contraseña)) {
             etCcontraseña.setError("No coincide con la contraseña");
             s = false;
+        }if (telefono.isEmpty()) {
+            etTelefono.setError("Este campo no puede estar vacio");
+            s = false;
+        }else if (telefono.length()<9) {
+            etTelefono.setError("Ha de contener al menos 9 caracteres");
+            s = false;
+        }if (genero.isEmpty()) {
+            etGenero.setError("Este campo no puede estar vacio");
+            s = false;
+        }/*else if (!Objects.equals(genero, "hombre") || !Objects.equals(genero, "mujer")){
+            etGenero.setError("Elija entre hombre o mujer");
+            s = false;
+        }*/if (dof.isEmpty()) {
+            etDob.setError("Este campo no puede estar vacio");
+            s = false;
+        }if (altura.isEmpty()) {
+            etAltura.setError("Este campo no puede estar vacio");
+            s = false;
+        }if (peso.isEmpty()) {
+            etPeso.setError("Este campo no puede estar vacio");
+            s = false;
         }
+
         return s;
     }
 }
