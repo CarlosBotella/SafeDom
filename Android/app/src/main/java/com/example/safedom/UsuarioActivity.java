@@ -28,7 +28,7 @@ public class UsuarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario);
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-        TextView nombre = findViewById(R.id.nombre);
+        TextView nombre = findViewById(R.id.Nombre);
         nombre.setText(usuario.getDisplayName());
         TextView correo = findViewById(R.id.clave);
         correo.setText(usuario.getEmail());
@@ -63,7 +63,7 @@ public class UsuarioActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Intent i = new Intent(
-                                getApplicationContext (),LoginActivity.class);
+                                getApplicationContext (),CustomLoginActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                                 | Intent.FLAG_ACTIVITY_NEW_TASK
                                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);

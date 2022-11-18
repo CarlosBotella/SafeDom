@@ -48,6 +48,8 @@
         <activity android:name=".Clave" />
         <activity android:name=".RegistroMedico" />
         <activity android:name=".RegistroPaciente" />
+        <activity android:name=".VistaPaciente" />
+        <activity android:name=".VistaMedico" />
     </application>
 
 </manifest>
