@@ -25,7 +25,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/apellido"
+            android:id="@+id/telefonon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -53,7 +53,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/direccion"
+            android:id="@+id/altura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -81,7 +81,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/a"
+            android:id="@+id/peso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -109,7 +109,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/peso"
+            android:id="@+id/apellido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -180,7 +180,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/clave"
+            android:id="@+id/correo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"

@@ -17,15 +17,15 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="92dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
-            android:text="Dirección:"
+            android:text="Teléfono:"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/apellido"
+            android:id="@+id/telefonon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="62dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:text="Atura:"
@@ -53,7 +53,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/direccion"
+            android:id="@+id/altura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="56dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:text="Peso:"
@@ -81,7 +81,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/a"
+            android:id="@+id/peso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -101,7 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="84dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
             android:text="Apellido:"
@@ -109,7 +109,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/peso"
+            android:id="@+id/apellido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -180,7 +180,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/clave"
+            android:id="@+id/correo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"

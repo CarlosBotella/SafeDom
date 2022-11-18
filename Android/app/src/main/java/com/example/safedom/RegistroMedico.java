@@ -51,7 +51,7 @@ public class RegistroMedico extends AppCompatActivity {
                     db.collection("Users").document(correo).set(new Medico(correo,contraseña,nombre,apellido,rol,idmedico));
                     mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
 
-                    startActivity(new Intent(RegistroMedico.this,MainActivity.class));
+                    startActivity(new Intent(RegistroMedico.this,CustomLoginActivity.class));
                 }
             }
         });

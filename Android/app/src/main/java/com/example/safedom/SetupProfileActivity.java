@@ -1,4 +1,4 @@
-package com.example.safedom;
+/*package com.example.safedom;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -182,4 +182,4 @@ public class SetupProfileActivity extends AppCompatActivity {
             }
         }
     }
-}
+}*/

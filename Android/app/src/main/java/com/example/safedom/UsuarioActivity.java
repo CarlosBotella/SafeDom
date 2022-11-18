@@ -17,21 +17,46 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UsuarioActivity extends AppCompatActivity {
-
-
+    String mail="";
+    private FirebaseFirestore db= FirebaseFirestore.getInstance();
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario);
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-        TextView nombre = findViewById(R.id.Nombre);
-        nombre.setText(usuario.getDisplayName());
-        TextView correo = findViewById(R.id.clave);
-        correo.setText(usuario.getEmail());
+        mail=usuario.getEmail();
+        DocumentReference docRef = db.collection("Users").document(mail);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                TextView nombre = findViewById(R.id.Nombre);
+                nombre.setText(user.getNombre());
+                TextView correo = findViewById(R.id.correo);
+                correo.setText(user.getUserEmail());
+                TextView apellido = findViewById(R.id.apellido);
+                apellido.setText(user.getApellido());
+                TextView peso= findViewById(R.id.peso);
+                peso.setText(user.getPeso());
+                TextView altura = findViewById(R.id.altura);
+                altura.setText(user.getAltura());
+                TextView telefono = findViewById(R.id.telefonon);
+                telefono.setText(user.getTelefono());
+            }
+
+        });
+
+
+
 
 
 
@@ -73,9 +98,26 @@ public class UsuarioActivity extends AppCompatActivity {
                 });
     }
 
-    public void editarUsuario(View view){
-
+    public void editarUsuario(View view) {
+        DocumentReference docRef = db.collection("Users").document(mail);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                TextView nombre = findViewById(R.id.Nombre);
+                user.setNombre(nombre.toString());
+                TextView correo = findViewById(R.id.correo);
+                user.setUserEmail(correo.toString());
+                TextView apellido = findViewById(R.id.apellido);
+                user.setApellido(apellido.toString());
+                TextView peso = findViewById(R.id.peso);
+                user.setPeso(peso.toString());
+                TextView altura = findViewById(R.id.altura);
+                user.setAltura(altura.toString());
+                TextView telefono = findViewById(R.id.telefonon);
+                user.setTelefono(telefono.toString());
+            }
+        });
     }
-
 }
 

@@ -71,7 +71,7 @@ public class RegistroPaciente extends AppCompatActivity {
                     db.collection("Users").document(correo).set(new User(correo,contraseña,nombre,apellido,rol,telefono,genero,dof,altura,peso));
                     mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
 
-                    startActivity(new Intent(RegistroPaciente.this,VistaPaciente.class));
+                    startActivity(new Intent(RegistroPaciente.this,CustomLoginActivity.class));
                 }
             }
         });
