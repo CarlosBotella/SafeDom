@@ -34,6 +34,10 @@ public class VistaPaciente extends AppCompatActivity {
             Intent intent = new Intent(this, UsuarioActivity.class);
             startActivity(intent);
         }
+        if (id == R.id.info) {
+            Intent intent = new Intent(this, InfoActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }
