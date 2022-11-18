@@ -10,11 +10,17 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/logo.xml" value="0.184" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.11041666666666666" />
+        <entry key="app/src/main/res/layout/activity_usuario.xml" value="0.11041666666666666" />
         <entry key="app/src/main/res/layout/codigo.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/codigo_inicio.xml" value="0.11041666666666666" />
+        <entry key="app/src/main/res/layout/info.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/lista_pacientes.xml" value="0.11041666666666666" />
+        <entry key="app/src/main/res/layout/login.xml" value="0.34594573974609377" />
         <entry key="app/src/main/res/layout/prueba.xml" value="0.1" />
         <entry key="app/src/main/res/layout/prueba123.xml" value="0.1" />
         <entry key="app/src/main/res/layout/registrar.xml" value="0.18545074462890626" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.25" />
       </map>
     </option>
   </component>

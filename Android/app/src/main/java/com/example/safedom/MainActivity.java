@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    public void lanzarinfo(View view) {
+        Intent i = new Intent(this, InfoActivity.class);
+        startActivity(i);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, UsuarioActivity.class);
             startActivity(intent);
         }
+        if (id == R.id.info) {
+            lanzarinfo(null);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
