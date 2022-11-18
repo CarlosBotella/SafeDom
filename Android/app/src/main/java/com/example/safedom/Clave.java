@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.security.PrivateKey;
 import java.util.Objects;
 
 public class Clave extends AppCompatActivity {
@@ -23,7 +22,7 @@ public class Clave extends AppCompatActivity {
         //Log.e("Pruebas", "onCreate" );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.codigo_inicio);
-        etclave = (EditText) findViewById(R.id.clave);
+        etclave = (EditText) findViewById(R.id.correo);
         bs = (Button) findViewById(R.id.siguientem);
 
         bs.setOnClickListener(new View.OnClickListener() {
