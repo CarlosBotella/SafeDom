@@ -109,7 +109,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/apellido"
+            android:id="@+id/apellidom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -153,7 +153,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/nombre"
+            android:id="@+id/nombrem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -180,7 +180,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/correo"
+            android:id="@+id/correom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"

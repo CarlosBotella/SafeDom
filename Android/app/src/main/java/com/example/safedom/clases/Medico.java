@@ -1,4 +1,4 @@
-package com.example.safedom;
+package com.example.safedom.clases;
 
 public class Medico {
     private String UserEmail;

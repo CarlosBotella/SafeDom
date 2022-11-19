@@ -54,6 +54,7 @@
         <activity android:name=".RegistroPaciente" />
         <activity android:name=".VistaPaciente" />
         <activity android:name=".VistaMedico" />
+        <activity android:name=".MedicoActivity" />
     </application>
 
 </manifest>
