@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SafeDom</string>
+    <string-array name="spinner_genero">
+        <item>Hombre</item>
+        <item>Mujer</item>
+        <item>No binario</item>
+    </string-array>
 </resources>

@@ -37,7 +37,7 @@
         android:gravity="top"
         android:text="SafeDom"
         android:textColor="@color/white"
-        android:textSize="51dp"
+        android:textSize="51sp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -51,7 +51,7 @@
         android:fontFamily="@font/tt_commons_bold_italic"
         android:text="Tu salud, más cerca"
         android:textColor="@color/white"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/safedom"
         app:layout_constraintTop_toBottomOf="@+id/safedom" />
@@ -85,10 +85,35 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_Repass"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:minHeight="?android:attr/actionBarSize"
+        android:transitionGroup="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_Pass">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Repass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/tt_commons_bold_italic"
+            android:hint="Confirma Contraseña"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_nombre"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
@@ -108,42 +133,40 @@
             android:imeOptions="actionNext"
             android:inputType="textPersonName"
             android:singleLine="false"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_apellido"
+        android:id="@+id/til_id_medico"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_nombre">
+        app:layout_constraintTop_toBottomOf="@+id/til_Repass">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Apellido"
+            android:id="@+id/id_medico"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
-            android:hint="Apellidos"
-            android:imeOptions="actionNext"
-            android:inputType="textPersonName"
-            android:textSize="14dp" />
+            android:hint="Numero de identificación"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_Clec"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
@@ -160,16 +183,40 @@
             android:hint="Correo electrónico"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_apellido"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:minHeight="?android:attr/actionBarSize"
+        android:transitionGroup="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_nombre">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Apellido"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/tt_commons_bold_italic"
+            android:hint="Apellidos"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName"
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_Pass"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
@@ -186,59 +233,18 @@
             android:hint="Contraseña"
             android:imeOptions="actionNext"
             android:inputType="textPassword"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_Repass"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <Spinner
+        android:id="@+id/spinner_genero"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
-        android:minHeight="?android:attr/actionBarSize"
-        android:transitionGroup="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_Pass">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Repass"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/tt_commons_bold_italic"
-            android:hint="Confirma Contraseña"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:textSize="14dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_id_medico"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="10dp"
-        android:minHeight="?android:attr/actionBarSize"
-        android:transitionGroup="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_Repass">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/id_medico"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/tt_commons_bold_italic"
-            android:hint="Numero de identificación"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:textSize="14dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/til_id_medico" />
 
     <Button
         android:id="@+id/finalizar"
