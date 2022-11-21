@@ -1,4 +1,4 @@
-package com.example.safedom;
+package com.example.safedom.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.safedom.R;
 import com.example.safedom.clases.Medico;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,7 +53,7 @@ public class RegistroMedico extends AppCompatActivity {
                     db.collection("Users").document(correo).set(new Medico(correo,contraseña,nombre,apellido,rol,idmedico));
                     mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
 
-                    startActivity(new Intent(RegistroMedico.this,CustomLoginActivity.class));
+                    startActivity(new Intent(RegistroMedico.this, CustomLoginActivity.class));
                 }
             }
         });

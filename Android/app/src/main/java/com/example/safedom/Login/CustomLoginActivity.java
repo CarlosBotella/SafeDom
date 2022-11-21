@@ -1,4 +1,4 @@
-package com.example.safedom;
+package com.example.safedom.Login;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.safedom.R;
+import com.example.safedom.VistaMedico;
 import com.example.safedom.clases.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

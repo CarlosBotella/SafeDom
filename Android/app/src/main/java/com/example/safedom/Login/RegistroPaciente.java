@@ -1,4 +1,4 @@
-package com.example.safedom;
+package com.example.safedom.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.safedom.R;
 import com.example.safedom.clases.User;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,7 +71,7 @@ public class RegistroPaciente extends AppCompatActivity {
                     db.collection("Users").document(correo).set(new User(correo,contraseña,nombre,apellido,rol,telefono,genero,dof,altura,peso));
                     mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
 
-                    startActivity(new Intent(RegistroPaciente.this,CustomLoginActivity.class));
+                    startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
                 }
             }
         });
