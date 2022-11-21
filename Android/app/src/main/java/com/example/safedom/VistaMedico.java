@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.example.safedom.clases.User;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -57,7 +57,7 @@ public class VistaMedico extends AppCompatActivity {
 
 
         if (id == R.id.menu_usuario) {
-            Intent intent = new Intent(this, UsuarioActivity.class);
+            Intent intent = new Intent(this, MedicoActivity.class);
             startActivity(intent);
         }
         if (id == R.id.info) {

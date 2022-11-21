@@ -1,10 +1,11 @@
-package com.example.safedom;
+package com.example.safedom.clases;
 
 public class Medico {
     private String UserEmail;
     private String Pass;
     private String Nombre;
     private String Apellido;
+    private String Rol;
     private String IdMedico;
 
     public Medico(){
@@ -12,6 +13,7 @@ public class Medico {
         Pass=getPass();
         Nombre=getNombre();
         Apellido=getApellido();
+        Rol=getRol();
         IdMedico=getIdMedico();
     }
 
@@ -20,6 +22,7 @@ public class Medico {
         Pass=pass;
         Nombre=nombre;
         Apellido=apellido;
+        Rol=rol;
         IdMedico=idmedico;
     }
 
@@ -61,5 +64,12 @@ public class Medico {
 
     public void setApellido(String apellido) {
         Apellido = apellido;
+    }
+    public String getRol() {
+        return Rol;
+    }
+
+    public void setRol(String rol) {
+        Rol = rol;
     }
 }

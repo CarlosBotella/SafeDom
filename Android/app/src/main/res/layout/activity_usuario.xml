@@ -109,7 +109,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/apellido"
+            android:id="@+id/apellidom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -180,7 +180,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/correo"
+            android:id="@+id/correom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -192,12 +192,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="#FF7476"
         android:fontFamily="@font/tt_commons_bold_italic"
         android:onClick="cerrarSesion"
         android:padding="8dp"
         android:text="Cerrar sesión"
         android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -213,5 +215,17 @@
         app:icon="@drawable/edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="#FF7476"
+        android:onClick="back"
+        app:tint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button3"
+        app:srcCompat="@drawable/back" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

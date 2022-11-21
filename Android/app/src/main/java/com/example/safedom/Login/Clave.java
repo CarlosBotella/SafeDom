@@ -1,4 +1,4 @@
-package com.example.safedom;
+package com.example.safedom.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.safedom.R;
 
 import java.util.Objects;
 
@@ -22,7 +24,7 @@ public class Clave extends AppCompatActivity {
         //Log.e("Pruebas", "onCreate" );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.codigo_inicio);
-        etclave = (EditText) findViewById(R.id.correo);
+        etclave = (EditText) findViewById(R.id.correom);
         bs = (Button) findViewById(R.id.siguientem);
 
         bs.setOnClickListener(new View.OnClickListener() {
@@ -39,9 +41,9 @@ public class Clave extends AppCompatActivity {
                     else if (Objects.equals(clave, clavep)) {
                         Log.e("Pruebas", clavep );
                         //== no funciona por eso usamos .equals
-                        startActivity(new Intent(Clave.this,RegistroPaciente.class));
+                        startActivity(new Intent(Clave.this, RegistroPaciente.class));
                     } else if (Objects.equals(clave, clavem)) {
-                        startActivity(new Intent(Clave.this,RegistroMedico.class));
+                        startActivity(new Intent(Clave.this, RegistroMedico.class));
                     }
                 }
             }
