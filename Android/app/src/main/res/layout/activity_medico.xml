@@ -118,7 +118,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/correom"
+            android:id="@+id/correol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"

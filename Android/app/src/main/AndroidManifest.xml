@@ -13,10 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SafeDom"
         tools:targetApi="31">
+
         <activity android:name=".InfoActivity"
             android:label="Tutorial"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
             />
+
         <activity
             android:name=".Login.CustomLoginActivity"
             android:exported="true"
@@ -27,12 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".UsuarioActivity"
             android:label="Perfil" />
-
-
-
 
         <activity
             android:name=".LoginActivity"
@@ -49,13 +49,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Login.Clave" />
+
         <activity android:name=".Login.RegistroMedico" />
+
         <activity android:name=".Login.RegistroPaciente" />
+
         <activity android:name=".VistaPaciente" />
+
         <activity android:name=".VistaMedico" />
+
         <activity android:name=".MedicoActivity" />
+
         <activity android:name=".EditMedico" />
+
     </application>
 
 </manifest>
