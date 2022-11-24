@@ -21,11 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main   );
-       /* FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Users miLista = new Users();
-        for (User user: miLista.listaUsers) {
-            db.collection("lugares").add(user);
-        }*/
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
