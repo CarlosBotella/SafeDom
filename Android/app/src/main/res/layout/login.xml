@@ -100,7 +100,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/correo"
+            android:id="@+id/correol"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"

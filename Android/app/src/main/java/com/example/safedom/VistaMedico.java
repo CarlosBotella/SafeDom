@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.example.safedom.clases.User;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -40,6 +40,7 @@ public class VistaMedico extends AppCompatActivity {
         super.onStop();
         pAdaper.stopListening();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -53,11 +54,8 @@ public class VistaMedico extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-
-
         if (id == R.id.menu_usuario) {
-            Intent intent = new Intent(this, UsuarioActivity.class);
+            Intent intent = new Intent(this, MedicoActivity.class);
             startActivity(intent);
         }
         if (id == R.id.info) {

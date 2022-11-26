@@ -15,13 +15,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
+import com.example.safedom.Login.CustomLoginActivity;
+import com.example.safedom.clases.User;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,9 +42,9 @@ public class UsuarioActivity extends AppCompatActivity {
                 User user = documentSnapshot.toObject(User.class);
                 TextView nombre = findViewById(R.id.Nombre);
                 nombre.setText(user.getNombre());
-                TextView correo = findViewById(R.id.correo);
+                TextView correo = findViewById(R.id.correol);
                 correo.setText(user.getUserEmail());
-                TextView apellido = findViewById(R.id.apellido);
+                TextView apellido = findViewById(R.id.apellidom);
                 apellido.setText(user.getApellido());
                 TextView peso= findViewById(R.id.peso);
                 peso.setText(user.getPeso());
@@ -88,7 +89,7 @@ public class UsuarioActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Intent i = new Intent(
-                                getApplicationContext (),CustomLoginActivity.class);
+                                getApplicationContext (), CustomLoginActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                                 | Intent.FLAG_ACTIVITY_NEW_TASK
                                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -106,9 +107,9 @@ public class UsuarioActivity extends AppCompatActivity {
                 User user = documentSnapshot.toObject(User.class);
                 TextView nombre = findViewById(R.id.Nombre);
                 user.setNombre(nombre.toString());
-                TextView correo = findViewById(R.id.correo);
+                TextView correo = findViewById(R.id.correol);
                 user.setUserEmail(correo.toString());
-                TextView apellido = findViewById(R.id.apellido);
+                TextView apellido = findViewById(R.id.apellidom);
                 user.setApellido(apellido.toString());
                 TextView peso = findViewById(R.id.peso);
                 user.setPeso(peso.toString());
@@ -118,6 +119,10 @@ public class UsuarioActivity extends AppCompatActivity {
                 user.setTelefono(telefono.toString());
             }
         });
+    }
+
+    public void back(View view){
+        startActivity(new Intent(UsuarioActivity.this,VistaPaciente.class));
     }
 }
 
