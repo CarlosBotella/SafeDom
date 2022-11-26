@@ -6,24 +6,33 @@ public class Medico {
     private String Nombre;
     private String Apellido;
     private String IdMedico;
+    private String Genero;
+    private String Rol;
 
-    public Medico(){
-        UserEmail=getUserEmail();
-        Pass=getPass();
-        Nombre=getNombre();
-        Apellido=getApellido();
-        IdMedico=getIdMedico();
+    public Medico() {
+        UserEmail = getUserEmail();
+        Pass = getPass();
+        Nombre = getNombre();
+        Apellido = getApellido();
+        IdMedico = getIdMedico();
+        Genero = getGenero();
+        Rol = getRol();
     }
 
-    public Medico(String useremail, String pass, String nombre, String apellido,String rol,String idmedico){
-        UserEmail=useremail;
-        Pass=pass;
-        Nombre=nombre;
-        Apellido=apellido;
-        IdMedico=idmedico;
+
+
+
+    public Medico(String useremail, String pass, String nombre, String apellido, String rol, String idmedico, String genero) {
+        UserEmail = useremail;
+        Pass = pass;
+        Nombre = nombre;
+        Apellido = apellido;
+        IdMedico = idmedico;
+        Genero = genero;
+        Rol = rol;
     }
 
-   
+
     public String getIdMedico() {
         return IdMedico;
     }
@@ -31,6 +40,7 @@ public class Medico {
     public void setIdMedico(String idMedico) {
         IdMedico = idMedico;
     }
+
     public String getUserEmail() {
         return UserEmail;
     }
@@ -61,5 +71,20 @@ public class Medico {
 
     public void setApellido(String apellido) {
         Apellido = apellido;
+    }
+
+    public void setGenero(String genero) {
+        Genero = genero;
+    }
+
+    public String getGenero() {
+        return Genero;
+    }
+
+    private String getRol() {
+        return Rol;
+    }
+    private void setRol(String rol) {
+        Rol=rol;
     }
 }
