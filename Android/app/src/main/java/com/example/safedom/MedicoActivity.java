@@ -65,7 +65,7 @@ public class MedicoActivity extends AppCompatActivity {
     public void back(View view){
         startActivity(new Intent(MedicoActivity.this,VistaMedico.class));
     }
-    public void editarUsuario(View view){
+    public void editarMedico(View view){
         startActivity(new Intent(MedicoActivity.this,EditMedico.class));
     }
 }

@@ -100,25 +100,7 @@ public class UsuarioActivity extends AppCompatActivity {
     }
 
     public void editarUsuario(View view) {
-        DocumentReference docRef = db.collection("Users").document(mail);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User user = documentSnapshot.toObject(User.class);
-                TextView nombre = findViewById(R.id.Nombre);
-                user.setNombre(nombre.toString());
-                TextView correo = findViewById(R.id.correol);
-                user.setUserEmail(correo.toString());
-                TextView apellido = findViewById(R.id.apellidom);
-                user.setApellido(apellido.toString());
-                TextView peso = findViewById(R.id.peso);
-                user.setPeso(peso.toString());
-                TextView altura = findViewById(R.id.altura);
-                user.setAltura(altura.toString());
-                TextView telefono = findViewById(R.id.telefonon);
-                user.setTelefono(telefono.toString());
-            }
-        });
+        startActivity(new Intent(UsuarioActivity.this,EditUsuario.class));
     }
 
     public void back(View view){

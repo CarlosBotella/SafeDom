@@ -74,6 +74,8 @@
 
         <activity android:name=".EditMedico" />
 
+        <activity android:name=".EditUsuario"/>
+
     </application>
 
 </manifest>
