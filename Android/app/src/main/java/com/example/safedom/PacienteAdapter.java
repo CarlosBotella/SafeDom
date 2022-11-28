@@ -1,3 +1,4 @@
+/* Clase para ver los usuarios en el RecyclerView del Medico */
 package com.example.safedom;
 
 import android.view.LayoutInflater;

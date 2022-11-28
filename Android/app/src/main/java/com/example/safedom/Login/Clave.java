@@ -1,3 +1,5 @@
+/* Clase para mover a los usuarios a su correspondiente
+ registro dependiendo de la clave dada */
 package com.example.safedom.Login;
 
 import android.content.Intent;
