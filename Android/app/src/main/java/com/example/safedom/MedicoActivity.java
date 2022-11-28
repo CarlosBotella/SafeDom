@@ -1,3 +1,4 @@
+/* Clase para ver los datos del medico */
 package com.example.safedom;
 
 import android.content.Intent;

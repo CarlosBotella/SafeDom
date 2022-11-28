@@ -1,3 +1,6 @@
+/* Clase para la vista edit_medico, sirve para poder que el paciente pueda
+ editar sus datos */
+
 package com.example.safedom;
 
 import android.content.Intent;
