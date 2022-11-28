@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 Android/.gradle/7.3.3/executionHistory/executionHistory.bin
 
 Android/.gradle/7.3.3/executionHistory/executionHistory.lock
@@ -11,6 +10,4 @@ Android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
 *.bin
 
 Android/local.properties
-=======
-Android/local.properties
->>>>>>> develop
+
