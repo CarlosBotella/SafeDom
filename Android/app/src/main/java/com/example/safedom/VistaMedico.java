@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,9 +30,13 @@ public class VistaMedico extends AppCompatActivity {
         pAdaper = new PacienteAdapter(firestoreRecyclerOptions);
         pAdaper.notifyDataSetChanged();
         pReclyer.setAdapter(pAdaper);
+        Toast.makeText(this,"OnCreate",
+                Toast.LENGTH_SHORT).show();
     }
     @Override
     protected void onStart(){
+        Toast.makeText(this,"Medico",
+                Toast.LENGTH_SHORT).show();
         super.onStart();
         pAdaper.startListening();
     }

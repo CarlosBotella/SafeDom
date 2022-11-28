@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.R;
+import com.example.safedom.VistaAdmin;
 import com.example.safedom.VistaMedico;
 import com.example.safedom.VistaPaciente;
 import com.example.safedom.clases.User;
@@ -22,7 +23,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,6 +43,7 @@ public class CustomLoginActivity extends AppCompatActivity {
     private String rol = "";
     private String rolm = "Medico";
     private String rolp = "Paciente";
+    private String rola = "Admin";
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
     User user;
 
@@ -84,6 +85,16 @@ public class CustomLoginActivity extends AppCompatActivity {
             finish();
         }
     }
+    private void verificaSiUsuarioValidadoa() {
+        if (auth.getCurrentUser() != null) {
+            Intent i = new Intent(this, VistaAdmin.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
+        }
+    }
 
 
 
@@ -110,7 +121,10 @@ public class CustomLoginActivity extends AppCompatActivity {
                                                 verificaSiUsuarioValidadop();
                                             }else if(Objects.equals(rol,rolm)) {
                                                 verificaSiUsuarioValidado();
-                                            }
+                                            }else if(Objects.equals(rol,rola)) {
+                                            verificaSiUsuarioValidadoa();
+                                        }
+
                                     }
                                 });
                                 } else {

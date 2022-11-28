@@ -7,6 +7,7 @@ public class Medico {
     private String Apellido;
     private String Rol;
     private String IdMedico;
+    private String Genero;
 
     public Medico(){
         UserEmail=getUserEmail();
@@ -15,15 +16,17 @@ public class Medico {
         Apellido=getApellido();
         Rol=getRol();
         IdMedico=getIdMedico();
+        Genero=getGenero();
     }
 
-    public Medico(String useremail, String pass, String nombre, String apellido,String rol,String idmedico){
+    public Medico(String useremail, String pass, String nombre, String apellido,String rol,String idmedico,String genero){
         UserEmail=useremail;
         Pass=pass;
         Nombre=nombre;
         Apellido=apellido;
         Rol=rol;
         IdMedico=idmedico;
+        Genero=genero;
     }
 
    
@@ -71,5 +74,12 @@ public class Medico {
 
     public void setRol(String rol) {
         Rol = rol;
+    }
+    public String getGenero() {
+        return Genero;
+    }
+
+    public void setGenero(String genero) {
+        Genero = genero;
     }
 }
