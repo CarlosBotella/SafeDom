@@ -30,8 +30,8 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.viewHo
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        holder.unombre.setText(users.get(position).getNombre());
-        holder.uapellido.setText(users.get(position).getApellido());
+        holder.unombre.setText(users.get(position).getNombre()+" "+users.get(position).getApellido());
+
         holder.ucorreo.setText(users.get(position).getUserEmail());
     }
 
@@ -45,7 +45,6 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.viewHo
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             unombre=(TextView)itemView.findViewById(R.id.Nombrep);
-            uapellido=(TextView)itemView.findViewById(R.id.Apellidop);
             ucorreo=(TextView)itemView.findViewById(R.id.Correop);
         }
     }
