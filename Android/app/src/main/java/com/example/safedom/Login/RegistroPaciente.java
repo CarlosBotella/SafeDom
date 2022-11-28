@@ -1,3 +1,4 @@
+/* Clase para registrar al paciente */
 package com.example.safedom.Login;
 
 import android.annotation.SuppressLint;
@@ -46,7 +47,7 @@ public class RegistroPaciente extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.registrar);
+        setContentView(R.layout.registrar_paciente);
         etCorreo = (EditText) findViewById(R.id.Clec);
         etContraseña = (EditText) findViewById(R.id.Pass);
         etCcontraseña = (EditText) findViewById(R.id.Repass);
