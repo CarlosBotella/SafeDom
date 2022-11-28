@@ -42,7 +42,7 @@ public class UsuarioActivity extends AppCompatActivity {
                 User user = documentSnapshot.toObject(User.class);
                 TextView nombre = findViewById(R.id.Nombre);
                 nombre.setText(user.getNombre());
-                TextView correo = findViewById(R.id.correom);
+                TextView correo = findViewById(R.id.correol);
                 correo.setText(user.getUserEmail());
                 TextView apellido = findViewById(R.id.apellidom);
                 apellido.setText(user.getApellido());
@@ -107,7 +107,7 @@ public class UsuarioActivity extends AppCompatActivity {
                 User user = documentSnapshot.toObject(User.class);
                 TextView nombre = findViewById(R.id.Nombre);
                 user.setNombre(nombre.toString());
-                TextView correo = findViewById(R.id.correom);
+                TextView correo = findViewById(R.id.correol);
                 user.setUserEmail(correo.toString());
                 TextView apellido = findViewById(R.id.apellidom);
                 user.setApellido(apellido.toString());
@@ -122,7 +122,7 @@ public class UsuarioActivity extends AppCompatActivity {
     }
 
     public void back(View view){
-        startActivity(new Intent(UsuarioActivity.this,VistaMedico.class));
+        startActivity(new Intent(UsuarioActivity.this,VistaPaciente.class));
     }
 }
 

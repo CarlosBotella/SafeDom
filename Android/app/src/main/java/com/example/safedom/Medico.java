@@ -1,33 +1,36 @@
-package com.example.safedom.clases;
+package com.example.safedom;
 
 public class Medico {
     private String UserEmail;
     private String Pass;
     private String Nombre;
     private String Apellido;
-    private String Rol;
     private String IdMedico;
     private String Genero;
+    private String Rol;
 
-    public Medico(){
-        UserEmail=getUserEmail();
-        Pass=getPass();
-        Nombre=getNombre();
-        Apellido=getApellido();
-        Rol=getRol();
-        IdMedico=getIdMedico();
+    public Medico() {
+        UserEmail = getUserEmail();
+        Pass = getPass();
+        Nombre = getNombre();
+        Apellido = getApellido();
+        IdMedico = getIdMedico();
+        Genero = getGenero();
+        Rol = getRol();
     }
 
-    public Medico(String useremail, String pass, String nombre, String apellido,String rol,String idmedico,String genero){
-        UserEmail=useremail;
-        Pass=pass;
-        Nombre=nombre;
-        Apellido=apellido;
-        Rol=rol;
-        IdMedico=idmedico;
+
+
+
+    public Medico(String useremail, String pass, String nombre, String apellido, String rol, String idmedico, String genero) {
+        UserEmail = useremail;
+        Pass = pass;
+        Nombre = nombre;
+        Apellido = apellido;
+        IdMedico = idmedico;
         Genero = genero;
+        Rol = rol;
     }
-
 
 
     public String getIdMedico() {
@@ -37,6 +40,7 @@ public class Medico {
     public void setIdMedico(String idMedico) {
         IdMedico = idMedico;
     }
+
     public String getUserEmail() {
         return UserEmail;
     }
@@ -68,11 +72,19 @@ public class Medico {
     public void setApellido(String apellido) {
         Apellido = apellido;
     }
-    public String getRol() {
-        return Rol;
+
+    public void setGenero(String genero) {
+        Genero = genero;
     }
 
-    public void setRol(String rol) {
-        Rol = rol;
+    public String getGenero() {
+        return Genero;
+    }
+
+    private String getRol() {
+        return Rol;
+    }
+    private void setRol(String rol) {
+        Rol=rol;
     }
 }
