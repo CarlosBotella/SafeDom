@@ -1,3 +1,5 @@
+/* Clase para iniciar sesión */
+
 package com.example.safedom.Login;
 
 import android.app.AlertDialog;

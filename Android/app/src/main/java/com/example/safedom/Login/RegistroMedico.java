@@ -1,3 +1,4 @@
+/* Clase para registrar al médico */
 package com.example.safedom.Login;
 
 import android.content.Intent;

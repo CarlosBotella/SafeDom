@@ -1,3 +1,6 @@
+/* Clase para la vista info, sirve para poder ver el tutorial de como funciona
+ la aplicación */
+
 package com.example.safedom;
 
 import android.os.Bundle;
