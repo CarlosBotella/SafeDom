@@ -4,21 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.safedom.clases.User;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.ArrayList;
+
 public class VistaMedico extends AppCompatActivity {
-    RecyclerView pReclyer;
-    PacienteAdapter pAdaper;
-    FirebaseFirestore db ;
+    ArrayList<User> arrayUser= new ArrayList<>();
+    PacienteAdapter pacienteAdapter;
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_medico);
@@ -45,6 +45,7 @@ public class VistaMedico extends AppCompatActivity {
         super.onStop();
         pAdaper.stopListening();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

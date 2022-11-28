@@ -1,5 +1,6 @@
 package com.example.safedom;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,42 +10,43 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.safedom.clases.User;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-public class PacienteAdapter  extends FirestoreRecyclerAdapter<User, PacienteAdapter.ViewHolder> {
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-    public PacienteAdapter(@NonNull FirestoreRecyclerOptions<User> options) {
-        super(options);
-    }
+import java.util.ArrayList;
 
-    @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull User model) {
-        holder.nombrep.setText(  model.getNombre());
-        holder.apellidop.setText(  model.getApellido());
-        holder.correop.setText(  model.getUserEmail());
+public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.viewHolder>{
+    ArrayList<User> users;
+    Context context;
+    public PacienteAdapter(ArrayList<User> arrayUser, Context applicationContext) {
+        this.users=arrayUser;
+        context=applicationContext;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_paciente_single,parent,false);
-        return new ViewHolder(v);
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_paciente_single,null );
+        return new viewHolder(v);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombrep,apellidop,correop;
+    @Override
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
+        holder.unombre.setText(users.get(position).getNombre());
+        holder.uapellido.setText(users.get(position).getApellido());
+        holder.ucorreo.setText(users.get(position).getUserEmail());
+    }
 
-        public ViewHolder(@NonNull View itemView) {
+    @Override
+    public int getItemCount() {
+        return users.size();
+    }
+
+    public class viewHolder extends RecyclerView.ViewHolder{
+        TextView unombre,uapellido,ucorreo;
+        public viewHolder(@NonNull View itemView) {
             super(itemView);
-            nombrep=itemView.findViewById(R.id.Nombrep);
-            apellidop=itemView.findViewById(R.id.Apellidop);
-            correop=itemView.findViewById(R.id.Correop);
+            unombre=(TextView)itemView.findViewById(R.id.Nombrep);
+            uapellido=(TextView)itemView.findViewById(R.id.Apellidop);
+            ucorreo=(TextView)itemView.findViewById(R.id.Correop);
         }
     }
 }
