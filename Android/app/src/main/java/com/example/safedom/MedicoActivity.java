@@ -1,3 +1,4 @@
+/* Clase para ver los datos del medico */
 package com.example.safedom;
 
 import android.content.Intent;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.Login.CustomLoginActivity;
+import com.example.safedom.clases.Medico;
 import com.example.safedom.clases.User;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,10 +36,10 @@ public class MedicoActivity extends AppCompatActivity {
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
           @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User medico= documentSnapshot.toObject(User.class);
+                Medico medico= documentSnapshot.toObject(Medico.class);
                 TextView nombre = findViewById(R.id.nombrem);
                 nombre.setText(medico.getNombre());
-                TextView correo = findViewById(R.id.correom);
+                TextView correo = findViewById(R.id.correol);
                 correo.setText(medico.getUserEmail());
                 TextView apellido = findViewById(R.id.apellidom);
                 apellido.setText(medico.getApellido());
@@ -64,7 +66,7 @@ public class MedicoActivity extends AppCompatActivity {
     public void back(View view){
         startActivity(new Intent(MedicoActivity.this,VistaMedico.class));
     }
-    public void editarUsuario(View view){
+    public void editarMedico(View view){
         startActivity(new Intent(MedicoActivity.this,EditMedico.class));
     }
 }

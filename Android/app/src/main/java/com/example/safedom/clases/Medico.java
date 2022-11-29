@@ -7,6 +7,7 @@ public class Medico {
     private String Apellido;
     private String Rol;
     private String IdMedico;
+    private String Genero;
 
     public Medico(){
         UserEmail=getUserEmail();
@@ -17,16 +18,18 @@ public class Medico {
         IdMedico=getIdMedico();
     }
 
-    public Medico(String useremail, String pass, String nombre, String apellido,String rol,String idmedico){
+    public Medico(String useremail, String pass, String nombre, String apellido,String rol,String idmedico,String genero){
         UserEmail=useremail;
         Pass=pass;
         Nombre=nombre;
         Apellido=apellido;
         Rol=rol;
         IdMedico=idmedico;
+        Genero = genero;
     }
 
-   
+
+
     public String getIdMedico() {
         return IdMedico;
     }

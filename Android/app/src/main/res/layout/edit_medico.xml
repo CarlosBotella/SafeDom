@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/kollektif_bold_italic"
         android:text="NOMBRE"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -28,10 +29,13 @@
         app:layout_constraintTop_toBottomOf="@+id/correo" />
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView24">
@@ -39,7 +43,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nombree"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            android:fontFamily="@font/kollektif_bold_italic" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -47,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/kollektif_bold_italic"
         android:text="APELLIDO"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -56,10 +63,13 @@
         app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/apellido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26">
@@ -67,7 +77,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/apellidoe"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            android:fontFamily="@font/kollektif_bold_italic" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -75,6 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/kollektif_bold_italic"
         android:text="CORREO"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -84,10 +97,13 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/correo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27">
@@ -95,15 +111,19 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/correoe"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:fontFamily="@font/kollektif_bold_italic"
+            android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/cancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cancelar"
+        android:fontFamily="@font/kollektif_bold_italic"
         android:onClick="cancelar"
+        android:text="cancelar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/aceptar"
@@ -114,8 +134,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:text="aceptar"
+        android:fontFamily="@font/kollektif_bold_italic"
         android:onClick="aceptar"
+        android:text="aceptar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cancelar"
         app:layout_constraintHorizontal_bias="0.5"

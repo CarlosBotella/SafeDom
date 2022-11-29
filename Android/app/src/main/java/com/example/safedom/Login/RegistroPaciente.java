@@ -1,9 +1,14 @@
+/* Clase para registrar al paciente */
 package com.example.safedom.Login;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,30 +30,31 @@ public class RegistroPaciente extends AppCompatActivity {
     private String ccontraseña = "";
     private String rol = "Paciente";//Paciente
     private String telefono = "";
-    private String genero= "";
+    private String genero = "";
     private String dof = "";
-    private String altura= "";
+    private String altura = "";
     private String peso = "";
 
 
-    private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña,etTelefono,etGenero,etDob,etAltura,etPeso;
-    private TextInputLayout tilCorreo, tilContraseña, tilCcontraseña, tilNombre, tilApellido,tilTelefono,tilGenero,tilDob,tilAltura,tilPeso;
+    private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña, etTelefono, etGenero, etDob, etAltura, etPeso;
+    private TextInputLayout tilCorreo, tilContraseña, tilCcontraseña, tilNombre, tilApellido, tilTelefono, tilGenero, tilDob, tilAltura, tilPeso;
     Button bs;
     Button bc;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private static final String[] generoLista = {"Hombre", "Mujer", "No Binario"};
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.registrar);
+        setContentView(R.layout.registrar_paciente);
         etCorreo = (EditText) findViewById(R.id.Clec);
         etContraseña = (EditText) findViewById(R.id.Pass);
         etCcontraseña = (EditText) findViewById(R.id.Repass);
         etNombre = (EditText) findViewById(R.id.Nombre);
         etApellido = (EditText) findViewById(R.id.Apellido);
         etTelefono = (EditText) findViewById(R.id.Telefono);
-        etGenero = (EditText) findViewById(R.id.Genero);
         etDob = (EditText) findViewById(R.id.Dof);
         etAltura = (EditText) findViewById(R.id.Altura);
         etPeso = (EditText) findViewById(R.id.Peso);
@@ -58,19 +64,34 @@ public class RegistroPaciente extends AppCompatActivity {
         tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
         tilApellido = (TextInputLayout) findViewById(R.id.til_apellido);
         tilTelefono = (TextInputLayout) findViewById(R.id.til_Telefono);
-        tilGenero = (TextInputLayout) findViewById(R.id.til_Genero);
+        tilGenero = (TextInputLayout) findViewById(R.id.GeneroPaciente);
         tilDob = (TextInputLayout) findViewById(R.id.til_Dof);
         tilAltura = (TextInputLayout) findViewById(R.id.til_altura);
         tilPeso = (TextInputLayout) findViewById(R.id.til_peso);
         bs = (Button) findViewById(R.id.finalizar);
-        bc = (Button) findViewById(R.id.cancelarRegistro);
-
+        AutoCompleteTextView autoCompleteTextView = findViewById(R.id.autocomplete);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegistroPaciente.this,
+                android.R.layout.simple_spinner_dropdown_item, generoLista);
+        autoCompleteTextView.setAdapter(adapter);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Toast.makeText(RegistroMedico.this, autoCompleteTextView.getText().toString(), Toast.LENGTH_SHORT).show();
+                if (autoCompleteTextView.getText().toString().equals("Hombre")) {
+                    genero = generoLista[0];
+                } else if (autoCompleteTextView.getText().toString().equals("Mujer")) {
+                    genero = generoLista[1];
+                } else if (autoCompleteTextView.getText().toString().equals("No Binario")) {
+                    genero = generoLista[2];
+                }
+            }
+        });
         bs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Validar()){
+                if (Validar()) {
 
-                    db.collection("Users").document(correo).set(new User(correo,contraseña,nombre,apellido,rol,telefono,genero,dof,altura,peso));
+                    db.collection("Users").document(correo).set(new User(correo, contraseña, nombre, apellido, rol, telefono, genero, dof, altura, peso));
                     mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
 
                     startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
@@ -94,11 +115,10 @@ public class RegistroPaciente extends AppCompatActivity {
         ccontraseña = etCcontraseña.getText().toString();
         nombre = etNombre.getText().toString();
         apellido = etApellido.getText().toString();
-        telefono=etTelefono.getText().toString();
-        genero = etGenero.getText().toString();
+        telefono = etTelefono.getText().toString();
         dof = etDob.getText().toString();
         altura = etAltura.getText().toString();
-        peso=etPeso.getText().toString();
+        peso = etPeso.getText().toString();
         if (correo.isEmpty()) {
             etCorreo.setError("Este campo no puede estar vacio");
             s = false;
@@ -109,7 +129,7 @@ public class RegistroPaciente extends AppCompatActivity {
         if (contraseña.isEmpty()) {
             etContraseña.setError("Este campo no puede estar vacio");
             s = false;
-        }else if (contraseña.length() < 6) {
+        } else if (contraseña.length() < 6) {
             etContraseña.setError("La contraseña ha de contener al menos 6 caracteres");
             s = false;
         }
@@ -125,29 +145,38 @@ public class RegistroPaciente extends AppCompatActivity {
         if (ccontraseña.isEmpty()) {
             etCcontraseña.setError("Este campo no puede estar vacio");
             s = false;
-        }else if (!Objects.equals(ccontraseña, contraseña)) {
+        } else if (!Objects.equals(ccontraseña, contraseña)) {
             etCcontraseña.setError("No coincide con la contraseña");
             s = false;
-        }if (telefono.isEmpty()) {
+        }
+        if (telefono.isEmpty()) {
             etTelefono.setError("Este campo no puede estar vacio");
             s = false;
-        }else if (telefono.length()<9) {
+        } else if (telefono.length() < 9) {
             etTelefono.setError("Ha de contener al menos 9 caracteres");
             s = false;
-        }if (genero.isEmpty()) {
+        }
+        if (genero.isEmpty()) {
             etGenero.setError("Este campo no puede estar vacio");
             s = false;
         }/*else if (!Objects.equals(genero, "hombre") || !Objects.equals(genero, "mujer")){
             etGenero.setError("Elija entre hombre o mujer");
             s = false;
-        }*/if (dof.isEmpty()) {
+        }*/
+        if (dof.isEmpty()) {
             etDob.setError("Este campo no puede estar vacio");
             s = false;
-        }if (altura.isEmpty()) {
+        }
+        if (altura.isEmpty()) {
             etAltura.setError("Este campo no puede estar vacio");
             s = false;
-        }if (peso.isEmpty()) {
+        }
+        if (peso.isEmpty()) {
             etPeso.setError("Este campo no puede estar vacio");
+            s = false;
+        }
+        if (genero.equals("")) {
+            tilGenero.setError("Por favor elija su genero");
             s = false;
         }
 

@@ -1,3 +1,5 @@
+/* Clase para iniciar sesión */
+
 package com.example.safedom.Login;
 
 import android.app.AlertDialog;
@@ -16,14 +18,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.R;
 import com.example.safedom.VistaMedico;
+import com.example.safedom.VistaPaciente;
 import com.example.safedom.clases.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
 
 public class CustomLoginActivity extends AppCompatActivity {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -33,22 +42,24 @@ public class CustomLoginActivity extends AppCompatActivity {
     private EditText etCorreo, etContraseña;
     private TextInputLayout tilCorreo, tilContraseña;
     private ProgressDialog dialogo;
-    private String mail = "";
+    private String rol = "";
+    private String rolm = "Medico";
+    private String rolp = "Paciente";
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
     User user;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        etCorreo = (EditText) findViewById(R.id.correom);
+        etCorreo = (EditText) findViewById(R.id.correol);
         etContraseña = (EditText) findViewById(R.id.contraseña);
         tilCorreo = (TextInputLayout) findViewById(R.id.til_clave);
         tilContraseña = (TextInputLayout) findViewById(R.id.til_contraseña);
         dialogo = new ProgressDialog(this);
         dialogo.setTitle("Verificando usuario");
         dialogo.setMessage("Por favor espere...");
-
         verificaSiUsuarioValidado();
+
     }
     public void aceptar() {
         Toast t=Toast.makeText(this,"Bienvenido a probar el programa.", Toast.LENGTH_SHORT);
@@ -56,16 +67,6 @@ public class CustomLoginActivity extends AppCompatActivity {
     }
 
     private void verificaSiUsuarioValidado() {
-       /* FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-        mail=usuario.getEmail();
-        DocumentReference docRef = db.collection("Users").document(mail);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                user = documentSnapshot.toObject(User.class);
-            }
-        });*/
-        //if(user.getRol().toString()=="paciente") {
             if (auth.getCurrentUser() != null) {
                 Intent i = new Intent(this, VistaMedico.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -73,12 +74,23 @@ public class CustomLoginActivity extends AppCompatActivity {
                         | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
                 finish();
-            //}
-
+        }
+    }
+    private void verificaSiUsuarioValidadop() {
+        if (auth.getCurrentUser() != null) {
+            Intent i = new Intent(this, VistaPaciente.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
         }
     }
 
+
+
     public void inicioSesiónCorreo(View v) {
+
         try {
             if (verificaCampos()) {
                 dialogo.show();
@@ -89,7 +101,20 @@ public class CustomLoginActivity extends AppCompatActivity {
 
                                 if (task.isSuccessful()) {
                                     Log.e("Pruebas: ", "onComplete inicioSesiónCorreo");
-                                    verificaSiUsuarioValidado();
+                                    DocumentReference docRef = db.collection("Users").document(correo);
+                                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            user = documentSnapshot.toObject(User.class);
+                                            rol=user.getRol().toString();
+                                            Log.e("Markilongas: ", rol);
+                                            if(Objects.equals(rol,rolp)) {
+                                                verificaSiUsuarioValidadop();
+                                            }else if(Objects.equals(rol,rolm)) {
+                                                verificaSiUsuarioValidado();
+                                            }
+                                    }
+                                });
                                 } else {
                                     Log.e("Pruebas: ", "FALLO inicioSesiónCorreo");
                                     dialogo.dismiss();

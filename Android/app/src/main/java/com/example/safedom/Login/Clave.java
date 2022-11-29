@@ -1,3 +1,5 @@
+/* Clase para mover a los usuarios a su correspondiente
+ registro dependiendo de la clave dada */
 package com.example.safedom.Login;
 
 import android.content.Intent;
@@ -24,7 +26,7 @@ public class Clave extends AppCompatActivity {
         //Log.e("Pruebas", "onCreate" );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.codigo_inicio);
-        etclave = (EditText) findViewById(R.id.correom);
+        etclave = (EditText) findViewById(R.id.correol);
         bs = (Button) findViewById(R.id.siguientem);
 
         bs.setOnClickListener(new View.OnClickListener() {
