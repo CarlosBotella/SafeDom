@@ -34,6 +34,7 @@ public class RegistroPaciente extends AppCompatActivity {
     private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña,etTelefono,etGenero,etDob,etAltura,etPeso;
     private TextInputLayout tilCorreo, tilContraseña, tilCcontraseña, tilNombre, tilApellido,tilTelefono,tilGenero,tilDob,tilAltura,tilPeso;
     Button bs;
+    Button bc;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
@@ -62,6 +63,7 @@ public class RegistroPaciente extends AppCompatActivity {
         tilAltura = (TextInputLayout) findViewById(R.id.til_altura);
         tilPeso = (TextInputLayout) findViewById(R.id.til_peso);
         bs = (Button) findViewById(R.id.finalizar);
+        bc = (Button) findViewById(R.id.cancelarRegistro);
 
         bs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +77,14 @@ public class RegistroPaciente extends AppCompatActivity {
                 }
             }
         });
+
+        bc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
+                }
+            }
+        );
     }
 
     public boolean Validar() {
