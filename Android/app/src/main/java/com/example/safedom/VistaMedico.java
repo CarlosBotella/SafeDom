@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 public class VistaMedico extends AppCompatActivity {
     ArrayList<User> arrayUser= new ArrayList<>();
     PacienteAdapter pacienteAdapter;
+
+    protected View.OnClickListener onClickListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,8 @@ public class VistaMedico extends AppCompatActivity {
                 recycler.setAdapter(pacienteAdapter);
             }
         });
+
+
     }
 
 

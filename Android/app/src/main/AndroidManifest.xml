@@ -70,6 +70,7 @@
 
         <activity android:name=".EditMedico" />
         <activity android:name=".VistaAdmin" />
+        <activity android:name=".InfoPaciente"/>
 
     </application>
 
