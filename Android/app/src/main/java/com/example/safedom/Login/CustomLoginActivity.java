@@ -40,7 +40,10 @@ public class CustomLoginActivity extends AppCompatActivity {
     private EditText etCorreo, etContraseña;
     private TextInputLayout tilCorreo, tilContraseña;
     private ProgressDialog dialogo;
+    private ProgressDialog dialogoo;
+
     private String rol = "";
+    private String roli = "";
     private String rolm = "Medico";
     private String rolp = "Paciente";
     private String rola = "Admin";
@@ -57,14 +60,36 @@ public class CustomLoginActivity extends AppCompatActivity {
         dialogo = new ProgressDialog(this);
         dialogo.setTitle("Verificando usuario");
         dialogo.setMessage("Por favor espere...");
-        verificaSiUsuarioValidado();
+        dialogoo = new ProgressDialog(this);
+        dialogoo.setTitle("Iniciando Sesion");
+        dialogoo.setMessage("Por favor espere...");
+        if (auth.getCurrentUser() != null) {
+            dialogoo.show();
+            DocumentReference docRef = db.collection("Users").document(auth.getCurrentUser().getEmail());
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    user = documentSnapshot.toObject(User.class);
+                    roli = user.getRol().toString();
+                    if (Objects.equals(roli, rolp)) {
+                        verificaSiUsuarioValidadop();
+                    }
+                    if (Objects.equals(roli, rolm)) {
+                        verificaSiUsuarioValidado();
+                    }
+                    if (Objects.equals(roli, rola)) {
+                        verificaSiUsuarioValidadoa();
+                    }
+                }
+            });
+        }
+
 
     }
     public void aceptar() {
         Toast t=Toast.makeText(this,"Bienvenido a probar el programa.", Toast.LENGTH_SHORT);
         t.show();
     }
-
     private void verificaSiUsuarioValidado() {
             if (auth.getCurrentUser() != null) {
                 Intent i = new Intent(this, VistaMedico.class);
@@ -76,6 +101,7 @@ public class CustomLoginActivity extends AppCompatActivity {
         }
     }
     private void verificaSiUsuarioValidadop() {
+
         if (auth.getCurrentUser() != null) {
             Intent i = new Intent(this, VistaPaciente.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -83,9 +109,11 @@ public class CustomLoginActivity extends AppCompatActivity {
                     | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
             finish();
+
         }
     }
     private void verificaSiUsuarioValidadoa() {
+
         if (auth.getCurrentUser() != null) {
             Intent i = new Intent(this, VistaAdmin.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -99,15 +127,12 @@ public class CustomLoginActivity extends AppCompatActivity {
 
 
     public void inicioSesiónCorreo(View v) {
-
-        try {
             if (verificaCampos()) {
                 dialogo.show();
                 auth.signInWithEmailAndPassword(correo, contraseña)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-
                                 if (task.isSuccessful()) {
                                     Log.e("Pruebas: ", "onComplete inicioSesiónCorreo");
                                     DocumentReference docRef = db.collection("Users").document(correo);
@@ -116,15 +141,18 @@ public class CustomLoginActivity extends AppCompatActivity {
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                                             user = documentSnapshot.toObject(User.class);
                                             rol=user.getRol().toString();
-                                            Log.e("Markilongas: ", rol);
                                             if(Objects.equals(rol,rolp)) {
+
                                                 verificaSiUsuarioValidadop();
-                                            }else if(Objects.equals(rol,rolm)) {
+                                            }
+                                            if(Objects.equals(rol,rolm)) {
+
                                                 verificaSiUsuarioValidado();
-                                            }else if(Objects.equals(rol,rola)) {
+                                            }
+                                            if(Objects.equals(rol,rola)) {
+
                                             verificaSiUsuarioValidadoa();
                                         }
-
                                     }
                                 });
                                 } else {
@@ -136,57 +164,12 @@ public class CustomLoginActivity extends AppCompatActivity {
                             }
                         });
             }
-        }catch (Exception e){
-            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
-            dialogo1.setTitle("Importante");
-            dialogo1.setMessage("El usuario o la contraseña no son correctos");
-            dialogo1.setCancelable(false);
-            dialogo1.setPositiveButton("Volver", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialogo1, int id) {
-                    aceptar();
-                }
-            });
-            dialogo1.show();
         }
 
 
-    }
-    /*public void registroCorreo(View v) {
-        setContentView(R.layout.registrar);
-        if (verificaCampos()) {
-            dialogo.show();
-            auth.createUserWithEmailAndPassword(correo, contraseña)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                verificaSiUsuarioValidado();
-                            } else {
-                                dialogo.dismiss();
-                                mensaje(task.getException().getLocalizedMessage());
-                            }
-                        }
-                    });
-        }
-    }*/
 
     public void registroCodigo(View v) {
         startActivity(new Intent(this, Clave.class));
-        /*if (verificaCampos()) {
-            dialogo.show();
-            auth.createUserWithEmailAndPassword(correo, contraseña)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                verificaSiUsuarioValidado();
-                            } else {
-                                dialogo.dismiss();
-                                mensaje(task.getException().getLocalizedMessage());
-                            }
-                        }
-                    });
-        }*/
     }
 
     private void mensaje(String mensaje) {

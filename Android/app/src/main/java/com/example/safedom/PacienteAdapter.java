@@ -53,7 +53,7 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.viewHo
         return users.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder{
+    public static class viewHolder extends RecyclerView.ViewHolder{
         TextView unombre,ucorreo;
         //ConstraintLayout ItemView;
         public viewHolder(@NonNull View itemView) {

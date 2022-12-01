@@ -37,7 +37,6 @@ public class InfoPaciente extends AppCompatActivity {
     }
     private void initValues() {
         user=(User) getIntent().getExtras().getSerializable("pacienteInfo");
-        Log.e("markilongas",user.getUserEmail());
         nombreinfo.setText(user.getNombre() + " " +user.getApellido());
         correoinfo.setText(user.getUserEmail());
         telefonoinfo.setText(user.getTelefono());

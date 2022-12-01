@@ -1,38 +1,48 @@
 package com.example.safedom.clases;
 
-public class Casa {
+import java.io.Serializable;
+
+public class Casa implements Serializable {
     private User Cliente;
-    private User Familiar;
-    private User Doctor;
+    //private User Familiar;
+    private Medico Doctor;
     private String Direccion;
     private String Ciudad;
-    private int CP;
+    private String CP;
 
-    public Casa(User cliente, User familiar, User doctor, String direccion, String ciudad, int CP) {
+    public Casa(User cliente/*,User familiar*/, Medico doctor, String direccion, String ciudad, String cP) {
         Cliente = cliente;
-        Familiar = familiar;
+        //Familiar = familiar;
         Doctor = doctor;
         Direccion = direccion;
         Ciudad = ciudad;
-        this.CP = CP;
+        CP = cP;
     }
-
+    public Casa()
+    {
+        Cliente = getCliente();
+        //Familiar = getFamiliar();
+        Doctor = getDoctor();
+        Direccion = getDireccion();
+        Ciudad = getCiudad();
+        CP = getCP();
+    }
     public User getCliente() {
         return Cliente;
     }
     public void setCliente(User cliente) {
         Cliente = cliente;
     }
-    public User getFamiliar() {
+   /* public User getFamiliar() {
         return Familiar;
     }
     public void setFamiliar(User familiar) {
         Familiar = familiar;
-    }
-    public User getDoctor() {
+    }*/
+    public Medico getDoctor() {
         return Doctor;
     }
-    public void setDoctor(User doctor) {
+    public void setDoctor(Medico doctor) {
         Doctor = doctor;
     }
     public String getDireccion() {
@@ -47,10 +57,10 @@ public class Casa {
     public void setCiudad(String ciudad) {
         Ciudad = ciudad;
     }
-    public int getCP() {
+    public String getCP() {
         return CP;
     }
-    public void setCP(int CP) {
+    public void setCP(String CP) {
         this.CP = CP;
     }
 

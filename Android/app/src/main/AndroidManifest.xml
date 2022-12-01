@@ -71,6 +71,8 @@
         <activity android:name=".EditMedico" />
         <activity android:name=".VistaAdmin" />
         <activity android:name=".InfoPaciente"/>
+        <activity android:name=".InfoCasa"/>
+        <activity android:name=".AdminActivity"/>
 
     </application>
 
