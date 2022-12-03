@@ -1,11 +1,8 @@
-<<<<<<< HEAD:Android/app/src/main/java/com/example/safedom/EditMedico.java
+
 /* Clase para la vista edit_medico, sirve para poder que el medico pueda
  editar sus datos */
-
-package com.example.safedom;
-=======
 package com.example.safedom.MedicoP;
->>>>>>> Cositas:Android/app/src/main/java/com/example/safedom/MedicoP/EditMedico.java
+
 
 import android.content.Intent;
 import android.os.Bundle;

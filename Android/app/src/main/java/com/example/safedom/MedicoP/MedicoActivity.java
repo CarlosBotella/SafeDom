@@ -1,10 +1,6 @@
-<<<<<<< HEAD:Android/app/src/main/java/com/example/safedom/MedicoActivity.java
-/* Clase para ver los datos del medico */
-package com.example.safedom;
-=======
-package com.example.safedom.MedicoP;
->>>>>>> Cositas:Android/app/src/main/java/com/example/safedom/MedicoP/MedicoActivity.java
 
+/* Clase para ver los datos del medico */
+package com.example.safedom.MedicoP;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -70,12 +66,7 @@ public class MedicoActivity extends AppCompatActivity {
     public void back(View view){
         startActivity(new Intent(MedicoActivity.this, VistaMedico.class));
     }
-<<<<<<< HEAD:Android/app/src/main/java/com/example/safedom/MedicoActivity.java
     public void editarMedico(View view){
         startActivity(new Intent(MedicoActivity.this,EditMedico.class));
-=======
-    public void editarUsuario(View view){
-        startActivity(new Intent(MedicoActivity.this, EditMedico.class));
->>>>>>> Cositas:Android/app/src/main/java/com/example/safedom/MedicoP/MedicoActivity.java
     }
 }

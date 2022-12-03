@@ -26,11 +26,8 @@ public class Medico {
         Apellido=apellido;
         Rol=rol;
         IdMedico=idmedico;
-<<<<<<< HEAD
-        Genero = genero;
-=======
         Genero=genero;
->>>>>>> Cositas
+
     }
 
 

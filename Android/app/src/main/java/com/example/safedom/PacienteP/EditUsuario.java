@@ -1,7 +1,7 @@
 /* Clase para la vista edit_medico, sirve para poder que el paciente pueda
  editar sus datos */
 
-package com.example.safedom;
+package com.example.safedom.PacienteP;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.safedom.R;
 import com.example.safedom.clases.User;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -19,7 +20,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class EditUsuario extends AppCompatActivity {
-    String mail = "";
+    String id = "";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     String newcorreo = "";
     String newnombre = "";
@@ -33,8 +34,8 @@ public class EditUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_usuario);
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-        mail = usuario.getEmail();
-        DocumentReference docRef = db.collection("Users").document(mail);
+        id = usuario.getUid();
+        DocumentReference docRef = db.collection("Users").document(id);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -60,6 +61,7 @@ public class EditUsuario extends AppCompatActivity {
     }
 
     public void aceptarUsuario(View view) {
+        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
         TextInputEditText correo = findViewById(R.id.ncorreo);
         newcorreo = correo.getText().toString();
         TextInputEditText nombre = findViewById(R.id.nnombre);
@@ -72,7 +74,8 @@ public class EditUsuario extends AppCompatActivity {
         newaltura = altura.getText().toString();
         TextInputEditText telefono = findViewById(R.id.ntelefono);
         newtelefono = telefono.getText().toString();
-        DocumentReference docRef = db.collection("Users").document(mail);
+        usuario.updateEmail(newcorreo);
+        DocumentReference docRef = db.collection("Users").document(id);
         docRef.update("userEmail", newcorreo, "nombre", newnombre, "apellido", newapellido, "peso", newpeso, "altura", newaltura, "telefono", newtelefono);
 
         startActivity(new Intent(EditUsuario.this, UsuarioActivity.class));
