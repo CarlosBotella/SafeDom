@@ -11,14 +11,18 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.R;
 import com.example.safedom.clases.Medico;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -48,15 +52,9 @@ public class RegistroMedico extends AppCompatActivity {
         etCorreo = (EditText) findViewById(R.id.Clec);
         etContraseña = (EditText) findViewById(R.id.Pass);
         etCcontraseña = (EditText) findViewById(R.id.Repass);
-        etNombre = (EditText) findViewById(R.id.Nombre);
+        etNombre = (EditText) findViewById(R.id.Direccion);
         etApellido = (EditText) findViewById(R.id.Apellido);
         etIdMedico = (EditText) findViewById(R.id.id_medico);
-        tilCorreo = (TextInputLayout) findViewById(R.id.til_Clec);
-        tilContraseña = (TextInputLayout) findViewById(R.id.til_Pass);
-        tilCcontraseña = (TextInputLayout) findViewById(R.id.til_Repass);
-        tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
-        tilApellido = (TextInputLayout) findViewById(R.id.til_apellido);
-        tilIdMedico = (TextInputLayout) findViewById(R.id.til_id_medico);
         tilGenero = (TextInputLayout) findViewById(R.id.spinner_genero);
         bs = (Button) findViewById(R.id.finalizar);
         AutoCompleteTextView autoCompleteTextView = findViewById(R.id.autocomplete);
@@ -81,63 +79,73 @@ public class RegistroMedico extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Validar()) {
-                    db.collection("Users").document(correo).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero));
-                    mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
+                    //mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
+                    mAuth.createUserWithEmailAndPassword(correo, contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            String id = mAuth.getCurrentUser().getUid();
+                            db.collection("Users").document(id).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero));
+                            //db.collection("Users").document(id).set(new Medico("prueba@prueba.prueba", "prueba", "prueba", "prueba", "Medico", "12345678", "No Binario"));*/
+                            startActivity(new Intent(RegistroMedico.this, CustomLoginActivity.class));
 
-                    startActivity(new Intent(RegistroMedico.this, CustomLoginActivity.class));
+                             }
+                    });
                 }
             }
         });
+
     }
 
 
+            public boolean Validar() {
+                boolean s = true;
+                correo = etCorreo.getText().toString();
+                contraseña = etContraseña.getText().toString();
+                ccontraseña = etCcontraseña.getText().toString();
+                nombre = etNombre.getText().toString();
+                apellido = etApellido.getText().toString();
+                idmedico = etIdMedico.getText().toString();
+                if (correo.isEmpty()) {
+                    etCorreo.setError("Este campo no puede estar vacio");
+                    s = false;
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+                    etCorreo.setError("Introduzca un correo valido");
+                    s = false;
+                }
+                if (contraseña.isEmpty()) {
+                    etContraseña.setError("Este campo no puede estar vacio");
+                    s = false;
+                } else if (contraseña.length() < 8) {
+                    etContraseña.setError("La contraseña ha de contener al menos 8 caracteres");
+                    s = false;
+                }
 
-    public boolean Validar() {
-        boolean s = true;
-        correo = etCorreo.getText().toString();
-        contraseña = etContraseña.getText().toString();
-        ccontraseña = etCcontraseña.getText().toString();
-        nombre = etNombre.getText().toString();
-        apellido = etApellido.getText().toString();
-        idmedico = etIdMedico.getText().toString();
-        if (correo.isEmpty()) {
-            etCorreo.setError("Este campo no puede estar vacio");
-            s = false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
-            etCorreo.setError("Introduzca un correo valido");
-            s = false;
-        }
-        if (contraseña.isEmpty()) {
-            etContraseña.setError("Este campo no puede estar vacio");
-            s = false;
-        } else if (contraseña.length() < 8) {
-            etContraseña.setError("La contraseña ha de contener al menos 8 caracteres");
-            s = false;
-        }
+                if (nombre.isEmpty()) {
+                    etNombre.setError("Este campo no puede estar vacio");
+                    s = false;
+                }
+                if (apellido.isEmpty()) {
+                    etApellido.setError("Este campo no puede estar vacio");
+                    s = false;
+                }
+                if (ccontraseña.isEmpty()) {
+                    etCcontraseña.setError("Este campo no puede estar vacio");
+                    s = false;
+                } else if (!Objects.equals(ccontraseña, contraseña)) {
+                    etCcontraseña.setError("No coincide con la contraseña");
+                    s = false;
+                }
+                if (idmedico.isEmpty()) {
+                    etIdMedico.setError("Este campo no puede estar vacio");
+                    s = false;
+                }
+                if (genero.equals("")) {
+                    tilGenero.setError("Por favor elija su genero");
+                    s = false;
+                }
+                return s;
+            }
 
-        if (nombre.isEmpty()) {
-            etNombre.setError("Este campo no puede estar vacio");
-            s = false;
-        }
-        if (apellido.isEmpty()) {
-            etApellido.setError("Este campo no puede estar vacio");
-            s = false;
-        }
-        if (ccontraseña.isEmpty()) {
-            etCcontraseña.setError("Este campo no puede estar vacio");
-            s = false;
-        } else if (!Objects.equals(ccontraseña, contraseña)) {
-            etCcontraseña.setError("No coincide con la contraseña");
-            s = false;
-        }
-        if (idmedico.isEmpty()) {
-            etIdMedico.setError("Este campo no puede estar vacio");
-            s = false;
-        }
-        if (genero.equals("")) {
-            tilGenero.setError("Por favor elija su genero");
-            s = false;
-        }
-        return s;
-    }
 }
+
+

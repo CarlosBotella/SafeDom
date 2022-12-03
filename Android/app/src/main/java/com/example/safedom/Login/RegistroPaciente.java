@@ -12,11 +12,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.R;
 import com.example.safedom.clases.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -51,7 +55,7 @@ public class RegistroPaciente extends AppCompatActivity {
         etCorreo = (EditText) findViewById(R.id.Clec);
         etContraseña = (EditText) findViewById(R.id.Pass);
         etCcontraseña = (EditText) findViewById(R.id.Repass);
-        etNombre = (EditText) findViewById(R.id.Nombre);
+        etNombre = (EditText) findViewById(R.id.Direccion);
         etApellido = (EditText) findViewById(R.id.Apellido);
         etTelefono = (EditText) findViewById(R.id.Telefono);
         etDob = (EditText) findViewById(R.id.Dof);
@@ -60,7 +64,7 @@ public class RegistroPaciente extends AppCompatActivity {
         tilCorreo = (TextInputLayout) findViewById(R.id.til_Clec);
         tilContraseña = (TextInputLayout) findViewById(R.id.til_Pass);
         tilCcontraseña = (TextInputLayout) findViewById(R.id.til_Repass);
-        tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
+        tilNombre = (TextInputLayout) findViewById(R.id.til_direccion);
         tilApellido = (TextInputLayout) findViewById(R.id.til_apellido);
         tilTelefono = (TextInputLayout) findViewById(R.id.til_Telefono);
         tilGenero = (TextInputLayout) findViewById(R.id.GeneroPaciente);
@@ -89,11 +93,14 @@ public class RegistroPaciente extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Validar()) {
-
-                    db.collection("Users").document(correo).set(new User(correo, contraseña, nombre, apellido, rol, telefono, genero, dof, altura, peso));
-                    mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
-
+                    mAuth.createUserWithEmailAndPassword(correo, ccontraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            String id = mAuth.getCurrentUser().getUid();
+                             db.collection("Users").document(id).set(new User(correo, contraseña, nombre, apellido, rol, telefono, genero, dof, altura, peso));
                     startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
+                        }
+                    });
                 }
             }
         });

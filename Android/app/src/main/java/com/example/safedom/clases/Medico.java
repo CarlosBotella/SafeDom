@@ -16,6 +16,7 @@ public class Medico {
         Apellido=getApellido();
         Rol=getRol();
         IdMedico=getIdMedico();
+        Genero=getGenero();
     }
 
     public Medico(String useremail, String pass, String nombre, String apellido,String rol,String idmedico,String genero){
@@ -25,7 +26,11 @@ public class Medico {
         Apellido=apellido;
         Rol=rol;
         IdMedico=idmedico;
+<<<<<<< HEAD
         Genero = genero;
+=======
+        Genero=genero;
+>>>>>>> Cositas
     }
 
 
@@ -74,5 +79,12 @@ public class Medico {
 
     public void setRol(String rol) {
         Rol = rol;
+    }
+    public String getGenero() {
+        return Genero;
+    }
+
+    public void setGenero(String genero) {
+        Genero = genero;
     }
 }

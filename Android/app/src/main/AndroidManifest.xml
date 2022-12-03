@@ -18,11 +18,15 @@
             android:name=".InfoActivity"
             android:label="Tutorial"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
+<<<<<<< HEAD
 
 
 
 
 
+=======
+
+>>>>>>> Cositas
         <activity
             android:name=".Login.CustomLoginActivity"
             android:exported="true"
@@ -41,7 +45,7 @@
             android:label="SafeDom"
             android:theme="@style/Theme.NoActionBar" />
         <activity
-            android:name=".UsuarioActivity"
+            android:name=".PacienteP.UsuarioActivity"
             android:label="Perfil" />
 
         <activity
@@ -66,13 +70,22 @@
 
         <activity android:name=".Login.RegistroPaciente" />
 
+<<<<<<< HEAD
         <activity android:name=".VistaPaciente" />
+=======
+        <activity android:name=".PacienteP.VistaPaciente" />
+>>>>>>> Cositas
 
-        <activity android:name=".VistaMedico" />
+        <activity android:name=".MedicoP.VistaMedico" />
 
-        <activity android:name=".MedicoActivity" />
+        <activity android:name=".MedicoP.MedicoActivity" />
 
-        <activity android:name=".EditMedico" />
+        <activity android:name=".MedicoP.EditMedico" />
+        <activity android:name=".AdminP.VistaAdmin" />
+        <activity android:name=".PacienteP.InfoPaciente"/>
+        <activity android:name=".CasaP.InfoCasa"/>
+        <activity android:name=".AdminP.AdminActivity"/>
+        <activity android:name=".CasaP.CrearCasa"/>
 
         <activity android:name=".EditUsuario"/>
 

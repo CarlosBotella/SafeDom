@@ -1,5 +1,9 @@
+<<<<<<< HEAD:Android/app/src/main/java/com/example/safedom/MedicoActivity.java
 /* Clase para ver los datos del medico */
 package com.example.safedom;
+=======
+package com.example.safedom.MedicoP;
+>>>>>>> Cositas:Android/app/src/main/java/com/example/safedom/MedicoP/MedicoActivity.java
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.Login.CustomLoginActivity;
+import com.example.safedom.R;
 import com.example.safedom.clases.Medico;
-import com.example.safedom.clases.User;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,7 +27,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MedicoActivity extends AppCompatActivity {
-    String mail = "";
+    String id = "";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -31,8 +35,8 @@ public class MedicoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medico);
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-        mail = usuario.getEmail();
-        DocumentReference docRef = db.collection("Users").document(mail);
+        id = usuario.getUid();
+        DocumentReference docRef = db.collection("Users").document(id);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
           @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -64,9 +68,14 @@ public class MedicoActivity extends AppCompatActivity {
                 });
     }
     public void back(View view){
-        startActivity(new Intent(MedicoActivity.this,VistaMedico.class));
+        startActivity(new Intent(MedicoActivity.this, VistaMedico.class));
     }
+<<<<<<< HEAD:Android/app/src/main/java/com/example/safedom/MedicoActivity.java
     public void editarMedico(View view){
         startActivity(new Intent(MedicoActivity.this,EditMedico.class));
+=======
+    public void editarUsuario(View view){
+        startActivity(new Intent(MedicoActivity.this, EditMedico.class));
+>>>>>>> Cositas:Android/app/src/main/java/com/example/safedom/MedicoP/MedicoActivity.java
     }
 }

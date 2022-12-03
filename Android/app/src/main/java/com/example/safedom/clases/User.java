@@ -4,7 +4,9 @@ import android.view.Menu;
 
 import org.checkerframework.checker.units.qual.A;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String UserEmail;
     private String Pass;
     private String Nombre;
