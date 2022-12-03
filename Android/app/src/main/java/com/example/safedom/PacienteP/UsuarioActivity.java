@@ -101,9 +101,7 @@ public class UsuarioActivity extends AppCompatActivity {
     }
 
     public void editarUsuario(View view) {
-<<<<<<< HEAD:Android/app/src/main/java/com/example/safedom/UsuarioActivity.java
         startActivity(new Intent(UsuarioActivity.this,EditUsuario.class));
-=======
         DocumentReference docRef = db.collection("Users").document(id);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -123,7 +121,6 @@ public class UsuarioActivity extends AppCompatActivity {
                 user.setTelefono(telefono.toString());
             }
         });
->>>>>>> Cositas:Android/app/src/main/java/com/example/safedom/PacienteP/UsuarioActivity.java
     }
 
     public void back(View view){
