@@ -1,39 +1,43 @@
-package com.example.safedom;
+package com.example.safedom.MedicoP;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.safedom.InfoActivity;
+import com.example.safedom.MedicoP.MedicoActivity;
+import com.example.safedom.PacienteP.PacienteAdapter;
+import com.example.safedom.R;
 import com.example.safedom.clases.User;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class VistaMedico extends AppCompatActivity {
+public class VistaMedico extends AppCompatActivity implements SearchView.OnQueryTextListener{
     ArrayList<User> arrayUser= new ArrayList<>();
     PacienteAdapter pacienteAdapter;
+    SearchView txtBuscar;
 
     protected View.OnClickListener onClickListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_medico);
-
+        txtBuscar=(SearchView) findViewById(R.id.txtBuscar);
         final RecyclerView recycler =(RecyclerView)findViewById(R.id.recyclerView);
         recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         FirebaseFirestore db= FirebaseFirestore.getInstance();
@@ -53,7 +57,7 @@ public class VistaMedico extends AppCompatActivity {
             }
         });
 
-
+        txtBuscar.setOnQueryTextListener(this);
     }
 
 
@@ -79,5 +83,16 @@ public class VistaMedico extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        pacienteAdapter.filtrado(s);
+        return false;
     }
 }

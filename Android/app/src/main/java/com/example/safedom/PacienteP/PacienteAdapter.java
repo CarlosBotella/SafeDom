@@ -1,4 +1,4 @@
-package com.example.safedom;
+package com.example.safedom.PacienteP;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,20 +8,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.safedom.R;
 import com.example.safedom.clases.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.viewHolder>{
     ArrayList<User> users;
+    ArrayList<User> usero;
     Context context;
     public PacienteAdapter(ArrayList<User> arrayUser, Context applicationContext/*,PacienteAdapter.OnItemClickListener listener*/) {
         this.users=arrayUser;
+        usero = new ArrayList<>();
+        usero.addAll(arrayUser);
         context=applicationContext;
         //this.listener = listener;
     }
@@ -41,13 +45,35 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.viewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(holder.itemView.getContext(),InfoPaciente.class);
+                Intent intent = new Intent(holder.itemView.getContext(), InfoPaciente.class);
                 intent.putExtra("pacienteInfo",user);
                 holder.itemView.getContext().startActivity(intent);
             }
         });
     }
+    public void filtrado(String txtBuscar){
+        int longitud=txtBuscar.length();
+        if(longitud==0){
+            users.clear();
+            users.addAll(usero);
+        }else{
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                List<User> collecion = users.stream()
+                        .filter(i->i.getNombre().toLowerCase().contains(txtBuscar.toLowerCase()))
+                        .collect(Collectors.toList());
+                users.clear();
+                users.addAll(collecion);
+            }else{
+                for(User u: usero){
+                    if(u.getNombre().toLowerCase().contains(txtBuscar.toLowerCase())){
+                        users.add(u);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
 
+    }
     @Override
     public int getItemCount() {
         return users.size();

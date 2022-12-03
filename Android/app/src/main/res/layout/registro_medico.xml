@@ -109,7 +109,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_nombre"
+        android:id="@+id/til_direccion"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="55dp"
@@ -124,7 +124,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Nombre"
+            android:id="@+id/Direccion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/tt_commons_bold_italic"
@@ -198,7 +198,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_nombre">
+        app:layout_constraintTop_toBottomOf="@+id/til_direccion">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Apellido"

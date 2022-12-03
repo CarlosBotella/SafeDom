@@ -37,7 +37,7 @@
             android:label="SafeDom"
             android:theme="@style/Theme.NoActionBar" />
         <activity
-            android:name=".UsuarioActivity"
+            android:name=".PacienteP.UsuarioActivity"
             android:label="Perfil" />
 
         <activity
@@ -62,17 +62,18 @@
 
         <activity android:name=".Login.RegistroPaciente" />
 
-        <activity android:name=".VistaPaciente" />
+        <activity android:name=".PacienteP.VistaPaciente" />
 
-        <activity android:name=".VistaMedico" />
+        <activity android:name=".MedicoP.VistaMedico" />
 
-        <activity android:name=".MedicoActivity" />
+        <activity android:name=".MedicoP.MedicoActivity" />
 
-        <activity android:name=".EditMedico" />
-        <activity android:name=".VistaAdmin" />
-        <activity android:name=".InfoPaciente"/>
-        <activity android:name=".InfoCasa"/>
-        <activity android:name=".AdminActivity"/>
+        <activity android:name=".MedicoP.EditMedico" />
+        <activity android:name=".AdminP.VistaAdmin" />
+        <activity android:name=".PacienteP.InfoPaciente"/>
+        <activity android:name=".CasaP.InfoCasa"/>
+        <activity android:name=".AdminP.AdminActivity"/>
+        <activity android:name=".CasaP.CrearCasa"/>
 
     </application>
 

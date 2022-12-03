@@ -1,4 +1,4 @@
-package com.example.safedom;
+package com.example.safedom.AdminP;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.safedom.AdminP.AdminActivity;
+import com.example.safedom.InfoActivity;
+import com.example.safedom.R;
 import com.example.safedom.Tabs.TabCasas;
 import com.example.safedom.Tabs.TabUsers;
 import com.google.android.material.tabs.TabLayout;

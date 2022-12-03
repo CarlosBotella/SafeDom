@@ -1,4 +1,4 @@
-package com.example.safedom;
+package com.example.safedom.PacienteP;
 
 
 import android.content.Intent;
@@ -8,12 +8,15 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.safedom.InfoActivity;
+import com.example.safedom.PacienteP.UsuarioActivity;
+import com.example.safedom.R;
+
 public class VistaPaciente extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_paciente);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -33,6 +36,7 @@ public class VistaPaciente extends AppCompatActivity {
         if (id == R.id.menu_usuario) {
             Intent intent = new Intent(this, UsuarioActivity.class);
             startActivity(intent);
+
         }
         if (id == R.id.info) {
             Intent intent = new Intent(this, InfoActivity.class);

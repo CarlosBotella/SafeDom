@@ -1,8 +1,6 @@
 package com.example.safedom.Login;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.R;
-import com.example.safedom.VistaAdmin;
-import com.example.safedom.VistaMedico;
-import com.example.safedom.VistaPaciente;
+import com.example.safedom.AdminP.VistaAdmin;
+import com.example.safedom.MedicoP.VistaMedico;
+import com.example.safedom.PacienteP.VistaPaciente;
 import com.example.safedom.clases.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -65,7 +63,7 @@ public class CustomLoginActivity extends AppCompatActivity {
         dialogoo.setMessage("Por favor espere...");
         if (auth.getCurrentUser() != null) {
             dialogoo.show();
-            DocumentReference docRef = db.collection("Users").document(auth.getCurrentUser().getEmail());
+            DocumentReference docRef = db.collection("Users").document(auth.getCurrentUser().getUid());
             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -83,45 +81,34 @@ public class CustomLoginActivity extends AppCompatActivity {
                 }
             });
         }
-
-
     }
     public void aceptar() {
         Toast t=Toast.makeText(this,"Bienvenido a probar el programa.", Toast.LENGTH_SHORT);
         t.show();
     }
     private void verificaSiUsuarioValidado() {
-            if (auth.getCurrentUser() != null) {
                 Intent i = new Intent(this, VistaMedico.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
                 finish();
-        }
     }
     private void verificaSiUsuarioValidadop() {
-
-        if (auth.getCurrentUser() != null) {
             Intent i = new Intent(this, VistaPaciente.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
             finish();
-
-        }
     }
     private void verificaSiUsuarioValidadoa() {
-
-        if (auth.getCurrentUser() != null) {
             Intent i = new Intent(this, VistaAdmin.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
             finish();
-        }
     }
 
 
@@ -135,7 +122,7 @@ public class CustomLoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Log.e("Pruebas: ", "onComplete inicioSesiónCorreo");
-                                    DocumentReference docRef = db.collection("Users").document(correo);
+                                    DocumentReference docRef = db.collection("Users").document(auth.getCurrentUser().getUid());
                                     docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -146,20 +133,16 @@ public class CustomLoginActivity extends AppCompatActivity {
                                                 verificaSiUsuarioValidadop();
                                             }
                                             if(Objects.equals(rol,rolm)) {
-
                                                 verificaSiUsuarioValidado();
                                             }
                                             if(Objects.equals(rol,rola)) {
-
                                             verificaSiUsuarioValidadoa();
                                         }
                                     }
                                 });
                                 } else {
-                                    Log.e("Pruebas: ", "FALLO inicioSesiónCorreo");
                                     dialogo.dismiss();
-                                    Log.e("Pruebas: ", String.valueOf(task.getException()));
-                                    mensaje(task.getException().getLocalizedMessage());
+                                    Toast.makeText(getApplicationContext(),"El usuario o la contraseña no son correctas",Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

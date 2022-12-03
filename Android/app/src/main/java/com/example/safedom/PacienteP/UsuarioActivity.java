@@ -1,4 +1,4 @@
-package com.example.safedom;
+package com.example.safedom.PacienteP;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +16,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.example.safedom.Login.CustomLoginActivity;
+import com.example.safedom.R;
 import com.example.safedom.clases.User;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,19 +29,19 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UsuarioActivity extends AppCompatActivity {
-    String mail="";
+    String id="";
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario);
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-        mail=usuario.getEmail();
-        DocumentReference docRef = db.collection("Users").document(mail);
+        id=usuario.getUid();
+        DocumentReference docRef = db.collection("Users").document(id);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
-                TextView nombre = findViewById(R.id.Nombre);
+                TextView nombre = findViewById(R.id.Direccion);
                 nombre.setText(user.getNombre());
                 TextView correo = findViewById(R.id.correol);
                 correo.setText(user.getUserEmail());
@@ -100,12 +101,12 @@ public class UsuarioActivity extends AppCompatActivity {
     }
 
     public void editarUsuario(View view) {
-        DocumentReference docRef = db.collection("Users").document(mail);
+        DocumentReference docRef = db.collection("Users").document(id);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
-                TextView nombre = findViewById(R.id.Nombre);
+                TextView nombre = findViewById(R.id.Direccion);
                 user.setNombre(nombre.toString());
                 TextView correo = findViewById(R.id.correol);
                 user.setUserEmail(correo.toString());
@@ -122,7 +123,8 @@ public class UsuarioActivity extends AppCompatActivity {
     }
 
     public void back(View view){
-        startActivity(new Intent(UsuarioActivity.this,VistaPaciente.class));
+        startActivity(new Intent(UsuarioActivity.this, VistaPaciente.class));
+
     }
 }
 

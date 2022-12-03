@@ -3,47 +3,42 @@ package com.example.safedom.clases;
 import java.io.Serializable;
 
 public class Casa implements Serializable {
-    private User Cliente;
+
+    private String  Paciente;
     //private User Familiar;
-    private Medico Doctor;
+    private String  Medico;
     private String Direccion;
     private String Ciudad;
     private String CP;
 
-    public Casa(User cliente/*,User familiar*/, Medico doctor, String direccion, String ciudad, String cP) {
-        Cliente = cliente;
+    public Casa(String  paciente/*,User familiar*/, String medico, String direccion, String ciudad, String cP) {
+        Paciente = paciente;
         //Familiar = familiar;
-        Doctor = doctor;
+        Medico = medico;
         Direccion = direccion;
         Ciudad = ciudad;
         CP = cP;
     }
     public Casa()
     {
-        Cliente = getCliente();
+        Paciente = getPaciente();
         //Familiar = getFamiliar();
-        Doctor = getDoctor();
+        Medico = getMedico();
         Direccion = getDireccion();
         Ciudad = getCiudad();
         CP = getCP();
     }
-    public User getCliente() {
-        return Cliente;
+    public String  getPaciente() {
+        return Paciente;
     }
-    public void setCliente(User cliente) {
-        Cliente = cliente;
+    public void setPaciente(String paciente) {
+        Paciente = paciente;
     }
-   /* public User getFamiliar() {
-        return Familiar;
+    public String getMedico() {
+        return Medico;
     }
-    public void setFamiliar(User familiar) {
-        Familiar = familiar;
-    }*/
-    public Medico getDoctor() {
-        return Doctor;
-    }
-    public void setDoctor(Medico doctor) {
-        Doctor = doctor;
+    public void setMedico(String  medico) {
+        Medico = medico;
     }
     public String getDireccion() {
         return Direccion;
