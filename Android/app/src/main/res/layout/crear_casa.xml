@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
@@ -29,6 +30,7 @@
         app:layout_constraintEnd_toStartOf="@+id/safedom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/safedom"
         android:layout_width="0dp"
@@ -149,22 +151,18 @@
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
+        app:helperText="Paciente"
+        app:helperTextEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_cp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/paientec"
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:fontFamily="@font/tt_commons_bold_italic"
-            android:hint="Email Paciente"
-            android:imeOptions="actionNext"
-            android:inputType="textPersonName"
-            android:singleLine="false"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -177,22 +175,18 @@
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
+        app:helperText="Medico"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_paciente">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/doctorc"
+        <Spinner
+            android:id="@+id/spinner2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:fontFamily="@font/tt_commons_bold_italic"
-            android:hint="Email Medico"
-            android:imeOptions="actionNext"
-            android:inputType="textPersonName"
-            android:singleLine="false"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -200,10 +194,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Button"
-        android:onClick="anyadirc"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Cancelar"
+        app:layout_constraintEnd_toStartOf="@+id/button7"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_doctor" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirmar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button11"
+        app:layout_constraintTop_toTopOf="@+id/button11" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

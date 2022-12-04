@@ -79,14 +79,26 @@ public class RegistroMedico extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Validar()) {
-                    //mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
                     mAuth.createUserWithEmailAndPassword(correo, contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            String id = mAuth.getCurrentUser().getUid();
-                            db.collection("Users").document(id).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero));
+                            String idd = mAuth.getCurrentUser().getUid();
+                            db.collection("Users").document(idd).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero));
                             //db.collection("Users").document(id).set(new Medico("prueba@prueba.prueba", "prueba", "prueba", "prueba", "Medico", "12345678", "No Binario"));*/
-                            startActivity(new Intent(RegistroMedico.this, CustomLoginActivity.class));
+                            AuthUI.getInstance().signOut(getApplicationContext())
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Intent i = new Intent(
+                                                    getApplicationContext (), CustomLoginActivity.class);
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                                    | Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(i);
+                                            finish();
+                                        }
+                                    });
+                           // startActivity(new Intent(RegistroMedico.this, CustomLoginActivity.class));
 
                              }
                     });

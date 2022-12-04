@@ -3,7 +3,7 @@ package com.example.safedom.clases;
 import java.io.Serializable;
 
 public class Casa implements Serializable {
-
+    private static final String[] usuariosLista = {};
     private String  Paciente;
     //private User Familiar;
     private String  Medico;
