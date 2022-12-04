@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -43,7 +44,8 @@ public class TabUsers extends Fragment implements SearchView.OnQueryTextListener
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         FirebaseFirestore db= FirebaseFirestore.getInstance();
         CollectionReference reference = db.collection("Users");
-        reference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        Query query = reference.whereEqualTo("rol", "Paciente");
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){

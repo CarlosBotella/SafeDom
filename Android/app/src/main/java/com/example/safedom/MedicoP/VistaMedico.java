@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -40,9 +41,11 @@ public class VistaMedico extends AppCompatActivity implements SearchView.OnQuery
         txtBuscar=(SearchView) findViewById(R.id.txtBuscar);
         final RecyclerView recycler =(RecyclerView)findViewById(R.id.recyclerView);
         recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
         FirebaseFirestore db= FirebaseFirestore.getInstance();
         CollectionReference reference = db.collection("Users");
-        reference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        Query query = reference.whereEqualTo("rol", "Paciente");
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){

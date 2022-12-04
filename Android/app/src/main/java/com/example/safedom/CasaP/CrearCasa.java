@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,14 +22,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CrearCasa extends AppCompatActivity {
+
     String direccion="";
     String ciudad="";
     String cp="";
@@ -66,18 +70,19 @@ public class CrearCasa extends AppCompatActivity {
         });
 
 
-        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-        CollectionReference usersRef = rootRef.collection("Users");
+        CollectionReference usersRef = db.collection("Users");
+        Query query = usersRef.whereEqualTo("rol", "Paciente");
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         List<String> users = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, users);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        usersRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
+
                         String user = document.getString("userEmail");
                         users.add(user);
                     }
@@ -85,17 +90,21 @@ public class CrearCasa extends AppCompatActivity {
                 }
             }
         });
+        Query queryy= usersRef.whereEqualTo("rol", "Medico");
         Spinner spinnerr = (Spinner) findViewById(R.id.spinner2);
-        spinnerr.setAdapter(adapter);
-        usersRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        List<String> medicos = new ArrayList<>();
+        ArrayAdapter<String> adapterr = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, medicos);
+        adapterr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerr.setAdapter(adapterr);
+        queryy.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        String user = document.getString("userEmail");
-                        users.add(user);
+                        String medico = document.getString("userEmail");
+                        medicos.add(medico);
                     }
-                    adapter.notifyDataSetChanged();
+                    adapterr.notifyDataSetChanged();
                 }
             }
         });
@@ -123,6 +132,7 @@ public class CrearCasa extends AppCompatActivity {
             cpe.setError("Este campo no puede estar vacio");
             s = false;
         }
+        
 
         return  s;
     }
