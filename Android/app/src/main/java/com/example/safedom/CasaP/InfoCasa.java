@@ -52,11 +52,10 @@ public class InfoCasa extends AppCompatActivity {
         dbSensores.child("Sensores").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.e("Pelochas","Hola1");
                 if(snapshot.exists()){
-                    puertainfo.setText(snapshot.child("MC38").getValue().toString());
-                    Log.e("Pelochas",snapshot.child("MC38").getValue().toString());
-                    Log.e("Pelochas","Hola2");
+                    String puerta = snapshot.child("MC38").getValue().toString();
+                    Log.e("Pelochas",puerta);
+                    puertainfo.setText(puerta);
                 }
             }
 

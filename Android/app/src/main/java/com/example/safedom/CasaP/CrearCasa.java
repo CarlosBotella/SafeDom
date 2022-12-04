@@ -132,7 +132,7 @@ public class CrearCasa extends AppCompatActivity {
             cpe.setError("Este campo no puede estar vacio");
             s = false;
         }
-        
+
 
         return  s;
     }
