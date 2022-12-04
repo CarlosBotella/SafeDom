@@ -3,9 +3,12 @@ package com.example.safedom.CasaP;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -14,9 +17,16 @@ import com.example.safedom.R;
 import com.example.safedom.Tabs.TabCasas;
 import com.example.safedom.clases.Casa;
 import com.example.safedom.clases.Medico;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CrearCasa extends AppCompatActivity {
     String direccion="";
@@ -28,14 +38,15 @@ public class CrearCasa extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     Button bs;
     Button bc;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.crear_casa);
         direccione=(EditText) findViewById(R.id.Direccion);
         ciudade=(EditText) findViewById(R.id.Ciudad);
         cpe=(EditText) findViewById(R.id.Cp);
-        pacientee=(EditText) findViewById(R.id.paientec);
-        medicoe=(EditText) findViewById(R.id.doctorc);
+        //pacientee=(EditText) findViewById(R.id.paientec);
+        //medicoe=(EditText) findViewById(R.id.doctorc);
         bs=(Button) findViewById(R.id.button7);
         bc=(Button)findViewById(R.id.button11);
         bs.setOnClickListener(new View.OnClickListener() {
@@ -55,15 +66,51 @@ public class CrearCasa extends AppCompatActivity {
         });
 
 
+        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+        CollectionReference usersRef = rootRef.collection("Users");
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        List<String> users = new ArrayList<>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, users);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        usersRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String user = document.getString("userEmail");
+                        users.add(user);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+        Spinner spinnerr = (Spinner) findViewById(R.id.spinner2);
+        spinnerr.setAdapter(adapter);
+        usersRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String user = document.getString("userEmail");
+                        users.add(user);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+
     }
 
     public boolean  Validar(){
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinnerr = (Spinner) findViewById(R.id.spinner2);
         boolean s = true;
         direccion=direccione.getText().toString();
         ciudad=ciudade.getText().toString();
         cp=cpe.getText().toString();
-        paciente=pacientee.getText().toString();
-        medico=medicoe.getText().toString();
+        paciente=spinner.getSelectedItem().toString();
+        medico=spinnerr.getSelectedItem().toString();
         if(direccion.isEmpty()){
             direccione.setError("Este campo no puede estar vacio");
             s = false;
@@ -76,14 +123,7 @@ public class CrearCasa extends AppCompatActivity {
             cpe.setError("Este campo no puede estar vacio");
             s = false;
         }
-        if(paciente.isEmpty()){
-            pacientee.setError("Este campo no puede estar vacio");
-            s = false;
-        }
-        if(medico.isEmpty()){
-            medicoe.setError("Este campo no puede estar vacio");
-            s = false;
-        }
+
         return  s;
     }
 }

@@ -66,6 +66,7 @@ public class CustomLoginActivity extends AppCompatActivity {
         if (auth.getCurrentUser() != null) {
             dialogoo.show();
             DocumentReference docRef = db.collection("Users").document(auth.getCurrentUser().getUid());
+            Log.e("Pruebas: ",auth.getCurrentUser().getUid() );
             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -123,7 +124,6 @@ public class CustomLoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Log.e("Pruebas: ", "onComplete inicioSesiónCorreo");
                                     DocumentReference docRef = db.collection("Users").document(auth.getCurrentUser().getUid());
                                     docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
@@ -131,7 +131,6 @@ public class CustomLoginActivity extends AppCompatActivity {
                                             user = documentSnapshot.toObject(User.class);
                                             rol=user.getRol().toString();
                                             if(Objects.equals(rol,rolp)) {
-
                                                 verificaSiUsuarioValidadop();
                                             }
                                             if(Objects.equals(rol,rolm)) {

@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.R;
 import com.example.safedom.clases.User;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -73,6 +74,7 @@ public class RegistroPaciente extends AppCompatActivity {
         tilAltura = (TextInputLayout) findViewById(R.id.til_altura);
         tilPeso = (TextInputLayout) findViewById(R.id.til_peso);
         bs = (Button) findViewById(R.id.finalizar);
+        bc = (Button) findViewById(R.id.cancelarRegistro);
         AutoCompleteTextView autoCompleteTextView = findViewById(R.id.autocomplete);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegistroPaciente.this,
                 android.R.layout.simple_spinner_dropdown_item, generoLista);
@@ -99,7 +101,20 @@ public class RegistroPaciente extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             String id = mAuth.getCurrentUser().getUid();
                              db.collection("Users").document(id).set(new User(correo, contraseña, nombre, apellido, rol, telefono, genero, dof, altura, peso));
-                    startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
+                            AuthUI.getInstance().signOut(getApplicationContext())
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Intent i = new Intent(
+                                                    getApplicationContext (), CustomLoginActivity.class);
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                                    | Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(i);
+                                            finish();
+                                        }
+                                    });
+                           // startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
                         }
                     });
                 }
