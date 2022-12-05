@@ -157,7 +157,7 @@ public class CustomLoginActivity extends AppCompatActivity {
     }
 
     private void mensaje(String mensaje) {
-        Snackbar.make(contenedor, mensaje, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(findViewById(android.R.id.content), mensaje, Snackbar.LENGTH_LONG).show();
     }
 
     private boolean verificaCampos() {

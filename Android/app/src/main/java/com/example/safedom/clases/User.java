@@ -7,29 +7,32 @@ import org.checkerframework.checker.units.qual.A;
 import java.io.Serializable;
 
 public class User implements Serializable {
+
+public class User {
     private String UserEmail;
     private String Pass;
     private String Nombre;
     private String Apellido;
-    private String  Telefono;
+    private String Telefono;
     private String Dob;
     private String Rol;
     private String Genero;
     private String Altura;
     private String Peso;
+    private String Foto;
 
 
-    public User(String userEmail, String pass, String nombre, String apellido, String rol,String telefono,String genero,String dob,String altura,String peso) {
+    public User(String userEmail, String pass, String nombre, String apellido, String rol, String telefono, String genero, String dob, String altura, String peso) {
         UserEmail = userEmail;
         Pass = pass;
         Nombre = nombre;
         Apellido = apellido;
         Rol = rol;
-        Telefono=telefono;
-        Genero=genero;
-        Dob=dob;
-        Altura=altura;
-        Peso=peso;
+        Telefono = telefono;
+        Genero = genero;
+        Dob = dob;
+        Altura = altura;
+        Peso = peso;
 
     }
 
@@ -39,11 +42,11 @@ public class User implements Serializable {
         Nombre = getNombre();
         Apellido = getApellido();
         Rol = getRol();
-        Telefono=getTelefono();
-        Genero=getGenero();
-        Dob=getDob();
-        Altura=getAltura();
-        Peso=getPeso();
+        Telefono = getTelefono();
+        Genero = getGenero();
+        Dob = getDob();
+        Altura = getAltura();
+        Peso = getPeso();
 
     }
 
@@ -118,6 +121,7 @@ public class User implements Serializable {
     public void setPeso(String peso) {
         Peso = peso;
     }
+
     public String getGenero() {
         return Genero;
     }
@@ -126,5 +130,12 @@ public class User implements Serializable {
         Genero = genero;
     }
 
+    public String getFoto() {
+        return Foto;
+    }
+
+    public void setFoto(String foto) {
+        Foto = foto;
+    }
 
 }

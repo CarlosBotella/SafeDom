@@ -1,7 +1,7 @@
 /* Clase para la vista edit_medico, sirve para poder que el paciente pueda
  editar sus datos */
 
-package com.example.safedom.PacienteP;
+package com.example.safedom;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.safedom.R;
 import com.example.safedom.clases.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditUsuario extends AppCompatActivity {
-    String id = "";
+    String mail = "";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
     String newcorreo = "";
@@ -52,15 +51,10 @@ public class EditUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_usuario);
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-<<<<<<< Updated upstream:Android/app/src/main/java/com/example/safedom/PacienteP/EditUsuario.java
-        id = usuario.getUid();
-        DocumentReference docRef = db.collection("Users").document(id);
-=======
         storageRef = FirebaseStorage.getInstance().getReference();
         mail = usuario.getEmail();
         DocumentReference docRef = db.collection("Users").document(mail);
 
->>>>>>> Stashed changes:Android/app/src/main/java/com/example/safedom/EditUsuario.java
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -125,7 +119,6 @@ public class EditUsuario extends AppCompatActivity {
     }
 
     public void aceptarUsuario(View view) {
-        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
         TextInputEditText correo = findViewById(R.id.ncorreo);
         newcorreo = correo.getText().toString();
         TextInputEditText nombre = findViewById(R.id.nnombre);
@@ -138,14 +131,8 @@ public class EditUsuario extends AppCompatActivity {
         newaltura = altura.getText().toString();
         TextInputEditText telefono = findViewById(R.id.ntelefono);
         newtelefono = telefono.getText().toString();
-<<<<<<< Updated upstream:Android/app/src/main/java/com/example/safedom/PacienteP/EditUsuario.java
-        usuario.updateEmail(newcorreo);
-        DocumentReference docRef = db.collection("Users").document(id);
-        docRef.update("userEmail", newcorreo, "nombre", newnombre, "apellido", newapellido, "peso", newpeso, "altura", newaltura, "telefono", newtelefono);
-=======
         DocumentReference docRef = db.collection("Users").document(mail);
         docRef.update("userEmail", newcorreo, "nombre", newnombre, "apellido", newapellido, "peso", newpeso, "altura", newaltura, "telefono", newtelefono, "foto", newfoto);
->>>>>>> Stashed changes:Android/app/src/main/java/com/example/safedom/EditUsuario.java
 
         startActivity(new Intent(EditUsuario.this, UsuarioActivity.class));
     }
