@@ -82,8 +82,8 @@ public class RegistroMedico extends AppCompatActivity {
                     mAuth.createUserWithEmailAndPassword(correo, contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            String idd = mAuth.getCurrentUser().getUid();
-                            db.collection("Users").document(idd).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero));
+                            String id = mAuth.getCurrentUser().getUid();
+                            db.collection("Users").document(id).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero));
                             //db.collection("Users").document(id).set(new Medico("prueba@prueba.prueba", "prueba", "prueba", "prueba", "Medico", "12345678", "No Binario"));*/
                             AuthUI.getInstance().signOut(getApplicationContext())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
