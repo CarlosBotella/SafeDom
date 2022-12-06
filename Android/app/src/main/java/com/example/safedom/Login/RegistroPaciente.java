@@ -178,7 +178,7 @@ public class RegistroPaciente extends AppCompatActivity {
             etTelefono.setError("Ha de contener al menos 9 caracteres");
             s = false;
         }
-        if (genero.isEmpty()) {
+        if (genero.equals("")) {
             etGenero.setError("Este campo no puede estar vacio");
             s = false;
         }/*else if (!Objects.equals(genero, "hombre") || !Objects.equals(genero, "mujer")){
