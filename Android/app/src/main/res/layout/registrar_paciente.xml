@@ -208,7 +208,7 @@
                     android:fontFamily="@font/tt_commons_bold_italic"
                     android:hint="Telefono"
                     android:imeOptions="actionDone"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -254,7 +254,7 @@
                     android:fontFamily="@font/tt_commons_bold_italic"
                     android:hint="Fecha de nacimiento"
                     android:imeOptions="actionNext"
-                    android:inputType="textPersonName"
+                    android:inputType="date"
                     android:singleLine="false"
                     android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -277,7 +277,7 @@
                     android:fontFamily="@font/tt_commons_bold_italic"
                     android:hint="Altura"
                     android:imeOptions="actionNext"
-                    android:inputType="textPersonName"
+                    android:inputType="numberDecimal"
                     android:singleLine="false"
                     android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -300,7 +300,7 @@
                     android:fontFamily="@font/tt_commons_bold_italic"
                     android:hint="Peso"
                     android:imeOptions="actionNext"
-                    android:inputType="textPersonName"
+                    android:inputType="numberDecimal"
                     android:singleLine="false"
                     android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
