@@ -44,7 +44,7 @@ public class TabUsers extends Fragment implements SearchView.OnQueryTextListener
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         FirebaseFirestore db= FirebaseFirestore.getInstance();
         CollectionReference reference = db.collection("Users");
-        Query query = reference.whereEqualTo("rol", "Paciente");
+        Query query = reference.whereNotEqualTo("rol", "Admin");
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
