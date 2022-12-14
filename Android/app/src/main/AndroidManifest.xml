@@ -20,10 +20,6 @@
             android:label="Tutorial"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
         <activity
             android:name=".Login.CustomLoginActivity"
             android:exported="true"
@@ -45,8 +41,6 @@
             android:name=".PacienteP.UsuarioActivity"
             android:label="Perfil" />
 
-<<<<<<< Updated upstream
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -56,9 +50,6 @@
         </activity>
 
 
-
-=======
->>>>>>> Stashed changes
         <activity android:name=".Login.Clave" />
 
         <activity android:name=".Login.RegistroPaciente" />

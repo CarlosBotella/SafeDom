@@ -52,15 +52,10 @@ public class EditUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_usuario);
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-<<<<<<< Updated upstream:Android/app/src/main/java/com/example/safedom/PacienteP/EditUsuario.java
         id = usuario.getUid();
         DocumentReference docRef = db.collection("Users").document(id);
-=======
         storageRef = FirebaseStorage.getInstance().getReference();
-        mail = usuario.getEmail();
-        DocumentReference docRef = db.collection("Users").document(mail);
 
->>>>>>> Stashed changes:Android/app/src/main/java/com/example/safedom/EditUsuario.java
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -95,7 +90,7 @@ public class EditUsuario extends AppCompatActivity {
                 try {
                     ImgPerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
                     UploadTask uploadTask;
-                    StorageReference ref = storageRef.child("Perfil").child(mail+".jpg");
+                    StorageReference ref = storageRef.child("Perfil").child(id+".jpg");
                     uploadTask = ref.putFile(uri);
                     uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
@@ -138,15 +133,9 @@ public class EditUsuario extends AppCompatActivity {
         newaltura = altura.getText().toString();
         TextInputEditText telefono = findViewById(R.id.ntelefono);
         newtelefono = telefono.getText().toString();
-<<<<<<< Updated upstream:Android/app/src/main/java/com/example/safedom/PacienteP/EditUsuario.java
         usuario.updateEmail(newcorreo);
         DocumentReference docRef = db.collection("Users").document(id);
         docRef.update("userEmail", newcorreo, "nombre", newnombre, "apellido", newapellido, "peso", newpeso, "altura", newaltura, "telefono", newtelefono);
-=======
-        DocumentReference docRef = db.collection("Users").document(mail);
-        docRef.update("userEmail", newcorreo, "nombre", newnombre, "apellido", newapellido, "peso", newpeso, "altura", newaltura, "telefono", newtelefono, "foto", newfoto);
->>>>>>> Stashed changes:Android/app/src/main/java/com/example/safedom/EditUsuario.java
-
         startActivity(new Intent(EditUsuario.this, UsuarioActivity.class));
     }
 }

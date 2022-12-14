@@ -36,6 +36,7 @@ public class RegistroMedico extends AppCompatActivity {
     private String contraseña = "";
     private String ccontraseña = "";
     private String idmedico = "";
+    private String foto = "";
     private String rol = "Medico";//Paciente
     private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña, etIdMedico;
     private TextInputLayout tilCorreo, tilContraseña, tilCcontraseña, tilNombre, tilApellido, tilIdMedico, tilGenero;
@@ -83,7 +84,7 @@ public class RegistroMedico extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             String id = mAuth.getCurrentUser().getUid();
-                            db.collection("Users").document(id).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero));
+                            db.collection("Users").document(id).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero,foto));
                             //db.collection("Users").document(id).set(new Medico("prueba@prueba.prueba", "prueba", "prueba", "prueba", "Medico", "12345678", "No Binario"));*/
                             AuthUI.getInstance().signOut(getApplicationContext())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -117,6 +118,7 @@ public class RegistroMedico extends AppCompatActivity {
                 nombre = etNombre.getText().toString();
                 apellido = etApellido.getText().toString();
                 idmedico = etIdMedico.getText().toString();
+                foto = "";
                 if (correo.isEmpty()) {
                     etCorreo.setError("Este campo no puede estar vacio");
                     s = false;
