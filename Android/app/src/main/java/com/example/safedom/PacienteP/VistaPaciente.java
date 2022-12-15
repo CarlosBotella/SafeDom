@@ -43,7 +43,9 @@ public class VistaPaciente extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User usuario = documentSnapshot.toObject(User.class);
                 ImageView imgperfil = findViewById(R.id.imagenp);
-                Picasso.get().load(usuario.getFoto()).into(imgperfil);
+                if (!usuario.getFoto().equals("")){
+                    Picasso.get().load(usuario.getFoto()).into(imgperfil);
+                }
                 TextView nombre = findViewById(R.id.nombrep);
                 nombre.setText(usuario.getNombre()+" "+usuario.getApellido());
                 TextView edad = findViewById(R.id.dobp);

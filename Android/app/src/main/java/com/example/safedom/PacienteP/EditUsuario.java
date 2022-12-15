@@ -73,7 +73,9 @@ public class EditUsuario extends AppCompatActivity {
                 TextInputEditText telefono = findViewById(R.id.ntelefono);
                 telefono.setText(usuario.getTelefono());
                 ImageView imgperfil = findViewById(R.id.imagen);
-                Picasso.get().load(usuario.getFoto()).into(imgperfil);
+                if (!usuario.getFoto().equals("")) {
+                    Picasso.get().load(usuario.getFoto()).into(imgperfil);
+                }
             }
         });
     }

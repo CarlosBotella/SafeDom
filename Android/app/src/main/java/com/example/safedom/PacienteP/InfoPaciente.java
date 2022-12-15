@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import com.example.safedom.R;
 import com.example.safedom.clases.User;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 
 public class InfoPaciente extends AppCompatActivity {
@@ -104,5 +105,8 @@ public class InfoPaciente extends AppCompatActivity {
         dobinfo.setText(user.getDob());
         alturainfo.setText(user.getAltura());
         pesoinfo.setText(user.getPeso());
+        if (!user.getFoto().equals("")) {
+            Picasso.get().load(user.getFoto()).into(imginfo);
+        }
     }
 }

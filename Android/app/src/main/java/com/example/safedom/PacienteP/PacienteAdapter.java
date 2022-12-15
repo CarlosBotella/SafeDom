@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.safedom.R;
 import com.example.safedom.clases.User;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +47,11 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.viewHo
         //DocumentSnapshot documentSnapshot = getSnapshots.getSnapshot(holder.getAdapterPosition());
         //final String id= documentSnapshot.getId();
         final User user =users.get(position);
-        holder.unombre.setText(user.getNombre()+" "+user .getApellido());
+        holder.unombre.setText(user.getNombre()+" "+user.getApellido());
         holder.ucorreo.setText(user.getUserEmail());
+        if (!user.getFoto().equals("")) {
+            Picasso.get().load(user.getFoto()).into(holder.ufoto);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,12 +100,14 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.viewHo
 
     public static class viewHolder extends RecyclerView.ViewHolder{
         TextView unombre,ucorreo;
+        ImageView ufoto;
         Button be;
         //ConstraintLayout ItemView;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             unombre=(TextView)itemView.findViewById(R.id.Nombrep);
             ucorreo=(TextView)itemView.findViewById(R.id.Correop);
+            ufoto=(ImageView)itemView.findViewById(R.id.imageviewperfil);
             be=(Button) itemView.findViewById(R.id.eliminar);
             //ItemView=(ConstraintLayout)itemView.findViewById(R.id.itemView);
         }

@@ -1,10 +1,11 @@
 
 /* Clase para ver los datos del medico */
 package com.example.safedom.MedicoP;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 public class MedicoActivity extends AppCompatActivity {
     String id = "";
@@ -35,39 +37,41 @@ public class MedicoActivity extends AppCompatActivity {
         id = usuario.getUid();
         DocumentReference docRef = db.collection("Users").document(id);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-          @Override
+            @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Medico medico= documentSnapshot.toObject(Medico.class);
+                Medico medico = documentSnapshot.toObject(Medico.class);
                 TextView nombre = findViewById(R.id.nombrem);
                 nombre.setText(medico.getNombre());
                 TextView correo = findViewById(R.id.correol);
                 correo.setText(medico.getUserEmail());
                 TextView apellido = findViewById(R.id.apellidom);
                 apellido.setText(medico.getApellido());
-
+                ImageView imgperfil = findViewById(R.id.imagemedico);
+                if (!medico.getFoto().equals("")) {
+                    Picasso.get().load(medico.getFoto()).into(imgperfil);
+                }
             }
-
-        });
+            });
+        }
+        public void cerrarSesion (View view){
+            AuthUI.getInstance().signOut(getApplicationContext())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Intent i = new Intent(
+                                    getApplicationContext(), CustomLoginActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK
+                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
+                            finish();
+                        }
+                    });
+        }
+        public void back (View view){
+            startActivity(new Intent(MedicoActivity.this, VistaMedico.class));
+        }
+        public void editarMedico (View view){
+            startActivity(new Intent(MedicoActivity.this, EditMedico.class));
+        }
     }
-    public void cerrarSesion(View view) {
-        AuthUI.getInstance().signOut(getApplicationContext())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Intent i = new Intent(
-                                getApplicationContext (), CustomLoginActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                | Intent.FLAG_ACTIVITY_NEW_TASK
-                                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
-                        finish();
-                    }
-                });
-    }
-    public void back(View view){
-        startActivity(new Intent(MedicoActivity.this, VistaMedico.class));
-    }
-    public void editarMedico(View view){
-        startActivity(new Intent(MedicoActivity.this,EditMedico.class));
-    }
-}

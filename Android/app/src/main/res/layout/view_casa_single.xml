@@ -15,8 +15,8 @@
         android:layout_marginTop="10dp"
         android:text="Doctor:"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView10"
-        app:layout_constraintTop_toTopOf="@+id/imageView10" />
+        app:layout_constraintStart_toEndOf="@+id/imageviewperfil"
+        app:layout_constraintTop_toTopOf="@+id/imageviewperfil" />
 
     <TextView
         android:id="@+id/direccioni"
@@ -37,10 +37,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+        app:layout_constraintTop_toBottomOf="@+id/imageviewperfil" />
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/imageviewperfil"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="50dp"
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintBottom_toBottomOf="@+id/imageviewperfil"
         app:layout_constraintStart_toStartOf="@+id/textView37" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

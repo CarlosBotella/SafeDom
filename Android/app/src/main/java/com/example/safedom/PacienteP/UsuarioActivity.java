@@ -56,36 +56,11 @@ public class UsuarioActivity extends AppCompatActivity {
                 TextView telefono = findViewById(R.id.telefonon);
                 telefono.setText(user.getTelefono());
                 ImageView imgperfil = findViewById(R.id.imgperfil);
-                Picasso.get().load(user.getFoto()).into(imgperfil);
+                if (!user.getFoto().equals("")) {
+                    Picasso.get().load(user.getFoto()).into(imgperfil);
+                }
             }
-
         });
-
-
-
-
-
-
-        RequestQueue colaPeticiones = Volley.newRequestQueue(this);
-        ImageLoader lectorImagenes = new ImageLoader(colaPeticiones,
-                new ImageLoader.ImageCache() {
-                    private final LruCache<String, Bitmap> cache =
-                            new LruCache<String, Bitmap>(10);
-                    public void putBitmap(String url, Bitmap bitmap) {
-                        cache.put(url, bitmap);
-                    }
-                    public Bitmap getBitmap(String url) {
-                        return cache.get(url);
-                    }
-                });
-// Foto de usuario
-        Uri urlImagen = usuario.getPhotoUrl();
-        if (urlImagen != null) {
-            NetworkImageView foto = (NetworkImageView) findViewById(R.id.imagen);
-            foto.setImageUrl(urlImagen.toString(), lectorImagenes);
-        }
-
-
     }
 
     public void cerrarSesion(View view) {
