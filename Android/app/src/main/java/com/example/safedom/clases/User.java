@@ -28,7 +28,7 @@ public class User implements Serializable {
         Dob = dob;
         Altura = altura;
         Peso = peso;
-
+        Foto = "";
     }
 
     public User() {
@@ -42,7 +42,7 @@ public class User implements Serializable {
         Dob = getDob();
         Altura = getAltura();
         Peso = getPeso();
-
+        Foto = getFoto();
     }
 
     public String getUserEmail() {

@@ -78,7 +78,6 @@
             android:id="@+id/infodb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:gravity="center"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/textView31"
@@ -156,7 +155,7 @@
             android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha de nacimiento:"
+            android:text="Nacimiento:"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/infoimg"
             app:layout_constraintStart_toStartOf="@+id/textView30" />

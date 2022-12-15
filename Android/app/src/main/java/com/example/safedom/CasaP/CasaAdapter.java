@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,8 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.safedom.R;
 import com.example.safedom.clases.Casa;
+import com.example.safedom.clases.Medico;
 import com.example.safedom.clases.User;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +35,9 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.viewHolder> {
     ArrayList<Casa> casas;
     ArrayList<Casa> casao;
     Context context;
+    User paciente;
+    Medico medico;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DatabaseReference dbSensores;
     public CasaAdapter(ArrayList<Casa> arrayCasa, Context applicationContext) {
         this.casas=arrayCasa;
@@ -46,6 +59,34 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.viewHolder> {
         holder.cdireccion.setText(casa.getDireccion());
         holder.cpaciente.setText(casa.getPaciente());
         holder.cmedico.setText(casa.getMedico());
+        CollectionReference refusers = db.collection("Users");
+        Query query = refusers.whereEqualTo("userEmail", casa.getPaciente());
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    paciente = documentSnapshot.toObject(User.class);
+                }
+                if (!paciente.getFoto().equals("")) {
+                    Picasso.get().load(paciente.getFoto()).into(holder.cfotop);
+                }
+            }
+        });
+        Query query2 = refusers.whereEqualTo("userEmail", casa.getMedico());
+        query2.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    medico = documentSnapshot.toObject(Medico.class);
+                }
+                if (!medico.getFoto().equals("")) {
+                    Picasso.get().load(medico.getFoto()).into(holder.cfotom);
+                }
+            }
+        });
+        /*if (!user.getFoto().equals("")) {
+            Picasso.get().load(user.getFoto()).into(holder.ufoto);
+        }*/
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,12 +127,15 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.viewHolder> {
     }
     public class viewHolder extends RecyclerView.ViewHolder{
         TextView cdireccion,cpaciente,cmedico;
+        ImageView cfotop,cfotom;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             cdireccion=(TextView)itemView.findViewById(R.id.direccioni);
             cpaciente=(TextView)itemView.findViewById(R.id.pacientei);
             cmedico=(TextView)itemView.findViewById(R.id.doctori);
+            cfotop=(ImageView)itemView.findViewById(R.id.imageView11);
+            cfotom=(ImageView)itemView.findViewById(R.id.imageviewperfil);
         }
     }
 }

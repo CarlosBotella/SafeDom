@@ -95,7 +95,7 @@ public class EditUsuario extends AppCompatActivity {
                 try {
                     ImgPerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
                     UploadTask uploadTask;
-                    StorageReference ref = storageRef.child("Perfil").child(id + ".jpg");
+                    StorageReference ref = storageRef.child("Usuarios").child(id).child("foto.jpg");
                     uploadTask = ref.putFile(uri);
                     uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override

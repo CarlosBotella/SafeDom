@@ -93,10 +93,6 @@ public class VistaMedico extends AppCompatActivity implements SearchView.OnQuery
             }
         });
 
-
-
-
-
         txtBuscar.setOnQueryTextListener(this);
     }
 
@@ -134,10 +130,5 @@ public class VistaMedico extends AppCompatActivity implements SearchView.OnQuery
     public boolean onQueryTextChange(String s) {
         pacienteAdapter.filtrado(s);
         return false;
-    }
-
-    public void getmail(){
-        casa=(Casa) getIntent().getExtras().getSerializable("casaInfo");
-        ids.add(casa.getPaciente());
     }
 }
