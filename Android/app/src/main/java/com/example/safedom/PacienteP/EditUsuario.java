@@ -3,7 +3,6 @@
 
 package com.example.safedom.PacienteP;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -72,44 +72,44 @@ public class EditUsuario extends AppCompatActivity {
                 altura.setText(usuario.getAltura());
                 TextInputEditText telefono = findViewById(R.id.ntelefono);
                 telefono.setText(usuario.getTelefono());
+                ImageView imgperfil = findViewById(R.id.imagen);
+                Picasso.get().load(usuario.getFoto()).into(imgperfil);
             }
         });
     }
 
     public void ClicImg(View view) {
+        final int cod = 3;
         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, 3);
+        startActivityForResult(i, cod);
     }
 
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ImageView ImgPerfil = findViewById(R.id.imagen);
-        if (requestCode == Activity.RESULT_OK) {
+        if (requestCode == 3) {
             if (data != null) {
                 Uri uri = data.getData();
                 try {
                     ImgPerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
                     UploadTask uploadTask;
-                    StorageReference ref = storageRef.child("Perfil").child(id+".jpg");
+                    StorageReference ref = storageRef.child("Perfil").child(id + ".jpg");
                     uploadTask = ref.putFile(uri);
                     uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
                         public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful()){
-                                throw task.getException();
-                            }
                             return ref.getDownloadUrl();
                         }
                     }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 newfoto = task.getResult().toString();
                             }
                         }
                     });
                 } catch (Exception e) {
-                    Log.e("Error", ""+ e);
+                    Log.e("Error", "" + e);
                 }
             }
         }
@@ -135,7 +135,7 @@ public class EditUsuario extends AppCompatActivity {
         newtelefono = telefono.getText().toString();
         usuario.updateEmail(newcorreo);
         DocumentReference docRef = db.collection("Users").document(id);
-        docRef.update("userEmail", newcorreo, "nombre", newnombre, "apellido", newapellido, "peso", newpeso, "altura", newaltura, "telefono", newtelefono);
+        docRef.update("userEmail", newcorreo, "nombre", newnombre, "apellido", newapellido, "peso", newpeso, "altura", newaltura, "telefono", newtelefono, "foto", newfoto);
         startActivity(new Intent(EditUsuario.this, UsuarioActivity.class));
     }
 }

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.LruCache;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 public class UsuarioActivity extends AppCompatActivity {
     String id="";
@@ -53,6 +55,8 @@ public class UsuarioActivity extends AppCompatActivity {
                 altura.setText(user.getAltura());
                 TextView telefono = findViewById(R.id.telefonon);
                 telefono.setText(user.getTelefono());
+                ImageView imgperfil = findViewById(R.id.imgperfil);
+                Picasso.get().load(user.getFoto()).into(imgperfil);
             }
 
         });
@@ -103,11 +107,11 @@ public class UsuarioActivity extends AppCompatActivity {
     public void editarUsuario(View view) {
         startActivity(new Intent(UsuarioActivity.this,EditUsuario.class));
         DocumentReference docRef = db.collection("Users").document(id);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        /*docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
-                TextView nombre = findViewById(R.id.Direccion);
+                TextView nombre = findViewById(R.id.nnombre);
                 user.setNombre(nombre.toString());
                 TextView correo = findViewById(R.id.correol);
                 user.setUserEmail(correo.toString());
@@ -120,7 +124,7 @@ public class UsuarioActivity extends AppCompatActivity {
                 TextView telefono = findViewById(R.id.telefonon);
                 user.setTelefono(telefono.toString());
             }
-        });
+        });*/
     }
 
     public void back(View view){

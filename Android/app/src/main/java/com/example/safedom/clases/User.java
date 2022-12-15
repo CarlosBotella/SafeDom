@@ -1,9 +1,5 @@
 package com.example.safedom.clases;
 
-import android.view.Menu;
-
-import org.checkerframework.checker.units.qual.A;
-
 import java.io.Serializable;
 
 public class User implements Serializable {
