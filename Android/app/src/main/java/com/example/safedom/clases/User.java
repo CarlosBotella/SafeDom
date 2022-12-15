@@ -17,9 +17,10 @@ public class User implements Serializable {
     private String Genero;
     private String Altura;
     private String Peso;
+    private String Casa;
 
 
-    public User(String userEmail, String pass, String nombre, String apellido, String rol,String telefono,String genero,String dob,String altura,String peso) {
+    public User(String userEmail, String pass, String nombre, String apellido, String rol,String telefono,String genero,String dob,String altura,String peso,String casa) {
         UserEmail = userEmail;
         Pass = pass;
         Nombre = nombre;
@@ -30,6 +31,7 @@ public class User implements Serializable {
         Dob=dob;
         Altura=altura;
         Peso=peso;
+        Casa = casa;
 
     }
 
@@ -44,6 +46,7 @@ public class User implements Serializable {
         Dob=getDob();
         Altura=getAltura();
         Peso=getPeso();
+        Casa=getCasa();
 
     }
 
@@ -124,6 +127,14 @@ public class User implements Serializable {
 
     public void setGenero(String genero) {
         Genero = genero;
+    }
+
+    public String getCasa() {
+        return Casa;
+    }
+
+    public void setCasa(String casa) {
+        Casa = casa;
     }
 
 

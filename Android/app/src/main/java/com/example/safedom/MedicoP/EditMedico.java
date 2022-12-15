@@ -4,9 +4,12 @@
 package com.example.safedom.MedicoP;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class EditMedico extends AppCompatActivity {
     String id = "";
     String pass = "";
+    Button be;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     String correom="";String nombrem="";String apellidom="";
     private FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -52,12 +56,34 @@ public class EditMedico extends AppCompatActivity {
                 apellido.setText(medico.getApellido());
             }
         });
+        be=(Button)findViewById(R.id.aceptar);
+        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
+        dialogo1.setTitle("Importante");
+        dialogo1.setMessage("¿Estas seguro que queire gardar estos cambios?");
+        dialogo1.setCancelable(false);
+        dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                aceptar();
+            }
+        });
+        dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                cancelarr();
+            }
+        });
+
+        be.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogo1.show();
+            }
+        });
     }
 
     public void cancelar(View view){
         startActivity(new Intent(EditMedico.this, MedicoActivity.class));
     }
-    public void aceptar(View view){
+    public void aceptar(){
        DocumentReference docRef = db.collection("Users").document(id);
 
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
@@ -71,7 +97,8 @@ public class EditMedico extends AppCompatActivity {
 
         docRef.update("userEmail",correom, "nombre",nombrem,"apellido",apellidom);
         startActivity(new Intent(EditMedico.this,MedicoActivity.class));
-
-
+    }
+    public void cancelarr(){
+        finish();
     }
 }

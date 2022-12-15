@@ -83,14 +83,13 @@ public class RegistroMedico extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             String id = mAuth.getCurrentUser().getUid();
-                            db.collection("Users").document(id).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero));
+                             db.collection("Users").document(id).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero));
                             //db.collection("Users").document(id).set(new Medico("prueba@prueba.prueba", "prueba", "prueba", "prueba", "Medico", "12345678", "No Binario"));*/
                             AuthUI.getInstance().signOut(getApplicationContext())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            Intent i = new Intent(
-                                                    getApplicationContext (), CustomLoginActivity.class);
+                                            Intent i = new Intent(getApplicationContext (), CustomLoginActivity.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                                                     | Intent.FLAG_ACTIVITY_NEW_TASK
                                                     | Intent.FLAG_ACTIVITY_CLEAR_TASK);

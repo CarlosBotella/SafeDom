@@ -39,6 +39,7 @@ public class RegistroPaciente extends AppCompatActivity {
     private String dof = "";
     private String altura = "";
     private String peso = "";
+    private String casa="No";
 
 
     private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña, etTelefono, etGenero, etDob, etAltura, etPeso;
@@ -100,7 +101,7 @@ public class RegistroPaciente extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             String id = mAuth.getCurrentUser().getUid();
-                             db.collection("Users").document(id).set(new User(correo, contraseña, nombre, apellido, rol, telefono, genero, dof, altura, peso));
+                             db.collection("Users").document(id).set(new User(correo, contraseña, nombre, apellido, rol, telefono, genero, dof, altura, peso,casa));
                             AuthUI.getInstance().signOut(getApplicationContext())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
