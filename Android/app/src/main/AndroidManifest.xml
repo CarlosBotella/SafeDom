@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.safedom">
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -18,10 +22,6 @@
             android:name=".InfoActivity"
             android:label="Tutorial"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
-
-
-
-
 
         <activity
             android:name=".Login.CustomLoginActivity"
@@ -41,16 +41,8 @@
             android:label="SafeDom"
             android:theme="@style/Theme.NoActionBar" />
         <activity
-            android:name=".UsuarioActivity"
+            android:name=".PacienteP.UsuarioActivity"
             android:label="Perfil" />
-
-        <activity
-            android:name=".LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity
             android:name=".MainActivity"
@@ -61,20 +53,22 @@
         </activity>
 
 
-
         <activity android:name=".Login.Clave" />
 
         <activity android:name=".Login.RegistroPaciente" />
 
-        <activity android:name=".VistaPaciente" />
+        <activity android:name=".PacienteP.VistaPaciente" />
 
-        <activity android:name=".VistaMedico" />
+        <activity android:name=".MedicoP.VistaMedico" />
 
-        <activity android:name=".MedicoActivity" />
-
-        <activity android:name=".EditMedico" />
-
-        <activity android:name=".EditUsuario"/>
+        <activity android:name=".MedicoP.MedicoActivity" />
+        <activity android:name=".MedicoP.EditMedico" />
+        <activity android:name=".AdminP.VistaAdmin" />
+        <activity android:name=".PacienteP.InfoPaciente"/>
+        <activity android:name=".CasaP.InfoCasa"/>
+        <activity android:name=".AdminP.AdminActivity"/>
+        <activity android:name=".CasaP.CrearCasa"/>
+        <activity android:name=".PacienteP.EditUsuario"/>
 
     </application>
 

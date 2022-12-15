@@ -4,7 +4,12 @@ package com.example.safedom.Login;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,11 +17,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.R;
 import com.example.safedom.clases.User;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -39,6 +49,7 @@ public class RegistroPaciente extends AppCompatActivity {
     private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña, etTelefono, etGenero, etDob, etAltura, etPeso;
     private TextInputLayout tilCorreo, tilContraseña, tilCcontraseña, tilNombre, tilApellido, tilTelefono, tilGenero, tilDob, tilAltura, tilPeso;
     Button bs;
+    Button bc;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static final String[] generoLista = {"Hombre", "Mujer", "No Binario"};
@@ -51,7 +62,7 @@ public class RegistroPaciente extends AppCompatActivity {
         etCorreo = (EditText) findViewById(R.id.Clec);
         etContraseña = (EditText) findViewById(R.id.Pass);
         etCcontraseña = (EditText) findViewById(R.id.Repass);
-        etNombre = (EditText) findViewById(R.id.Nombre);
+        etNombre = (EditText) findViewById(R.id.Direccion);
         etApellido = (EditText) findViewById(R.id.Apellido);
         etTelefono = (EditText) findViewById(R.id.Telefono);
         etDob = (EditText) findViewById(R.id.Dof);
@@ -60,7 +71,7 @@ public class RegistroPaciente extends AppCompatActivity {
         tilCorreo = (TextInputLayout) findViewById(R.id.til_Clec);
         tilContraseña = (TextInputLayout) findViewById(R.id.til_Pass);
         tilCcontraseña = (TextInputLayout) findViewById(R.id.til_Repass);
-        tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
+        tilNombre = (TextInputLayout) findViewById(R.id.til_direccion);
         tilApellido = (TextInputLayout) findViewById(R.id.til_apellido);
         tilTelefono = (TextInputLayout) findViewById(R.id.til_Telefono);
         tilGenero = (TextInputLayout) findViewById(R.id.GeneroPaciente);
@@ -68,6 +79,7 @@ public class RegistroPaciente extends AppCompatActivity {
         tilAltura = (TextInputLayout) findViewById(R.id.til_altura);
         tilPeso = (TextInputLayout) findViewById(R.id.til_peso);
         bs = (Button) findViewById(R.id.finalizar);
+        bc = (Button) findViewById(R.id.cancelarRegistro);
         AutoCompleteTextView autoCompleteTextView = findViewById(R.id.autocomplete);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegistroPaciente.this,
                 android.R.layout.simple_spinner_dropdown_item, generoLista);
@@ -85,18 +97,61 @@ public class RegistroPaciente extends AppCompatActivity {
                 }
             }
         });
+        etCorreo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (Patterns.EMAIL_ADDRESS.matcher(charSequence).matches()) {
+                    tilCorreo.setError(null);
+                } else {
+                    tilCorreo.setError("Correo invalido");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
         bs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (Validar()) {
-
-                    db.collection("Users").document(correo).set(new User(correo, contraseña, nombre, apellido, rol, telefono, genero, dof, altura, peso));
-                    mAuth.createUserWithEmailAndPassword(correo, ccontraseña);
-
-                    startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
+                    mAuth.createUserWithEmailAndPassword(correo, ccontraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            String id = mAuth.getCurrentUser().getUid();
+                            db.collection("Users").document(id).set(new User(correo, contraseña, nombre, apellido, rol, telefono, genero, dof, altura, peso));
+                            AuthUI.getInstance().signOut(getApplicationContext())
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Intent i = new Intent(
+                                                    getApplicationContext(), CustomLoginActivity.class);
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                                    | Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(i);
+                                            finish();
+                                        }
+                                    });
+                            // startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
+                        }
+                    });
                 }
             }
         });
+
+        bc.setOnClickListener(new View.OnClickListener() {
+                                  @Override
+                                  public void onClick(View view) {
+                                      startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
+                                  }
+                              }
+        );
+
     }
 
     public boolean Validar() {
@@ -147,7 +202,7 @@ public class RegistroPaciente extends AppCompatActivity {
             etTelefono.setError("Ha de contener al menos 9 caracteres");
             s = false;
         }
-        if (genero.isEmpty()) {
+        if (genero.equals("")) {
             etGenero.setError("Este campo no puede estar vacio");
             s = false;
         }/*else if (!Objects.equals(genero, "hombre") || !Objects.equals(genero, "mujer")){

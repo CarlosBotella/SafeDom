@@ -1,0 +1,110 @@
+package com.example.safedom.PacienteP;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.LruCache;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
+import com.example.safedom.Login.CustomLoginActivity;
+import com.example.safedom.R;
+import com.example.safedom.clases.User;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
+
+public class UsuarioActivity extends AppCompatActivity {
+    String id="";
+    private FirebaseFirestore db= FirebaseFirestore.getInstance();
+    @Override protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_usuario);
+        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+        id=usuario.getUid();
+        DocumentReference docRef = db.collection("Users").document(id);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                TextView nombre = findViewById(R.id.Direccion);
+                nombre.setText(user.getNombre());
+                TextView correo = findViewById(R.id.correol);
+                correo.setText(user.getUserEmail());
+                TextView apellido = findViewById(R.id.apellidom);
+                apellido.setText(user.getApellido());
+                TextView peso= findViewById(R.id.peso);
+                peso.setText(user.getPeso());
+                TextView altura = findViewById(R.id.altura);
+                altura.setText(user.getAltura());
+                TextView telefono = findViewById(R.id.telefonon);
+                telefono.setText(user.getTelefono());
+                ImageView imgperfil = findViewById(R.id.imgperfil);
+                if (!user.getFoto().equals("")) {
+                    Picasso.get().load(user.getFoto()).into(imgperfil);
+                }
+            }
+        });
+    }
+
+    public void cerrarSesion(View view) {
+        AuthUI.getInstance().signOut(getApplicationContext())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent i = new Intent(
+                                getApplicationContext (), CustomLoginActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                | Intent.FLAG_ACTIVITY_NEW_TASK
+                                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+    }
+
+    public void editarUsuario(View view) {
+        startActivity(new Intent(UsuarioActivity.this,EditUsuario.class));
+        DocumentReference docRef = db.collection("Users").document(id);
+        /*docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                TextView nombre = findViewById(R.id.nnombre);
+                user.setNombre(nombre.toString());
+                TextView correo = findViewById(R.id.correol);
+                user.setUserEmail(correo.toString());
+                TextView apellido = findViewById(R.id.apellidom);
+                user.setApellido(apellido.toString());
+                TextView peso = findViewById(R.id.peso);
+                user.setPeso(peso.toString());
+                TextView altura = findViewById(R.id.altura);
+                user.setAltura(altura.toString());
+                TextView telefono = findViewById(R.id.telefonon);
+                user.setTelefono(telefono.toString());
+            }
+        });*/
+    }
+
+    public void back(View view){
+        startActivity(new Intent(UsuarioActivity.this, VistaPaciente.class));
+
+    }
+}
+

@@ -70,6 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="20dp"
@@ -84,7 +85,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_nombre"
+                android:id="@+id/til_direccion"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,7 +94,7 @@
                 android:transitionGroup="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Nombre"
+                    android:id="@+id/Direccion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -207,7 +208,7 @@
                     android:fontFamily="@font/tt_commons_bold_italic"
                     android:hint="Telefono"
                     android:imeOptions="actionDone"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -253,7 +254,7 @@
                     android:fontFamily="@font/tt_commons_bold_italic"
                     android:hint="Fecha de nacimiento"
                     android:imeOptions="actionNext"
-                    android:inputType="textPersonName"
+                    android:inputType="date"
                     android:singleLine="false"
                     android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -276,7 +277,7 @@
                     android:fontFamily="@font/tt_commons_bold_italic"
                     android:hint="Altura"
                     android:imeOptions="actionNext"
-                    android:inputType="textPersonName"
+                    android:inputType="numberDecimal"
                     android:singleLine="false"
                     android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -299,7 +300,7 @@
                     android:fontFamily="@font/tt_commons_bold_italic"
                     android:hint="Peso"
                     android:imeOptions="actionNext"
-                    android:inputType="textPersonName"
+                    android:inputType="numberDecimal"
                     android:singleLine="false"
                     android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -308,14 +309,29 @@
 
     <Button
         android:id="@+id/finalizar"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="22dp"
         android:backgroundTint="#FF7476"
         android:fontFamily="@font/tt_commons_bold_italic"
         android:text="Siguiente"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cancelarRegistro" />
+
+    <Button
+        android:id="@+id/cancelarRegistro"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="22dp"
+        android:backgroundTint="#5B6C6969"
+        android:fontFamily="@font/tt_commons_bold_italic"
+        android:text="CANCELAR"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/finalizar"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

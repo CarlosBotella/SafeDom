@@ -1,39 +1,44 @@
 package com.example.safedom.clases;
 
-public class Casa {
-    private User Cliente;
-    private User Familiar;
-    private User Doctor;
+import java.io.Serializable;
+
+public class Casa implements Serializable {
+    private static final String[] usuariosLista = {};
+    private String  Paciente;
+    //private User Familiar;
+    private String  Medico;
     private String Direccion;
     private String Ciudad;
-    private int CP;
+    private String CP;
 
-    public Casa(User cliente, User familiar, User doctor, String direccion, String ciudad, int CP) {
-        Cliente = cliente;
-        Familiar = familiar;
-        Doctor = doctor;
+    public Casa(String  paciente/*,User familiar*/, String medico, String direccion, String ciudad, String cP) {
+        Paciente = paciente;
+        //Familiar = familiar;
+        Medico = medico;
         Direccion = direccion;
         Ciudad = ciudad;
-        this.CP = CP;
+        CP = cP;
     }
-
-    public User getCliente() {
-        return Cliente;
+    public Casa()
+    {
+        Paciente = getPaciente();
+        //Familiar = getFamiliar();
+        Medico = getMedico();
+        Direccion = getDireccion();
+        Ciudad = getCiudad();
+        CP = getCP();
     }
-    public void setCliente(User cliente) {
-        Cliente = cliente;
+    public String  getPaciente() {
+        return Paciente;
     }
-    public User getFamiliar() {
-        return Familiar;
+    public void setPaciente(String paciente) {
+        Paciente = paciente;
     }
-    public void setFamiliar(User familiar) {
-        Familiar = familiar;
+    public String getMedico() {
+        return Medico;
     }
-    public User getDoctor() {
-        return Doctor;
-    }
-    public void setDoctor(User doctor) {
-        Doctor = doctor;
+    public void setMedico(String  medico) {
+        Medico = medico;
     }
     public String getDireccion() {
         return Direccion;
@@ -47,10 +52,10 @@ public class Casa {
     public void setCiudad(String ciudad) {
         Ciudad = ciudad;
     }
-    public int getCP() {
+    public String getCP() {
         return CP;
     }
-    public void setCP(int CP) {
+    public void setCP(String CP) {
         this.CP = CP;
     }
 
