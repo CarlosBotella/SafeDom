@@ -12,7 +12,7 @@ public class Medico implements Serializable {
     private String Genero;
     private String Foto;
 
-    public Medico(String userEmail, String pass, String nombre, String apellido, String rol, String idMedico, String genero, String foto) {
+    public Medico(String userEmail, String pass, String nombre, String apellido, String rol, String idMedico, String genero) {
         UserEmail = userEmail;
         Pass = pass;
         Nombre = nombre;
@@ -20,7 +20,7 @@ public class Medico implements Serializable {
         Rol = rol;
         IdMedico = idMedico;
         Genero = genero;
-        Foto = foto;
+        Foto = "";
     }
 
     public Medico(){
