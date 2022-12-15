@@ -6,6 +6,60 @@
     android:layout_height="match_parent">
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_altitud"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:minHeight="?android:attr/actionBarSize"
+        android:transitionGroup="true"
+        app:layout_constraintEnd_toStartOf="@+id/coordenadas"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Altitud"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:fontFamily="@font/tt_commons_bold_italic"
+            android:hint="Altitud"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName"
+            android:singleLine="false"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_longitud"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="10dp"
+        android:minHeight="?android:attr/actionBarSize"
+        android:transitionGroup="true"
+        app:layout_constraintBottom_toBottomOf="@+id/til_altitud"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/coordenadas"
+        app:layout_constraintTop_toTopOf="@+id/coordenadas">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Longitud"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:fontFamily="@font/tt_commons_bold_italic"
+            android:hint="Longitud"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName"
+            android:singleLine="false"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
@@ -63,14 +117,14 @@
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/coordenadas">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Direccion"
@@ -193,7 +247,7 @@
         android:id="@+id/button11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="Cancelar"
         app:layout_constraintEnd_toStartOf="@+id/button7"
         app:layout_constraintHorizontal_bias="0.5"
@@ -209,5 +263,18 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button11"
         app:layout_constraintTop_toTopOf="@+id/button11" />
+
+    <Button
+        android:id="@+id/coordenadas"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Coordenadas"
+        app:layout_constraintBottom_toBottomOf="@+id/til_altitud"
+        app:layout_constraintEnd_toStartOf="@+id/til_longitud"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/til_altitud"
+        app:layout_constraintTop_toTopOf="@+id/til_altitud" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -199,6 +199,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
+
                 android:id="@+id/ncorreo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -210,7 +211,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tt_commons_bold_italic"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            />
     </LinearLayout>
 
     <Button
@@ -224,13 +226,13 @@
         android:padding="8dp"
         android:text="CANCELAR"
         android:textColor="#fff"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintEnd_toStartOf="@+id/llamar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/llamar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/tt_commons_bold_italic"

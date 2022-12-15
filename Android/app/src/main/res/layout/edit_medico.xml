@@ -135,7 +135,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:fontFamily="@font/kollektif_bold_italic"
-        android:onClick="aceptar"
         android:text="aceptar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cancelar"
