@@ -187,17 +187,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="llamar"
-            android:onClick="llamarTelefono"
             app:layout_constraintEnd_toStartOf="@+id/button6"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button5"
+            app:layout_constraintStart_toEndOf="@+id/buttonCalendario"
             app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/buttonCalendario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+ cita"
+            android:text="Calendario"
             app:layout_constraintEnd_toStartOf="@+id/button4"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -212,16 +211,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button4"
             app:layout_constraintTop_toTopOf="@+id/button4" />
-
-        <Button
-            android:id="@+id/eliminar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="425dp"
-            android:text="Eliminar"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/button6"
-            app:layout_constraintTop_toBottomOf="@+id/button6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

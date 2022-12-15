@@ -23,9 +23,21 @@ public class CalendarUtils
         return time.format(formatter);
     }
 
+    public static String formattedShortTime(LocalTime time)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return time.format(formatter);
+    }
+
     public static String monthYearFromDate(LocalDate date)
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+        return date.format(formatter);
+    }
+
+    public static String monthDayFromDate(LocalDate date)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d");
         return date.format(formatter);
     }
 
@@ -52,7 +64,7 @@ public class CalendarUtils
     public static ArrayList<LocalDate> daysInWeekArray(LocalDate selectedDate)
     {
         ArrayList<LocalDate> days = new ArrayList<>();
-        LocalDate current = sundayForDate(selectedDate);
+        LocalDate current = SundayForDate(selectedDate);
         LocalDate endDate = current.plusWeeks(1);
 
         while (current.isBefore(endDate))
@@ -63,7 +75,7 @@ public class CalendarUtils
         return days;
     }
 
-    private static LocalDate sundayForDate(LocalDate current)
+    private static LocalDate SundayForDate(LocalDate current)
     {
         LocalDate oneWeekAgo = current.minusWeeks(1);
 

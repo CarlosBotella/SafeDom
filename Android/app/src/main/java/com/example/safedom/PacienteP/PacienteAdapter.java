@@ -101,7 +101,6 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.viewHo
             super(itemView);
             unombre=(TextView)itemView.findViewById(R.id.Nombrep);
             ucorreo=(TextView)itemView.findViewById(R.id.Correop);
-            be=(Button) itemView.findViewById(R.id.eliminar);
             //ItemView=(ConstraintLayout)itemView.findViewById(R.id.itemView);
         }
     }

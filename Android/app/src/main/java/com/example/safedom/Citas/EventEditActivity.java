@@ -3,6 +3,7 @@ package com.example.safedom.Citas;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,6 +42,10 @@ public class EventEditActivity extends AppCompatActivity
         String eventName = eventNameET.getText().toString();
         Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time);
         Event.eventsList.add(newEvent);
+
+        //String horaNotificacion = time.toString();
+        //Log.d("tag", eventName + CalendarUtils.selectedDate + horaNotificacion);
+
         finish();
     }
 }

@@ -51,6 +51,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".Citas.CalendarActivity"
+            android:exported="true"
+            android:theme="@style/Theme.NoActionBar">
+        </activity>
+
 
 
         <activity android:name=".Login.Clave" />
@@ -58,6 +64,10 @@
         <activity android:name=".Login.RegistroPaciente" />
 
         <activity android:name=".PacienteP.VistaPaciente" />
+
+        <activity android:name=".Citas.EventEditActivity" />
+        <activity android:name=".Citas.WeekViewActivity" />
+        <activity android:name=".Citas.DailyCalendarActivity" />
 
         <activity android:name=".MedicoP.VistaMedico" />
 
