@@ -4,7 +4,12 @@ package com.example.safedom.Login;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -93,6 +98,24 @@ public class RegistroPaciente extends AppCompatActivity {
                 }
             }
         });
+        etCorreo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (Patterns.EMAIL_ADDRESS.matcher(charSequence).matches()) {
+                    tilCorreo.setError(null);
+                } else {
+                    tilCorreo.setError("Correo invalido");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
         bs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +130,7 @@ public class RegistroPaciente extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             Intent i = new Intent(
-                                                    getApplicationContext (), CustomLoginActivity.class);
+                                                    getApplicationContext(), CustomLoginActivity.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                                                     | Intent.FLAG_ACTIVITY_NEW_TASK
                                                     | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -115,7 +138,7 @@ public class RegistroPaciente extends AppCompatActivity {
                                             finish();
                                         }
                                     });
-                           // startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
+                            // startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
                         }
                     });
                 }
@@ -123,12 +146,13 @@ public class RegistroPaciente extends AppCompatActivity {
         });
 
         bc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
-                }
-            }
+                                  @Override
+                                  public void onClick(View view) {
+                                      startActivity(new Intent(RegistroPaciente.this, CustomLoginActivity.class));
+                                  }
+                              }
         );
+
     }
 
     public boolean Validar() {

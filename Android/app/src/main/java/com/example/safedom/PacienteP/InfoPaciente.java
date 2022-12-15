@@ -19,103 +19,44 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.safedom.AdminP.AdminActivity;
-import com.example.safedom.AdminP.VistaAdmin;
-import com.example.safedom.CasaP.CrearCasa;
-import com.example.safedom.Mapa;
+import com.example.safedom.Citas.CalendarActivity;
+import com.example.safedom.Citas.WeekViewActivity;
 import com.example.safedom.R;
 import com.example.safedom.clases.Casa;
 import com.example.safedom.clases.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Locale;
 import java.util.Objects;
-
-import io.grpc.InternalGlobalInterceptors;
 
 
 public class InfoPaciente extends AppCompatActivity {
     private ImageView imginfo;
     private TextView nombreinfo, correoinfo,telefonoinfo,generoinfo,dobinfo,alturainfo,pesoinfo,t,d,g,a,p;
     private User user;
-    private Casa casa;
-
-    Button be;
-    Button bci;
-    Button bc;
-    Button bl;
-    String id="";
-    String rol="";
-    String tel="";
-    String correo="";
-    String Lat="";
-    String Lon="";
-    String Pac="";
-    String Dir="";
-
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private static final int SOLICITUD_PERMISO_CALL_PHONE = 0;
-
+    Button botonCalendario;
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_infopaciente);
         setTitle(getClass().getSimpleName());
+
         initViews();
         initValues();
+        botonCalendario = (Button) findViewById(R.id.buttonCalendario);
 
-        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
-        dialogo1.setTitle("Importante");
-        dialogo1.setMessage("¿ Desea borrar este usuario?");
-        dialogo1.setCancelable(false);
-        dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogo1, int id) {
-                aceptar();
-            }
-        });
-        dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogo1, int id) {
-                cancelar();
-            }
-        });
-
-
-        be.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogo1.show();
-            }
-        });
-        bc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            Intent intent= new Intent(InfoPaciente.this, Mapa.class);
-            intent.putExtra("Lat",Lat);
-            intent.putExtra("Lon",Lon);
-            intent.putExtra("Pac",Pac);
-            intent.putExtra("Dir",Dir);
-            Log.d("Pelochas",Lat+", "+Lon);
-            startActivity(intent);
-            }
-        });
-
-
-
+        botonCalendario.setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View view) {
+                                                   startActivity(new Intent(InfoPaciente.this, CalendarActivity.class));
+                                               }
+                                           }
+        );
     }
 
     private void initViews() {
