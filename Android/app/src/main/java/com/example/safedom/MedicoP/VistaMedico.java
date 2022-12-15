@@ -72,7 +72,7 @@ public class VistaMedico extends AppCompatActivity implements SearchView.OnQuery
                     ids.add(c.getPaciente().toString());
                     //Log.e("Pelochas", String.valueOf(ids));
                 }
-                Log.e("Pelochas", String.valueOf(ids));
+               // Log.e("Pelochas", String.valueOf(ids));
                 for (String i:ids) {
                     Query queryy = referencee.whereEqualTo("userEmail",i);
                     queryy.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
