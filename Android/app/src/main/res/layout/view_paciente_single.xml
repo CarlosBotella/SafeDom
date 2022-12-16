@@ -11,11 +11,11 @@
         android:id="@+id/Nombrep"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="Nombre"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageviewperfil"
         app:layout_constraintTop_toTopOf="@+id/imageviewperfil" />
 
@@ -28,8 +28,7 @@
         android:gravity="center"
         android:text="correo"
         app:layout_constraintBottom_toBottomOf="@+id/imageviewperfil"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageviewperfil"
+        app:layout_constraintStart_toStartOf="@+id/Nombrep"
         app:layout_constraintTop_toBottomOf="@+id/Nombrep" />
 
     <Space
