@@ -21,6 +21,8 @@ import com.example.safedom.AdminP.VistaAdmin;
 import com.example.safedom.PacienteP.InfoPaciente;
 import com.example.safedom.R;
 import com.example.safedom.clases.Casa;
+import com.example.safedom.clases.Medico;
+import com.example.safedom.clases.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -29,10 +31,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Locale;
@@ -41,6 +46,8 @@ public class InfoCasa extends AppCompatActivity {
     private ImageView imgp, imgm;
     private TextView direccioninfo, cpinfo, ciudadinfo, medicoinfo, pacienteinfo, puertainfo, lat ,lon;
     private Casa casa;
+    User paciente;
+    Medico medico;
     String dir = "";
     Button be;
     String puerta ="";
@@ -103,6 +110,31 @@ public class InfoCasa extends AppCompatActivity {
         ciudadinfo.setText(casa.getCiudad());
         medicoinfo.setText(casa.getMedico());
         pacienteinfo.setText(casa.getPaciente());
+        CollectionReference refusers = db.collection("Users");
+        Query query = refusers.whereEqualTo("userEmail", casa.getPaciente());
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    paciente = documentSnapshot.toObject(User.class);
+                }
+                if (!paciente.getFoto().equals("")) {
+                    Picasso.get().load(paciente.getFoto()).into(imgp);
+                }
+            }
+        });
+        Query query2 = refusers.whereEqualTo("userEmail", casa.getMedico());
+        query2.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    medico = documentSnapshot.toObject(Medico.class);
+                }
+                if (!medico.getFoto().equals("")) {
+                    Picasso.get().load(medico.getFoto()).into(imgm);
+                }
+            }
+        });
         Lat=casa.getLatitud().toString();
         Lon=casa.getLongitud().toString();
 

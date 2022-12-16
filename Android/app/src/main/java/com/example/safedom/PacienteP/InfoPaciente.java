@@ -257,6 +257,9 @@ public class InfoPaciente extends AppCompatActivity {
         } else if (Objects.equals(user.getRol(), "Medico")) {
             nombreinfo.setText(user.getNombre() + " " + user.getApellido());
             correoinfo.setText(user.getUserEmail());
+            if (!user.getFoto().equals("")) {
+                Picasso.get().load(user.getFoto()).into(imginfo);
+            }
             correo = user.getUserEmail().toString();
             telefonoinfo.setVisibility(View.INVISIBLE);
             generoinfo.setVisibility(View.INVISIBLE);
