@@ -27,7 +27,7 @@
 
         <activity
             android:name=".InfoActivity"
-            android:label="Tutorial"
+            android:label="Sobre Nosotros"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
 
         <activity
