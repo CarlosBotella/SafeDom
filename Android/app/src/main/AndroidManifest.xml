@@ -69,7 +69,8 @@
 
         <activity android:name=".Login.RegistroPaciente" />
 
-        <activity android:name=".PacienteP.VistaPaciente" />
+        <activity android:name=".PacienteP.VistaPaciente"
+            android:label="Perfil"/>
 
         <activity android:name=".Citas.EventEditActivity" />
         <activity android:name=".Citas.WeekViewActivity" />
@@ -77,14 +78,19 @@
 
         <activity android:name=".MedicoP.VistaMedico" />
 
-        <activity android:name=".MedicoP.MedicoActivity" />
-        <activity android:name=".MedicoP.EditMedico" />
+        <activity android:name=".MedicoP.MedicoActivity"
+            android:label="Perfil"/>
+        <activity android:name=".MedicoP.EditMedico"
+            android:label="Ajustes"/>
         <activity android:name=".AdminP.VistaAdmin" />
-        <activity android:name=".PacienteP.InfoPaciente"/>
+        <activity android:name=".PacienteP.InfoPaciente"
+            android:theme="@style/Theme.NoActionBar"/>
         <activity android:name=".CasaP.InfoCasa"/>
         <activity android:name=".AdminP.AdminActivity"/>
-        <activity android:name=".CasaP.CrearCasa"/>
-        <activity android:name=".PacienteP.EditUsuario"/>
+        <activity android:name=".CasaP.CrearCasa"
+            android:theme="@style/Theme.NoActionBar"/>
+        <activity android:name=".PacienteP.EditUsuario"
+            android:label="Ajustes"/>
         <activity android:name=".Mapa"/>
         <activity android:name=".MapaCasa"/>
 
