@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.safedom">
     <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -69,8 +70,7 @@
 
         <activity android:name=".Login.RegistroPaciente" />
 
-        <activity android:name=".PacienteP.VistaPaciente"
-            android:label="Perfil"/>
+        <activity android:name=".PacienteP.VistaPaciente" />
 
         <activity android:name=".Citas.EventEditActivity" />
         <activity android:name=".Citas.WeekViewActivity" />
