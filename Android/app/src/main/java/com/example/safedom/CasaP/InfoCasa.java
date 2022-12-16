@@ -1,5 +1,7 @@
 package com.example.safedom.CasaP;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,7 +48,8 @@ public class InfoCasa extends AppCompatActivity {
     String Lon="";
     String id="";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DatabaseReference mDatabase;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Casas");
 
     @Override
 
@@ -87,10 +90,8 @@ public class InfoCasa extends AppCompatActivity {
         ciudadinfo = findViewById(R.id.ciudadinfo);
         medicoinfo = findViewById(R.id.doctorinfo);
         pacienteinfo = findViewById(R.id.pacienteinfo);
-        puertainfo = findViewById(R.id.puertainfo);
         be = (Button) findViewById(R.id.Eliinarc);
-        lat=findViewById(R.id.latitud);
-        lon=findViewById(R.id.longitud);
+
 
     }
 
@@ -104,21 +105,22 @@ public class InfoCasa extends AppCompatActivity {
         pacienteinfo.setText(casa.getPaciente());
         Lat=casa.getLatitud().toString();
         Lon=casa.getLongitud().toString();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Sensores").child("MC38").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
 
-                }
-                else {
-                   puerta=task.getResult().getValue().toString();
-                   Log.e("Pelochas",puerta);
-                   puertainfo.setText(puerta);
-                }
+        myRef.child(casa.getDireccion()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = String.valueOf(dataSnapshot.getValue());
+                Log.d("Pelochas", "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Pelochas", "Failed to read value.", error.toException());
             }
         });
-       //AIzaSyBrTGWFjzB_ejB85p23gCCWDrL80ax-e5I
     }
 
     public void aceptar() {

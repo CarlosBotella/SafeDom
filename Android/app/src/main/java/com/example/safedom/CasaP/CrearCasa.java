@@ -25,6 +25,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -51,6 +53,7 @@ public class CrearCasa extends AppCompatActivity {
     String id="";
     private EditText direccione,ciudade,cpe,latitud,longitud;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
     Button bs;
     Button bc;
     Button bm;
@@ -78,6 +81,11 @@ public class CrearCasa extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Validar()) {
+                    mDatabase.child("Casas").child(direccion).child("Humedad").setValue(40);
+                    mDatabase.child("Casas").child(direccion).child("Puerta_Principal").setValue("Abierta");
+                    mDatabase.child("Casas").child(direccion).child("Sensor_Peso").setValue("Activo");
+                    mDatabase.child("Casas").child(direccion).child("Sensor_Peso_TiempoActivo").setValue(3600);
+                    mDatabase.child("Casas").child(direccion).child("Temperatura").setValue(27);
                     db.collection("Casa").document(direccion).set(new Casa(paciente,medico,direccion, ciudad, cp,latitudc,longitudc));
                     db.collection("Users")
                             .whereEqualTo("userEmail", paciente)
