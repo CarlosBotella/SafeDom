@@ -6,5 +6,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="En SafeDom usamos los sensores en tu casa para darte el mejor servicio de salud. ">
+        android:text="Gracias por confiar en SafeDom. Cualquier duda contacte con nosotros">
     </TextView>
