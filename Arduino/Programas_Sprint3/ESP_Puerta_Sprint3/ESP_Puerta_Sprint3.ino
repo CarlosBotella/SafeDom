@@ -27,7 +27,7 @@ char pass[] = "bloque3puerta5";
 // ----- BROKER -----
 const char broker[] = "test.mosquitto.org";
 int        port     = 1883;
-const char topic[]  = "mmersan/Puerta_Principal";
+const char topic[] = "mmersan/Puerta_Principal";
 
 // ----- GENERALES -----
 volatile bool estadoIntCerrarPuerta = false;
@@ -150,12 +150,9 @@ void intCerrarPuerta(){
 // ----- FUNCION CERRAR LA PUERTA -----
 void checkIntCerrarPuerta(){
   if(estadoIntCerrarPuerta){
-    //servoPuerta.write(180);
+    servoPuerta.write(180);
     M5.Lcd.fillScreen(BLUE);
-    mqttClient.beginMessage(topic);
-    mqttClient.print("Cerrada");
-    mqttClient.endMessage();
-    Serial.println("TEST");
+    estadoPuerta();
     delay(1500);
     M5.Lcd.fillScreen(BLACK);
     menuLCD();
@@ -205,9 +202,7 @@ void lectorPuerta(){
       }
       if(BufferID == RFID){
         M5.Lcd.fillScreen(GREEN);
-        mqttClient.beginMessage(topic);
-        mqttClient.print("Abierta");
-        mqttClient.endMessage();
+        servoPuerta.write(0);
         Serial.println("OK");
         Serial.println();
         delay(1500);
