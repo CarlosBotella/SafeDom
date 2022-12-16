@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +43,7 @@ public class VistaPaciente extends AppCompatActivity {
     String id = "";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
-    private TextView puertap, sp, tsp, temp, hum;
+    private TextView puertap, sp, tsp, temp, hum,PP,SP,TSP,TEMP,HUM,m,m2;
 
     Casa casa;
     Float min;
@@ -59,6 +60,13 @@ public class VistaPaciente extends AppCompatActivity {
         tsp = findViewById(R.id.TSP4);
         temp = findViewById(R.id.t3);
         hum = findViewById(R.id.h3);
+        PP=findViewById(R.id.textView12);
+        SP=findViewById(R.id.textView13);
+        TSP=findViewById(R.id.textView14);
+        TEMP=findViewById(R.id.textView15);
+        HUM=findViewById(R.id.textView16);
+        m=findViewById(R.id.Mensaje);
+        m2=findViewById(R.id.Mensaje2);
         DocumentReference docRef = db.collection("Users").document(id);
         storageRef = FirebaseStorage.getInstance().getReference();
 
@@ -78,50 +86,67 @@ public class VistaPaciente extends AppCompatActivity {
                 tlf.setText(usuario.getTelefono());
                 TextView email = findViewById(R.id.mailp);
                 email.setText(usuario.getUserEmail());
-                CollectionReference reference = db.collection("Casa");
-                Query query = reference.whereEqualTo("paciente", usuario.getUserEmail());
-                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                            casa = documentSnapshot.toObject(Casa.class);
-                        }
-                        myRef.child(casa.getDireccion()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                String value = String.valueOf(dataSnapshot.getValue());
-                                String[] parts = value.split(",");
-                                String part1 = parts[0].split("=")[1];
-                                String part2 = parts[1].split("=")[1];
-                                String part3 = parts[2].split("=")[1];
-                                String part4 = parts[3].split("=")[1];
-                                String part5 = parts[4].split("=")[1];
-                                Log.d("Pelochas", part5);
-                                String parte5 = "";
-                                String[] lista = part5.split("");
-                                for (int i = 0; i < part5.length() - 1; i++) {
-                                    parte5 += lista[i];
+                if (Objects.equals(usuario.getCasa(), "Si")) {
+                    CollectionReference reference = db.collection("Casa");
+                    Query query = reference.whereEqualTo("paciente", usuario.getUserEmail());
+                    query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                casa = documentSnapshot.toObject(Casa.class);
+                            }
+                            myRef.child(casa.getDireccion()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    String value = String.valueOf(dataSnapshot.getValue());
+                                    String[] parts = value.split(",");
+                                    String part1 = parts[0].split("=")[1];
+                                    String part2 = parts[1].split("=")[1];
+                                    String part3 = parts[2].split("=")[1];
+                                    String part4 = parts[3].split("=")[1];
+                                    String part5 = parts[4].split("=")[1];
+                                    Log.d("Pelochas", part5);
+                                    String parte5 = "";
+                                    String[] lista = part5.split("");
+                                    for (int i = 0; i < part5.length() - 1; i++) {
+                                        parte5 += lista[i];
 
+                                    }
+                                    if (!Objects.equals(parte5, "0")) {
+                                        min = Float.valueOf(parte5) / 60;
+                                    } else {
+                                        min = Float.valueOf(0);
+                                    }
+                                    puertap.setText(part1);
+                                    sp.setText(part4);
+                                    tsp.setText(df.format(min) + " minutos");
+                                    temp.setText(part3 + " º");
+                                    hum.setText(part2 + " %");
                                 }
-                                if (!Objects.equals(parte5, "0")) {
-                                    min = Float.valueOf(parte5) / 60;
-                                } else {
-                                    min = Float.valueOf(0);
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+                                    // Failed to read value
+                                    Log.w("Pelochas", "Failed to read value.", error.toException());
                                 }
-                                puertap.setText(part1);
-                                sp.setText(part4);
-                                tsp.setText(df.format(min) + " minutos");
-                                temp.setText(part3 + " º");
-                                hum.setText(part2 + " %");
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError error) {
-                                // Failed to read value
-                                Log.w("Pelochas", "Failed to read value.", error.toException());
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }else{
+                    puertap.setVisibility(View.GONE);
+                    sp.setVisibility(View.GONE);
+                    tsp.setVisibility(View.GONE);
+                    temp.setVisibility(View.GONE);
+                    hum.setVisibility(View.GONE);
+                    PP.setVisibility(View.GONE);
+                    SP.setVisibility(View.GONE);
+                    TSP.setVisibility(View.GONE);
+                    HUM.setVisibility(View.GONE);
+                    TEMP.setVisibility(View.GONE);
+                    m.setVisibility(View.VISIBLE);
+                    m2.setVisibility(View.VISIBLE);
+
+                }
             }
         });
     }
