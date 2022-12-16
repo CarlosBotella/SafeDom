@@ -220,7 +220,7 @@
             android:id="@+id/eliminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Elliminar"
+            android:text="Eliminar"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/buttonCalendario"
             app:layout_constraintTop_toTopOf="@+id/llamar" />
