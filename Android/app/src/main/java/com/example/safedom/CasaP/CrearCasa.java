@@ -58,6 +58,7 @@ public class CrearCasa extends AppCompatActivity {
     Button bc;
     Button bm;
     User user;
+    ArrayList<User> arrayUser= new ArrayList<>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +73,7 @@ public class CrearCasa extends AppCompatActivity {
         longitud=(EditText) findViewById(R.id.Longitud);
         latitud.setText(Lat);
         longitud.setText(Lon);
+        CollectionReference referencee = db.collection("Users");
         //pacientee=(EditText) findViewById(R.id.paientec);
         //medicoe=(EditText) findViewById(R.id.doctorc);
         bs=(Button) findViewById(R.id.button7);
@@ -129,7 +131,7 @@ public class CrearCasa extends AppCompatActivity {
 
 
         CollectionReference usersRef = db.collection("Users");
-        Query query = usersRef.whereEqualTo("rol", "Paciente");
+        Query query = usersRef.whereEqualTo("casa", "No");
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         List<String> users = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, users);
@@ -140,7 +142,6 @@ public class CrearCasa extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-
                         String user = document.getString("userEmail");
                         users.add(user);
                     }
