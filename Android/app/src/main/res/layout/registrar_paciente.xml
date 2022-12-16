@@ -252,7 +252,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:fontFamily="@font/tt_commons_bold_italic"
-                    android:hint="Fecha de nacimiento"
+                    android:hint="Fecha de nacimiento (DD/MM/YYYY)"
                     android:imeOptions="actionNext"
                     android:inputType="date"
                     android:singleLine="false"
