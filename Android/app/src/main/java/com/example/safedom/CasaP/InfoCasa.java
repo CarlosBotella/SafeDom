@@ -1,12 +1,8 @@
 package com.example.safedom.CasaP;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.AdminP.VistaAdmin;
-import com.example.safedom.PacienteP.InfoPaciente;
+import com.example.safedom.Mapas.Mapa;
 import com.example.safedom.R;
 import com.example.safedom.clases.Casa;
 import com.example.safedom.clases.Medico;
@@ -39,9 +35,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-import java.util.Locale;
-
 public class InfoCasa extends AppCompatActivity {
     private ImageView imgp, imgm;
     private TextView direccioninfo, cpinfo, ciudadinfo, medicoinfo, pacienteinfo, puertainfo, lat ,lon;
@@ -53,7 +46,10 @@ public class InfoCasa extends AppCompatActivity {
     String puerta ="";
     String Lat="";
     String Lon="";
+    String Pac="";
+    String Dir="";
     String id="";
+    Button bc;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Casas");
@@ -81,6 +77,19 @@ public class InfoCasa extends AppCompatActivity {
             }
         });
 
+
+        bc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InfoCasa.this, Mapa.class);
+                intent.putExtra("Lat", Lat);
+                intent.putExtra("Lon", Lon);
+                intent.putExtra("Pac", Pac);
+                intent.putExtra("Dir", Dir);
+                Log.d("Pelochas", Lat + ", " + Lon);
+                startActivity(intent);
+            }
+        });
         be.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +107,7 @@ public class InfoCasa extends AppCompatActivity {
         medicoinfo = findViewById(R.id.doctorinfo);
         pacienteinfo = findViewById(R.id.pacienteinfo);
         be = (Button) findViewById(R.id.Eliinarc);
-
+        bc = (Button) findViewById(R.id.mapac);
 
     }
 
@@ -137,6 +146,8 @@ public class InfoCasa extends AppCompatActivity {
         });
         Lat=casa.getLatitud().toString();
         Lon=casa.getLongitud().toString();
+        Pac = casa.getPaciente();
+        Dir = casa.getDireccion();
 
         myRef.child(casa.getDireccion()).addValueEventListener(new ValueEventListener() {
             @Override
