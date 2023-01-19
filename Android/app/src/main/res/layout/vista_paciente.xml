@@ -234,17 +234,6 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
 
         <Button
-            android:id="@+id/mqtt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mqtt"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.679" />
-
-        <Button
             android:id="@+id/abrirPuertap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -268,12 +257,12 @@
             android:id="@+id/llamarM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Llamar medico"
+            android:layout_marginBottom="20dp"
             android:onClick="LlamarM"
+            android:text="Llamar medico"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mqtt" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
