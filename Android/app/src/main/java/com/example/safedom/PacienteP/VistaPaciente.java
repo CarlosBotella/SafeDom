@@ -1,10 +1,16 @@
 package com.example.safedom.PacienteP;
 
 
+import static org.example.safedom.bidireccional.Mqtt.TAG;
+import static org.example.safedom.bidireccional.Mqtt.broker;
+import static org.example.safedom.bidireccional.Mqtt.clientId;
+import static org.example.safedom.bidireccional.Mqtt.qos;
+import static org.example.safedom.bidireccional.Mqtt.topicRoot;
+
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.safedom.InfoActivity;
+import com.example.safedom.MainActivity;
 import com.example.safedom.R;
 import com.example.safedom.clases.Casa;
 import com.example.safedom.clases.User;
@@ -45,27 +52,22 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.text.DecimalFormat;
-import java.util.Objects;
-
-import static org.example.safedom.bidireccional.Mqtt.*;
-
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
+import java.text.DecimalFormat;
+import java.util.Objects;
 
 
 public class VistaPaciente extends AppCompatActivity {
     //region variables
     private static final DecimalFormat df = new DecimalFormat("0.00");
     String id = "", tel = "", mailm = "";
-    Button bl,bp,blu;
-    boolean p=true, tluz=true;
+    Button bl, bp, blu;
+    boolean p = true, tluz = true;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
     private TextView puertap, sp, tsp, temp, hum, PP, SP, TSP, TEMP, HUM, m, m2;
@@ -73,7 +75,7 @@ public class VistaPaciente extends AppCompatActivity {
     static MqttClient client;
     public static String Topic1 = "puerta/";
     public static String Topic2 = "luces/";
-    private String puerta="puerta";
+    private String puerta = "puerta";
     Casa casa;
     Float min;
     User userr;
@@ -103,9 +105,19 @@ public class VistaPaciente extends AppCompatActivity {
         m2 = findViewById(R.id.Mensaje2);
         bp = (Button) findViewById(R.id.abrirPuertap);
         bl = (Button) findViewById(R.id.llamarM);
-        blu=(Button) findViewById(R.id.TodasLuces);
+        blu = (Button) findViewById(R.id.Luces);
         DocumentReference docRef = db.collection("Users").document(id);
         storageRef = FirebaseStorage.getInstance().getReference();
+
+        blu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog popup = new Dialog(VistaPaciente.this);
+                popup.setContentView(R.layout.paciente_popup);
+                //muestra el pop up
+                popup.show();
+            }
+        });
 
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -160,22 +172,21 @@ public class VistaPaciente extends AppCompatActivity {
                                     temp.setText(part3 + " º");
                                     hum.setText(part2 + " %");
 
-                                    puerta=part1;
-                                    if(puerta.equals("Abierta")) {
+                                    puerta = part1;
+                                    if (puerta.equals("Abierta")) {
                                         bp.setText("CERRAR PUERTA");
-                                    }
-                                    else if(puerta.equals("Cerrada")) {
+                                    } else if (puerta.equals("Cerrada")) {
                                         bp.setText("ABIRIR PUERTA");
                                     }
                                     bp.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            if(puerta.equals("Cerrada")) {
+                                            if (puerta.equals("Cerrada")) {
                                                 publicarMqtt(Topic1, "abrirpuerta");
                                                 Toast.makeText(getApplicationContext(), "Abriendo Puerta",
                                                         Toast.LENGTH_LONG).show();
                                                 //bp.setText("CERRAR PUERTA");
-                                            }else if(puerta.equals("Abierta")){
+                                            } else if (puerta.equals("Abierta")) {
                                                 publicarMqtt(Topic1, "cerrarpuerta");
                                                 Toast.makeText(getApplicationContext(), "Cerrando Puerta",
                                                         Toast.LENGTH_LONG).show();
@@ -187,18 +198,18 @@ public class VistaPaciente extends AppCompatActivity {
                                     blu.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            if(tluz==true) {
+                                            if (tluz == true) {
                                                 publicarMqtt(Topic2, "encencdertodasluz");
                                                 Toast.makeText(getApplicationContext(), "Encendiendo Luces",
                                                         Toast.LENGTH_LONG).show();
                                                 blu.setText("APAGAR LUCES");
-                                                tluz=false;
-                                            }else{
+                                                tluz = false;
+                                            } else {
                                                 publicarMqtt(Topic2, "apagartodasluz");
                                                 Toast.makeText(getApplicationContext(), "Apagando Luces",
                                                         Toast.LENGTH_LONG).show();
                                                 blu.setText("ENCENDER LUCES");
-                                                tluz=true;
+                                                tluz = true;
                                             }
                                         }
                                     });
@@ -241,53 +252,53 @@ public class VistaPaciente extends AppCompatActivity {
     }
 
     public void llamarTelefono() {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                DocumentReference docRef = db.collection("Users").document(id);
-                storageRef = FirebaseStorage.getInstance().getReference();
-                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        User usuario = documentSnapshot.toObject(User.class);
-                        if (Objects.equals(usuario.getCasa(), "Si")) {
-                            CollectionReference reference = db.collection("Casa");
-                            Query query = reference.whereEqualTo("paciente", usuario.getUserEmail());
-                            query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                @Override
-                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                        casa = documentSnapshot.toObject(Casa.class);
-                                    }
-                                    mailm=casa.getMedico();
-                                    Log.d("Pelochas","Mail: "+mailm);
-                                    CollectionReference referencee = db.collection("Users");
-                                    Query queryy = referencee.whereEqualTo("userEmail",mailm);
-                                    queryy.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                                userr = documentSnapshot.toObject(User.class);
-                                                tel=userr.getTelefono();
-                                                Intent intent = new Intent(Intent.ACTION_CALL,
-                                                        Uri.parse("tel:" + tel));
-                                                startActivity(intent);
-                                            }
-                                        }
-                                    });
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            DocumentReference docRef = db.collection("Users").document(id);
+            storageRef = FirebaseStorage.getInstance().getReference();
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    User usuario = documentSnapshot.toObject(User.class);
+                    if (Objects.equals(usuario.getCasa(), "Si")) {
+                        CollectionReference reference = db.collection("Casa");
+                        Query query = reference.whereEqualTo("paciente", usuario.getUserEmail());
+                        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                    casa = documentSnapshot.toObject(Casa.class);
                                 }
-                            });
-                        }else{
-                            Toast.makeText(getApplicationContext(), "Aun no se le ha asignado un medico",
-                                    Toast.LENGTH_LONG).show();
-                        }
-
+                                mailm = casa.getMedico();
+                                Log.d("Pelochas", "Mail: " + mailm);
+                                CollectionReference referencee = db.collection("Users");
+                                Query queryy = referencee.whereEqualTo("userEmail", mailm);
+                                queryy.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                            userr = documentSnapshot.toObject(User.class);
+                                            tel = userr.getTelefono();
+                                            Intent intent = new Intent(Intent.ACTION_CALL,
+                                                    Uri.parse("tel:" + tel));
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Aun no se le ha asignado un medico",
+                                Toast.LENGTH_LONG).show();
                     }
-                });
-            } else {
-                solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso" +
-                                " administrar llamadas no puedo borrar llamadas del registro.",
-                        SOLICITUD_PERMISO_CALL_PHONE, this);
-            }
+
+                }
+            });
+        } else {
+            solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso" +
+                            " administrar llamadas no puedo borrar llamadas del registro.",
+                    SOLICITUD_PERMISO_CALL_PHONE, this);
         }
+    }
 
 
     public static void solicitarPermiso(final String permiso, String justificacion, final int requestCode, final Activity actividad) {
