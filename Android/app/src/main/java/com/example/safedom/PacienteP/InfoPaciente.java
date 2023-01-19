@@ -52,7 +52,7 @@ public class InfoPaciente extends AppCompatActivity {
     private ImageView imginfo;
     private TextView nombreinfo, correoinfo, telefonoinfo, generoinfo, dobinfo, alturainfo, pesoinfo, t, d, g, a, p, puertap, sp, tsp, temp, hum,Pp,Sp,Tsp,Temp,Hum;
     private User user;
-    Button botonCalendario,be,bci,bc,bl;
+    Button botonCalendario,be,bci,bc,bl,bp;
     String id = "",rol = "",tel = "",correo = "",Lat = "",Lon = "",Pac = "",Dir = "", PP="",SP="",TSP="",TEMP="",HUM="";
     Casa casa;
     Float min;
@@ -128,6 +128,20 @@ public class InfoPaciente extends AppCompatActivity {
                 if (Objects.equals(rol, "Admin")) {
                     be.setVisibility(View.VISIBLE);
                     bci.setVisibility(View.INVISIBLE);
+                    bp.setVisibility(View.GONE);
+                    bc.setVisibility(View.GONE);
+                    puertap.setVisibility(View.GONE);
+                    sp.setVisibility(View.GONE);
+                    tsp.setVisibility(View.GONE);
+                    temp.setVisibility(View.GONE);
+                    hum.setVisibility(View.GONE);
+                    Pp.setVisibility(View.GONE);
+                    Sp.setVisibility(View.GONE);
+                    Tsp.setVisibility(View.GONE);
+                    Temp.setVisibility(View.GONE);
+                    Hum.setVisibility(View.GONE);
+                    bp.setVisibility(View.GONE);
+
                 }
             }
 
@@ -145,6 +159,7 @@ public class InfoPaciente extends AppCompatActivity {
         bci = (Button) findViewById(R.id.buttonCalendario);
         bc = (Button) findViewById(R.id.casa);
         bl = (Button) findViewById(R.id.llamar);
+        bp =(Button) findViewById(R.id.AbrirPureta);
         t = findViewById(R.id.tel);
         g = findViewById(R.id.gene);
         d = findViewById(R.id.dob);
@@ -243,10 +258,12 @@ public class InfoPaciente extends AppCompatActivity {
                 Tsp.setVisibility(View.GONE);
                 Temp.setVisibility(View.GONE);
                 Hum.setVisibility(View.GONE);
+                bp.setVisibility(View.GONE);
             }
         } else if (Objects.equals(user.getRol(), "Medico")) {
             nombreinfo.setText(user.getNombre() + " " + user.getApellido());
             correoinfo.setText(user.getUserEmail());
+            tel=user.getTelefono();
             if (!user.getFoto().equals("")) {
                 Picasso.get().load(user.getFoto()).into(imginfo);
             }
@@ -272,6 +289,7 @@ public class InfoPaciente extends AppCompatActivity {
             Tsp.setVisibility(View.GONE);
             Temp.setVisibility(View.GONE);
             Hum.setVisibility(View.GONE);
+            bp.setVisibility(View.GONE);
 
         }else{
             puertap.setVisibility(View.GONE);
@@ -279,7 +297,6 @@ public class InfoPaciente extends AppCompatActivity {
             tsp.setVisibility(View.GONE);
             temp.setVisibility(View.GONE);
             hum.setVisibility(View.GONE);
-
         }
 
     }
@@ -312,7 +329,6 @@ public class InfoPaciente extends AppCompatActivity {
     }
 
     public void llamar(View view) {
-
         solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso" +
                         " administrar llamadas no puedo borrar llamadas del registro.",
                 SOLICITUD_PERMISO_CALL_PHONE, this);
@@ -322,6 +338,7 @@ public class InfoPaciente extends AppCompatActivity {
 
     public void llamarTelefono() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            Log.d("Pelochas","tel: "+tel);
             Intent intent = new Intent(Intent.ACTION_CALL,
                     Uri.parse("tel:" + tel));
             startActivity(intent);
