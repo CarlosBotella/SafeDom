@@ -244,11 +244,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/TodasLuces"
+            android:id="@+id/Luces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Encender Luces"
+            android:text="Luces"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/abrirPuertap" />

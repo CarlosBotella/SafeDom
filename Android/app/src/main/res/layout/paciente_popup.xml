@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <Button
+        android:id="@+id/boton1"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:text="TODAS LAS LUCES"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/boton2"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="20dp"
+        android:text="ENTRADA"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/boton4"
+        app:layout_constraintEnd_toStartOf="@+id/boton3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boton1" />
+
+    <Button
+        android:id="@+id/boton3"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:text="HABITACIÓN PRINCIPAL"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/boton5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/boton2"
+        app:layout_constraintTop_toBottomOf="@+id/boton1" />
+
+    <Button
+        android:id="@+id/boton4"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="20dp"
+        android:text="COMEDOR"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/boton6"
+        app:layout_constraintEnd_toStartOf="@+id/boton5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boton2" />
+
+    <Button
+        android:id="@+id/boton5"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:text="COCINA"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/boton7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/boton4"
+        app:layout_constraintTop_toBottomOf="@+id/boton3" />
+
+    <Button
+        android:id="@+id/boton6"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="20dp"
+        android:text="DORMITORIO 1"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/boton7"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boton4" />
+
+    <Button
+        android:id="@+id/boton7"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:text="DORMITORIO 2"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/boton6"
+        app:layout_constraintTop_toBottomOf="@+id/boton5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
