@@ -11,8 +11,9 @@ public class Medico implements Serializable {
     private String IdMedico;
     private String Genero;
     private String Foto;
+    private String Telefono;
 
-    public Medico(String userEmail, String pass, String nombre, String apellido, String rol, String idMedico, String genero) {
+    public Medico(String userEmail, String pass, String nombre, String apellido, String rol, String idMedico, String genero, String telefono) {
         UserEmail = userEmail;
         Pass = pass;
         Nombre = nombre;
@@ -21,6 +22,7 @@ public class Medico implements Serializable {
         IdMedico = idMedico;
         Genero = genero;
         Foto = "";
+        Telefono = telefono;
     }
 
     public Medico(){
@@ -32,6 +34,7 @@ public class Medico implements Serializable {
         IdMedico=getIdMedico();
         Genero=getGenero();
         Foto=getFoto();
+        Telefono=getTelefono();
     }
 
     public String getUserEmail() {
@@ -96,5 +99,13 @@ public class Medico implements Serializable {
 
     public void setFoto(String foto) {
         Foto = foto;
+    }
+
+    public String getTelefono() {
+        return Telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        Telefono = telefono;
     }
 }
