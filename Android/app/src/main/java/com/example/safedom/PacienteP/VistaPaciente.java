@@ -59,16 +59,21 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 
-public class VistaPaciente extends AppCompatActivity implements MqttCallback {
+
+public class VistaPaciente extends AppCompatActivity {
     //region variables
     private static final DecimalFormat df = new DecimalFormat("0.00");
     String id = "", tel = "", mailm = "";
-    Button bl;
+    Button bl,bp,blu;
+    boolean p=true, tluz=true;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
     private TextView puertap, sp, tsp, temp, hum, PP, SP, TSP, TEMP, HUM, m, m2;
     private Button bm;
     static MqttClient client;
+    public static String Topic1 = "puerta/";
+    public static String Topic2 = "luces/";
+    private String puerta="puerta";
     Casa casa;
     Float min;
     User userr;
@@ -82,8 +87,6 @@ public class VistaPaciente extends AppCompatActivity implements MqttCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_paciente);
         conectarMqtt();
-        suscribirMqtt("" +
-                "prue", this);
         usuario = FirebaseAuth.getInstance().getCurrentUser();
         id = usuario.getUid();
         puertap = findViewById(R.id.PP4);
@@ -98,8 +101,9 @@ public class VistaPaciente extends AppCompatActivity implements MqttCallback {
         HUM = findViewById(R.id.textView16);
         m = findViewById(R.id.Mensaje);
         m2 = findViewById(R.id.Mensaje2);
-        bm = (Button) findViewById(R.id.mqtt);
+        bp = (Button) findViewById(R.id.abrirPuertap);
         bl = (Button) findViewById(R.id.llamarM);
+        blu=(Button) findViewById(R.id.TodasLuces);
         DocumentReference docRef = db.collection("Users").document(id);
         storageRef = FirebaseStorage.getInstance().getReference();
 
@@ -155,6 +159,49 @@ public class VistaPaciente extends AppCompatActivity implements MqttCallback {
                                     tsp.setText(df.format(min) + " minutos");
                                     temp.setText(part3 + " º");
                                     hum.setText(part2 + " %");
+
+                                    puerta=part1;
+                                    if(puerta.equals("Abierta")) {
+                                        bp.setText("CERRAR PUERTA");
+                                    }
+                                    else if(puerta.equals("Cerrada")) {
+                                        bp.setText("ABIRIR PUERTA");
+                                    }
+                                    bp.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            if(puerta.equals("Cerrada")) {
+                                                publicarMqtt(Topic1, "abrirpuerta");
+                                                Toast.makeText(getApplicationContext(), "Abriendo Puerta",
+                                                        Toast.LENGTH_LONG).show();
+                                                //bp.setText("CERRAR PUERTA");
+                                            }else if(puerta.equals("Abierta")){
+                                                publicarMqtt(Topic1, "cerrarpuerta");
+                                                Toast.makeText(getApplicationContext(), "Cerrando Puerta",
+                                                        Toast.LENGTH_LONG).show();
+                                                //bp.setText("ABIRIR PUERTA");
+                                            }
+                                        }
+                                    });
+
+                                    blu.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            if(tluz==true) {
+                                                publicarMqtt(Topic2, "encencdertodasluz");
+                                                Toast.makeText(getApplicationContext(), "Encendiendo Luces",
+                                                        Toast.LENGTH_LONG).show();
+                                                blu.setText("APAGAR LUCES");
+                                                tluz=false;
+                                            }else{
+                                                publicarMqtt(Topic2, "apagartodasluz");
+                                                Toast.makeText(getApplicationContext(), "Apagando Luces",
+                                                        Toast.LENGTH_LONG).show();
+                                                blu.setText("ENCENDER LUCES");
+                                                tluz=true;
+                                            }
+                                        }
+                                    });
                                 }
 
                                 @Override
@@ -180,14 +227,6 @@ public class VistaPaciente extends AppCompatActivity implements MqttCallback {
                     m2.setVisibility(View.VISIBLE);
 
                 }
-            }
-        });
-        bm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                publicarMqtt("prue", "2");
-                Toast.makeText(getApplicationContext(), "Topic publicado",
-                        Toast.LENGTH_LONG).show();
             }
         });
 
@@ -320,48 +359,6 @@ public class VistaPaciente extends AppCompatActivity implements MqttCallback {
         }
     }
 
-
-    public static void deconectarMqtt() {
-        try {
-            client.disconnect();
-            Log.i(TAG, "Desconectado");
-        } catch (MqttException e) {
-            Log.e(TAG, "Error al desconectar.", e);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        deconectarMqtt();
-        super.onDestroy();
-    }
-
-    public static void suscribirMqtt(String topic, MqttCallback listener) {
-        try {
-            Log.i(TAG, "Suscrito a " + topicRoot + topic);
-            client.subscribe(topicRoot + topic, qos);
-            client.setCallback(listener);
-        } catch (MqttException e) {
-            Log.e(TAG, "Error al suscribir.", e);
-        }
-    }
-
-
-    @Override
-    public void connectionLost(Throwable cause) {
-        Log.d(TAG, "Conexión perdida");
-    }
-
-    @Override
-    public void messageArrived(String topic, MqttMessage message) throws Exception {
-        String payload = new String(message.getPayload());
-        Log.d(TAG, "Recibiendo: " + topic + "->" + payload);
-    }
-
-    @Override
-    public void deliveryComplete(IMqttDeliveryToken token) {
-        Log.d(TAG, "Entrega completa");
-    }
 }
 
 
