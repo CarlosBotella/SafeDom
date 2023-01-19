@@ -37,9 +37,10 @@ public class RegistroMedico extends AppCompatActivity {
     private String ccontraseña = "";
     private String idmedico = "";
     private String foto = "";
+    private String telefono = "";
     private String rol = "Medico";//Paciente
-    private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña, etIdMedico;
-    private TextInputLayout tilCorreo, tilContraseña, tilCcontraseña, tilNombre, tilApellido, tilIdMedico, tilGenero;
+    private EditText etCorreo, etContraseña, etNombre, etApellido, etCcontraseña, etIdMedico, etTelefono;
+    private TextInputLayout tilCorreo, tilContraseña, tilCcontraseña, tilNombre, tilApellido, tilIdMedico, tilGenero, tilTelefono;
     Button bs;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -56,6 +57,7 @@ public class RegistroMedico extends AppCompatActivity {
         etNombre = (EditText) findViewById(R.id.Direccion);
         etApellido = (EditText) findViewById(R.id.Apellido);
         etIdMedico = (EditText) findViewById(R.id.id_medico);
+        etTelefono = (EditText) findViewById(R.id.Telefono);
         tilGenero = (TextInputLayout) findViewById(R.id.spinner_genero);
         bs = (Button) findViewById(R.id.finalizar);
         AutoCompleteTextView autoCompleteTextView = findViewById(R.id.autocomplete);
@@ -83,8 +85,9 @@ public class RegistroMedico extends AppCompatActivity {
                     mAuth.createUserWithEmailAndPassword(correo, contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            mAuth.signInWithEmailAndPassword(correo,contraseña);
                             String id = mAuth.getCurrentUser().getUid();
-                             db.collection("Users").document(id).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero));
+                             db.collection("Users").document(id).set(new Medico(correo, contraseña, nombre, apellido, rol, idmedico, genero, telefono));
                             //db.collection("Users").document(id).set(new Medico("prueba@prueba.prueba", "prueba", "prueba", "prueba", "Medico", "12345678", "No Binario"));*/
                             AuthUI.getInstance().signOut(getApplicationContext())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -117,6 +120,7 @@ public class RegistroMedico extends AppCompatActivity {
                 nombre = etNombre.getText().toString();
                 apellido = etApellido.getText().toString();
                 idmedico = etIdMedico.getText().toString();
+                telefono = etTelefono.getText().toString();
                 foto = "";
                 if (correo.isEmpty()) {
                     etCorreo.setError("Este campo no puede estar vacio");
@@ -150,6 +154,10 @@ public class RegistroMedico extends AppCompatActivity {
                 }
                 if (idmedico.isEmpty()) {
                     etIdMedico.setError("Este campo no puede estar vacio");
+                    s = false;
+                }
+                if (telefono.isEmpty()) {
+                    etTelefono.setError("Este campo no puede estar vacio");
                     s = false;
                 }
                 if (genero.equals("")) {
