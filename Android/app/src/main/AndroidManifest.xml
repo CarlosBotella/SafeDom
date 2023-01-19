@@ -91,8 +91,8 @@
             android:theme="@style/Theme.NoActionBar"/>
         <activity android:name=".PacienteP.EditUsuario"
             android:label="Ajustes"/>
-        <activity android:name=".Mapa"/>
-        <activity android:name=".MapaCasa"/>
+        <activity android:name=".Mapas.Mapa"/>
+        <activity android:name=".Mapas.MapaCasa"/>
 
 
     </application>

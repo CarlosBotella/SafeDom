@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safedom.R;
+import com.example.safedom.clases.Medico;
 import com.example.safedom.clases.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,12 +40,13 @@ public class EditMedico extends AppCompatActivity {
     String id = "";
     String pass = "";
     Button be;
+    int i =0;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
     String correom = "";
     String nombrem = "";
     String apellidom = "";
-    String fotom = "";
+    String fotom ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +125,7 @@ public class EditMedico extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 fotom = task.getResult().toString();
+                                i++;
                             }
                         }
                     });
@@ -138,7 +141,7 @@ public class EditMedico extends AppCompatActivity {
     }
     
     public void aceptar(){
-       DocumentReference docRef = db.collection("Users").document(id);
+        DocumentReference docRef = db.collection("Users").document(id);
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
         TextInputEditText correo = findViewById(R.id.correoe);
         correom = correo.getText().toString();
@@ -148,8 +151,17 @@ public class EditMedico extends AppCompatActivity {
         apellidom = apellido.getText().toString();
         usuario.updateEmail(correom);
 
-        docRef.update("userEmail", correom, "nombre", nombrem, "apellido", apellidom, "foto", fotom);
-        startActivity(new Intent(EditMedico.this, MedicoActivity.class));
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                if(!user.getFoto().equals("") && i==0){
+                    fotom=user.getFoto();
+                }
+                docRef.update("userEmail", correom, "nombre", nombrem, "apellido", apellidom, "foto", fotom);
+                startActivity(new Intent(EditMedico.this, MedicoActivity.class));
+            }
+        });
     }
     public void cancelarr(){
         finish();

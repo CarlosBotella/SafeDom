@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.safedom.MedicoP.EditMedico;
+import com.example.safedom.MedicoP.MedicoActivity;
 import com.example.safedom.R;
 import com.example.safedom.clases.User;
 import com.google.android.gms.tasks.Continuation;
@@ -46,6 +48,7 @@ public class EditUsuario extends AppCompatActivity {
     String newaltura = "";
     String newtelefono = "";
     String newfoto = "";
+    int i=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +110,7 @@ public class EditUsuario extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 newfoto = task.getResult().toString();
+                                i++;
                             }
                         }
                     });
@@ -137,7 +141,16 @@ public class EditUsuario extends AppCompatActivity {
         newtelefono = telefono.getText().toString();
         usuario.updateEmail(newcorreo);
         DocumentReference docRef = db.collection("Users").document(id);
-        docRef.update("userEmail", newcorreo, "nombre", newnombre, "apellido", newapellido, "peso", newpeso, "altura", newaltura, "telefono", newtelefono, "foto", newfoto);
-        startActivity(new Intent(EditUsuario.this, UsuarioActivity.class));
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                if(!user.getFoto().equals("") && i==0){
+                    newfoto=user.getFoto();
+                }
+                docRef.update("userEmail", newcorreo, "nombre", newnombre, "apellido", newapellido, "peso", newpeso, "altura", newaltura, "telefono", newtelefono, "foto", newfoto);
+                startActivity(new Intent(EditUsuario.this, UsuarioActivity.class));
+            }
+        });
     }
 }

@@ -1,16 +1,26 @@
 package com.example.safedom.PacienteP;
 
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.safedom.InfoActivity;
 import com.example.safedom.R;
@@ -38,35 +48,58 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
-public class VistaPaciente extends AppCompatActivity {
+import static org.example.safedom.bidireccional.Mqtt.*;
+
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+
+public class VistaPaciente extends AppCompatActivity implements MqttCallback {
+    //region variables
     private static final DecimalFormat df = new DecimalFormat("0.00");
-    String id = "";
+    String id = "", tel = "", mailm = "";
+    Button bl;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
-    private TextView puertap, sp, tsp, temp, hum,PP,SP,TSP,TEMP,HUM,m,m2;
-
+    private TextView puertap, sp, tsp, temp, hum, PP, SP, TSP, TEMP, HUM, m, m2;
+    private Button bm;
+    static MqttClient client;
     Casa casa;
     Float min;
+    User userr;
+    private static final int SOLICITUD_PERMISO_CALL_PHONE = 0;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Casas");
+    FirebaseUser usuario;
+    //endregion
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_paciente);
-        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+        conectarMqtt();
+        suscribirMqtt("" +
+                "prue", this);
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
         id = usuario.getUid();
         puertap = findViewById(R.id.PP4);
         sp = findViewById(R.id.SP4);
         tsp = findViewById(R.id.TSP4);
         temp = findViewById(R.id.t3);
         hum = findViewById(R.id.h3);
-        PP=findViewById(R.id.textView12);
-        SP=findViewById(R.id.textView13);
-        TSP=findViewById(R.id.textView14);
-        TEMP=findViewById(R.id.textView15);
-        HUM=findViewById(R.id.textView16);
-        m=findViewById(R.id.Mensaje);
-        m2=findViewById(R.id.Mensaje2);
+        PP = findViewById(R.id.textView12);
+        SP = findViewById(R.id.textView13);
+        TSP = findViewById(R.id.textView14);
+        TEMP = findViewById(R.id.textView15);
+        HUM = findViewById(R.id.textView16);
+        m = findViewById(R.id.Mensaje);
+        m2 = findViewById(R.id.Mensaje2);
+        bm = (Button) findViewById(R.id.mqtt);
+        bl = (Button) findViewById(R.id.llamarM);
         DocumentReference docRef = db.collection("Users").document(id);
         storageRef = FirebaseStorage.getInstance().getReference();
 
@@ -132,7 +165,7 @@ public class VistaPaciente extends AppCompatActivity {
                             });
                         }
                     });
-                }else{
+                } else {
                     puertap.setVisibility(View.GONE);
                     sp.setVisibility(View.GONE);
                     tsp.setVisibility(View.GONE);
@@ -149,24 +182,103 @@ public class VistaPaciente extends AppCompatActivity {
                 }
             }
         });
+        bm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                publicarMqtt("prue", "2");
+                Toast.makeText(getApplicationContext(), "Topic publicado",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+
+    public void LlamarM(View view) {
+        solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso" +
+                        " administrar llamadas no puedo borrar llamadas del registro.",
+                SOLICITUD_PERMISO_CALL_PHONE, this);
+        llamarTelefono();
+    }
+
+    public void llamarTelefono() {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                DocumentReference docRef = db.collection("Users").document(id);
+                storageRef = FirebaseStorage.getInstance().getReference();
+                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        User usuario = documentSnapshot.toObject(User.class);
+                        if (Objects.equals(usuario.getCasa(), "Si")) {
+                            CollectionReference reference = db.collection("Casa");
+                            Query query = reference.whereEqualTo("paciente", usuario.getUserEmail());
+                            query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                        casa = documentSnapshot.toObject(Casa.class);
+                                    }
+                                    mailm=casa.getMedico();
+                                    Log.d("Pelochas","Mail: "+mailm);
+                                    CollectionReference referencee = db.collection("Users");
+                                    Query queryy = referencee.whereEqualTo("userEmail",mailm);
+                                    queryy.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                                userr = documentSnapshot.toObject(User.class);
+                                                tel=userr.getTelefono();
+                                                Intent intent = new Intent(Intent.ACTION_CALL,
+                                                        Uri.parse("tel:" + tel));
+                                                startActivity(intent);
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Aun no se le ha asignado un medico",
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+            } else {
+                solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso" +
+                                " administrar llamadas no puedo borrar llamadas del registro.",
+                        SOLICITUD_PERMISO_CALL_PHONE, this);
+            }
+        }
+
+
+    public static void solicitarPermiso(final String permiso, String justificacion, final int requestCode, final Activity actividad) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(actividad,
+                permiso)) {
+            new AlertDialog.Builder(actividad)
+                    .setTitle("Solicitud de permiso")
+                    .setMessage(justificacion)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            ActivityCompat.requestPermissions(actividad,
+                                    new String[]{permiso}, requestCode);
+                        }
+                    }).show();
+        } else {
+            ActivityCompat.requestPermissions(actividad,
+                    new String[]{permiso}, requestCode);
+
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
 
         if (id == R.id.menu_usuario) {
             Intent intent = new Intent(this, UsuarioActivity.class);
@@ -178,6 +290,77 @@ public class VistaPaciente extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void conectarMqtt() {
+        try {
+            Log.i(TAG, "Conectando al broker " + broker);
+            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setCleanSession(true);
+            connOpts.setKeepAliveInterval(60);
+            connOpts.setWill(topicRoot + "WillTopic", "App desconectada".getBytes(),
+                    qos, false);
+            client.connect(connOpts);
+
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al conectar.", e);
+        }
+    }
+
+    public static void publicarMqtt(String topic, String mensageStr) {
+        try {
+            MqttMessage message = new MqttMessage(mensageStr.getBytes());
+            message.setQos(qos);
+            message.setRetained(false);
+            client.publish(topicRoot + topic, message);
+            Log.i(TAG, "Publicando mensaje: " + topic + "->" + mensageStr);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al publicar." + e);
+        }
+    }
+
+
+    public static void deconectarMqtt() {
+        try {
+            client.disconnect();
+            Log.i(TAG, "Desconectado");
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al desconectar.", e);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        deconectarMqtt();
+        super.onDestroy();
+    }
+
+    public static void suscribirMqtt(String topic, MqttCallback listener) {
+        try {
+            Log.i(TAG, "Suscrito a " + topicRoot + topic);
+            client.subscribe(topicRoot + topic, qos);
+            client.setCallback(listener);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al suscribir.", e);
+        }
+    }
+
+
+    @Override
+    public void connectionLost(Throwable cause) {
+        Log.d(TAG, "Conexión perdida");
+    }
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        String payload = new String(message.getPayload());
+        Log.d(TAG, "Recibiendo: " + topic + "->" + payload);
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+        Log.d(TAG, "Entrega completa");
     }
 }
 

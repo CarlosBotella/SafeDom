@@ -51,22 +51,25 @@ public class CustomLoginActivity extends AppCompatActivity {
     User user;
 
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("PRUEBAS", "auth "+ auth);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         etCorreo = (EditText) findViewById(R.id.correol);
         etContraseña = (EditText) findViewById(R.id.contraseña);
         tilCorreo = (TextInputLayout) findViewById(R.id.til_clave);
         tilContraseña = (TextInputLayout) findViewById(R.id.til_contraseña);
+
         dialogo = new ProgressDialog(this);
         dialogo.setTitle("Verificando usuario");
         dialogo.setMessage("Por favor espere...");
         dialogoo = new ProgressDialog(this);
         dialogoo.setTitle("Iniciando Sesion");
         dialogoo.setMessage("Por favor espere...");
-        if (auth.getCurrentUser() != null) {
+
+        if (auth.getCurrentUser() != null && !auth.getUid().equals("dsY9BtWSuqh9pVmkLsVVfnvEKcl1")) {
             dialogoo.show();
             DocumentReference docRef = db.collection("Users").document(auth.getCurrentUser().getUid());
-            Log.e("Pruebas: ",auth.getCurrentUser().getUid() );
+            Log.e("Pruebas: ", "UID del usuario: " + auth.getCurrentUser().getUid() );
             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -75,16 +78,17 @@ public class CustomLoginActivity extends AppCompatActivity {
                     if (Objects.equals(roli, rolp)) {
                         verificaSiUsuarioValidadop();
                     }
-                    if (Objects.equals(roli, rolm)) {
+                    else if (Objects.equals(roli, rolm)) {
                         verificaSiUsuarioValidado();
                     }
-                    if (Objects.equals(roli, rola)) {
+                    else if (Objects.equals(roli, rola)) {
                         verificaSiUsuarioValidadoa();
                     }
                 }
             });
         }
     }
+
     public void aceptar() {
         Toast t=Toast.makeText(this,"Bienvenido a probar el programa.", Toast.LENGTH_SHORT);
         t.show();
@@ -106,6 +110,7 @@ public class CustomLoginActivity extends AppCompatActivity {
             finish();
     }
     private void verificaSiUsuarioValidadoa() {
+        Log.d("Pruebas","entra en verificaSiUsuarioValidadoa");
             Intent i = new Intent(this, VistaAdmin.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_NEW_TASK
@@ -133,10 +138,10 @@ public class CustomLoginActivity extends AppCompatActivity {
                                             if(Objects.equals(rol,rolp)) {
                                                 verificaSiUsuarioValidadop();
                                             }
-                                            if(Objects.equals(rol,rolm)) {
+                                            else if(Objects.equals(rol,rolm)) {
                                                 verificaSiUsuarioValidado();
                                             }
-                                            if(Objects.equals(rol,rola)) {
+                                            else if(Objects.equals(rol,rola)) {
                                             verificaSiUsuarioValidadoa();
                                         }
                                     }
