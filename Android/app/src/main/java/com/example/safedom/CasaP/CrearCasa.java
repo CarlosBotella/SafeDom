@@ -34,44 +34,35 @@ import java.util.List;
 
 public class CrearCasa extends AppCompatActivity {
 
-    String direccion="";
-    String ciudad="";
-    String cp="";
-    String paciente="";
-    String medico="";
-    String latitudc="";
-    String longitudc="";
-    String Lat;
-    String Lon;
-    String id="";
-    private EditText direccione,ciudade,cpe,latitud,longitud;
+    String direccion = "", ciudad = "", cp = "", paciente = "", medico = "", latitudc = "", longitudc = "", Lat, Lon, id = "", TodasLuz="Apagada",ComedorLuz="Apagada",Cocinaluz="Apagada",DormitroioPrincipalluz="Apagada",Dormitorio1luz="Apagada",Dormitorio2luz="Apagada",Entradaluz="Apagada";
+    private EditText direccione, ciudade, cpe, latitud, longitud;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     Button bs;
     Button bc;
     Button bm;
     User user;
-    ArrayList<User> arrayUser= new ArrayList<>();
+    ArrayList<User> arrayUser = new ArrayList<>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.crear_casa);
         Lat = getIntent().getStringExtra("Lat");
-        Lon=getIntent().getStringExtra("Lon");
+        Lon = getIntent().getStringExtra("Lon");
 
-        direccione=(EditText) findViewById(R.id.Direccion);
-        ciudade=(EditText) findViewById(R.id.Ciudad);
-        cpe=(EditText) findViewById(R.id.Cp);
-        latitud=(EditText) findViewById(R.id.Altitud);
-        longitud=(EditText) findViewById(R.id.Longitud);
+        direccione = (EditText) findViewById(R.id.Direccion);
+        ciudade = (EditText) findViewById(R.id.Ciudad);
+        cpe = (EditText) findViewById(R.id.Cp);
+        latitud = (EditText) findViewById(R.id.Altitud);
+        longitud = (EditText) findViewById(R.id.Longitud);
         latitud.setText(Lat);
         longitud.setText(Lon);
         CollectionReference referencee = db.collection("Users");
         //pacientee=(EditText) findViewById(R.id.paientec);
         //medicoe=(EditText) findViewById(R.id.doctorc);
-        bs=(Button) findViewById(R.id.button7);
-        bc=(Button)findViewById(R.id.button11);
-        bm=(Button)findViewById(R.id.coordenadas);
+        bs = (Button) findViewById(R.id.button7);
+        bc = (Button) findViewById(R.id.button11);
+        bm = (Button) findViewById(R.id.coordenadas);
         bs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,18 +72,25 @@ public class CrearCasa extends AppCompatActivity {
                     mDatabase.child("Casas").child(direccion).child("Sensor_Peso").setValue("Activo");
                     mDatabase.child("Casas").child(direccion).child("Sensor_Peso_TiempoActivo").setValue(3600);
                     mDatabase.child("Casas").child(direccion).child("Temperatura").setValue(27);
-                    db.collection("Casa").document(direccion).set(new Casa(paciente,medico,direccion, ciudad, cp,latitudc,longitudc));
+                    mDatabase.child("Casas").child(direccion).child("Todas_Luces").setValue("Apagada");
+                    mDatabase.child("Casas").child(direccion).child("Comedor_Luces").setValue("Apagada");
+                    mDatabase.child("Casas").child(direccion).child("Cocina_Luces").setValue("Apagada");
+                    mDatabase.child("Casas").child(direccion).child("DormitorioPrincipal_Luces").setValue("Apagada");
+                    mDatabase.child("Casas").child(direccion).child("Dormitorio1_Luces").setValue("Apagada");
+                    mDatabase.child("Casas").child(direccion).child("Dormitorio2L_Luces").setValue("Apagada");
+                    mDatabase.child("Casas").child(direccion).child("Entrada_Luces").setValue("Apagada");
+                    db.collection("Casa").document(direccion).set(new Casa(paciente, medico, direccion, ciudad, cp, latitudc, longitudc));
                     db.collection("Users")
                             .whereEqualTo("userEmail", paciente)
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    Log.d("Pelochas","1");
+                                    Log.d("Pelochas", "1");
                                     if (task.isSuccessful()) {
-                                        Log.d("Pelochas","2");
+                                        Log.d("Pelochas", "2");
                                         for (QueryDocumentSnapshot document : task.getResult()) {
-                                            id=document.getId();
+                                            id = document.getId();
                                             Log.d("Pelochas", document.getId() + " => " + document.getData());
                                             DocumentReference docRef = db.collection("Users").document(id);
                                             docRef.update("casa", "Si");
@@ -102,7 +100,6 @@ public class CrearCasa extends AppCompatActivity {
                                     }
                                 }
                             });
-
 
 
                     startActivity(new Intent(CrearCasa.this, VistaAdmin.class));
@@ -142,7 +139,7 @@ public class CrearCasa extends AppCompatActivity {
                 }
             }
         });
-        Query queryy= usersRef.whereEqualTo("rol", "Medico");
+        Query queryy = usersRef.whereEqualTo("rol", "Medico");
         Spinner spinnerr = (Spinner) findViewById(R.id.spinner2);
         List<String> medicos = new ArrayList<>();
         ArrayAdapter<String> adapterr = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, medicos);
@@ -163,39 +160,39 @@ public class CrearCasa extends AppCompatActivity {
 
     }
 
-    public boolean  Validar(){
+    public boolean Validar() {
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         Spinner spinnerr = (Spinner) findViewById(R.id.spinner2);
         boolean s = true;
-        direccion=direccione.getText().toString();
-        ciudad=ciudade.getText().toString();
-        cp=cpe.getText().toString();
-        paciente=spinner.getSelectedItem().toString();
-        medico=spinnerr.getSelectedItem().toString();
-        latitudc=latitud.getText().toString();
-        longitudc=longitud.getText().toString();
-        if(direccion.isEmpty()){
+        direccion = direccione.getText().toString();
+        ciudad = ciudade.getText().toString();
+        cp = cpe.getText().toString();
+        paciente = spinner.getSelectedItem().toString();
+        medico = spinnerr.getSelectedItem().toString();
+        latitudc = latitud.getText().toString();
+        longitudc = longitud.getText().toString();
+        if (direccion.isEmpty()) {
             direccione.setError("Este campo no puede estar vacio");
             s = false;
         }
-        if(ciudad.isEmpty()){
+        if (ciudad.isEmpty()) {
             ciudade.setError("Este campo no puede estar vacio");
             s = false;
         }
-        if(cp.isEmpty()){
+        if (cp.isEmpty()) {
             cpe.setError("Este campo no puede estar vacio");
             s = false;
         }
-        if(latitudc.isEmpty()){
+        if (latitudc.isEmpty()) {
             latitud.setError("Este campo no puede estar vacio");
             s = false;
         }
-        if(longitudc.isEmpty()){
+        if (longitudc.isEmpty()) {
             longitud.setError("Este campo no puede estar vacio");
             s = false;
         }
 
 
-        return  s;
+        return s;
     }
 }

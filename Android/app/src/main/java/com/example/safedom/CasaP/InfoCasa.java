@@ -86,6 +86,7 @@ public class InfoCasa extends AppCompatActivity {
                 intent.putExtra("Lon", Lon);
                 intent.putExtra("Pac", Pac);
                 intent.putExtra("Dir", Dir);
+
                 Log.d("Pelochas", Lat + ", " + Lon);
                 startActivity(intent);
             }

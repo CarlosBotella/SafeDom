@@ -8,15 +8,18 @@ import static org.example.safedom.bidireccional.Mqtt.qos;
 import static org.example.safedom.bidireccional.Mqtt.topicRoot;
 
 import android.Manifest;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,16 +65,17 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 
+
 public class VistaPaciente extends AppCompatActivity {
     //region variables
     private static final DecimalFormat df = new DecimalFormat("0.00");
-    String id = "", tel = "", mailm = "";
-    Button bl, bp, blu;
+    String id = "", tel = "", mailm = "",Tluz, Comeluz, Cociluz, Dpluz, D1luz, D2luz, Entluz;
     boolean p = true, tluz = true;
+    Button bl, bp, blu, btl, bcomel, bcocl, bdpl, bd1l, bd2l, bel;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
     private TextView puertap, sp, tsp, temp, hum, PP, SP, TSP, TEMP, HUM, m, m2;
-    private Button bm;
+    private Button bm, b;
     static MqttClient client;
     public static String Topic1 = "puerta/";
     public static String Topic2 = "luces/";
@@ -84,11 +88,20 @@ public class VistaPaciente extends AppCompatActivity {
     DatabaseReference myRef = database.getReference("Casas");
     FirebaseUser usuario;
     //endregion
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_paciente);
         conectarMqtt();
+        LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View vieww = inflater.inflate(R.layout.paciente_popup, null);
+        btl=(Button)vieww.findViewById(R.id.tluz);
+        bcomel=(Button)vieww.findViewById(R.id.comluz);
+        bcocl=(Button)vieww.findViewById(R.id.cocluz);
+        bdpl=(Button)vieww.findViewById(R.id.dpluz);
+        bd1l=(Button)vieww.findViewById(R.id.d1luz);
+        bd2l=(Button)vieww.findViewById(R.id.d2luz);
+        bel=(Button)vieww.findViewById(R.id.eluz);
         usuario = FirebaseAuth.getInstance().getCurrentUser();
         id = usuario.getUid();
         puertap = findViewById(R.id.PP4);
@@ -106,19 +119,22 @@ public class VistaPaciente extends AppCompatActivity {
         bp = (Button) findViewById(R.id.abrirPuertap);
         bl = (Button) findViewById(R.id.llamarM);
         blu = (Button) findViewById(R.id.Luces);
-        DocumentReference docRef = db.collection("Users").document(id);
-        storageRef = FirebaseStorage.getInstance().getReference();
+
 
         blu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Dialog popup = new Dialog(VistaPaciente.this);
                 popup.setContentView(R.layout.paciente_popup);
-                //muestra el pop up
                 popup.show();
             }
         });
 
+
+
+
+        DocumentReference docRef = db.collection("Users").document(id);
+        storageRef = FirebaseStorage.getInstance().getReference();
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -150,10 +166,18 @@ public class VistaPaciente extends AppCompatActivity {
                                     String value = String.valueOf(dataSnapshot.getValue());
                                     String[] parts = value.split(",");
                                     String part1 = parts[0].split("=")[1];
-                                    String part2 = parts[1].split("=")[1];
-                                    String part3 = parts[2].split("=")[1];
-                                    String part4 = parts[3].split("=")[1];
-                                    String part5 = parts[4].split("=")[1];
+                                    String part2 = parts[3].split("=")[1];
+                                    String part3 = parts[4].split("=")[1];
+                                    String part4 = parts[10].split("=")[1];
+                                    String part5 = parts[11].split("=")[1];
+
+                                    String part6 = parts[6].split("=")[1];
+                                    String part7 = parts[8].split("=")[1];
+                                    String part8 = parts[1].split("=")[1];
+                                    String part9 = parts[5].split("=")[1];
+                                    String part10 = parts[2].split("=")[1];
+                                    String part11 = parts[7].split("=")[1];
+                                    String part12 = parts[9].split("=")[1];
                                     Log.d("Pelochas", part5);
                                     String parte5 = "";
                                     String[] lista = part5.split("");
@@ -172,47 +196,22 @@ public class VistaPaciente extends AppCompatActivity {
                                     temp.setText(part3 + " º");
                                     hum.setText(part2 + " %");
 
+
                                     puerta = part1;
                                     if (puerta.equals("Abierta")) {
                                         bp.setText("CERRAR PUERTA");
                                     } else if (puerta.equals("Cerrada")) {
                                         bp.setText("ABIRIR PUERTA");
                                     }
-                                    bp.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            if (puerta.equals("Cerrada")) {
-                                                publicarMqtt(Topic1, "abrirpuerta");
-                                                Toast.makeText(getApplicationContext(), "Abriendo Puerta",
-                                                        Toast.LENGTH_LONG).show();
-                                                //bp.setText("CERRAR PUERTA");
-                                            } else if (puerta.equals("Abierta")) {
-                                                publicarMqtt(Topic1, "cerrarpuerta");
-                                                Toast.makeText(getApplicationContext(), "Cerrando Puerta",
-                                                        Toast.LENGTH_LONG).show();
-                                                //bp.setText("ABIRIR PUERTA");
-                                            }
-                                        }
-                                    });
 
-                                    blu.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            if (tluz == true) {
-                                                publicarMqtt(Topic2, "encencdertodasluz");
-                                                Toast.makeText(getApplicationContext(), "Encendiendo Luces",
-                                                        Toast.LENGTH_LONG).show();
-                                                blu.setText("APAGAR LUCES");
-                                                tluz = false;
-                                            } else {
-                                                publicarMqtt(Topic2, "apagartodasluz");
-                                                Toast.makeText(getApplicationContext(), "Apagando Luces",
-                                                        Toast.LENGTH_LONG).show();
-                                                blu.setText("ENCENDER LUCES");
-                                                tluz = true;
-                                            }
-                                        }
-                                    });
+                                    Tluz=part6;
+                                    Comeluz=part7;
+                                    Cociluz=part8;
+                                    Dpluz=part9;
+                                    D1luz=part10;
+                                    D2luz=part11;
+                                    Entluz=part12;
+
                                 }
 
                                 @Override
@@ -240,7 +239,22 @@ public class VistaPaciente extends AppCompatActivity {
                 }
             }
         });
-
+        bp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (puerta.equals("Cerrada")) {
+                    publicarMqtt(Topic1, "abrirpuerta");
+                    Toast.makeText(getApplicationContext(), "Abriendo Puerta",
+                            Toast.LENGTH_LONG).show();
+                    //bp.setText("CERRAR PUERTA");
+                } else if (puerta.equals("Abierta")) {
+                    publicarMqtt(Topic1, "cerrarpuerta");
+                    Toast.makeText(getApplicationContext(), "Cerrando Puerta",
+                            Toast.LENGTH_LONG).show();
+                    //bp.setText("ABIRIR PUERTA");
+                }
+            }
+        });
 
     }
 
@@ -341,6 +355,101 @@ public class VistaPaciente extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void Luzt(View view){
+        if (Tluz.equals("Apagada")) {
+
+            publicarMqtt(Topic2, "encencdertodasluz");
+            Toast.makeText(getApplicationContext(), "Encendiendo Todas Las Luces",
+                    Toast.LENGTH_LONG).show();
+
+        } else if(Tluz.equals("Encendida")){
+            publicarMqtt(Topic2, "apagartodasluz");
+            Toast.makeText(getApplicationContext(), "Apagando Todas Las Luces",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void Luzcom(View view) {
+            if (Comeluz.equals("Apagada")) {
+                publicarMqtt(Topic2, "encencdercomedorluz");
+                Toast.makeText(getApplicationContext(), "Encendiendo Las Luces Del Comedor",
+                        Toast.LENGTH_LONG).show();
+
+            } else if(Comeluz.equals("Encendida")){
+                publicarMqtt(Topic2, "apagarcomedorluz");
+                Toast.makeText(getApplicationContext(), "Apagando Las Luces Del Comedor",
+                        Toast.LENGTH_LONG).show();
+            }
+    }
+
+    public void LuzCoc(View view){
+        if (Cociluz.equals("Apagada")) {
+            publicarMqtt(Topic2, "encencdercocinaluz");
+            Toast.makeText(getApplicationContext(), "Encendiendo Las Luces De La Cocina",
+                    Toast.LENGTH_LONG).show();
+
+        } else if(Cociluz.equals("Encendida")){
+            publicarMqtt(Topic2, "apagarcocinaluz");
+            Toast.makeText(getApplicationContext(), "Apagando Las Luces De La Cocina",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void LuzDP(View view){
+        if (Dpluz.equals("Apagada")) {
+            publicarMqtt(Topic2, "encencderdormitoriopluz");
+            Toast.makeText(getApplicationContext(), "Encendiendo Las Luces Del Dormitorio Principal",
+                    Toast.LENGTH_LONG).show();
+
+        } else if(Dpluz.equals("Encendida")){
+            publicarMqtt(Topic2, "apagardormitoriopluz");
+            Toast.makeText(getApplicationContext(), "Apagando Las Luces Del Dormitorio Principal",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void LuzD1(View view){
+        if (D1luz.equals("Apagada")) {
+            publicarMqtt(Topic2, "encencderdormitorio1luz");
+            Toast.makeText(getApplicationContext(), "Encendiendo Las Luces Del Dormitorio1",
+                    Toast.LENGTH_LONG).show();
+
+        } else if(D1luz.equals("Encendida")){
+            publicarMqtt(Topic2, "apagardormitorio1luz");
+            Toast.makeText(getApplicationContext(), "Apagando Las Luces Del Dormitorio1",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void LuzD2(View view){
+        if (D2luz.equals("Apagada")) {
+            publicarMqtt(Topic2, "encencderdormitorio2luz");
+            Toast.makeText(getApplicationContext(), "Encendiendo Las Luces Del Dormitorio2",
+                    Toast.LENGTH_LONG).show();
+
+        } else if(D2luz.equals("Encendida")){
+            publicarMqtt(Topic2, "apagardormitorio2luz");
+            Toast.makeText(getApplicationContext(), "Apagando Las Luces Del Dormitorio2",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void Luze(View view){
+        if (Entluz.equals("Apagada")) {
+            publicarMqtt(Topic2, "encencderentradaluz");
+            Toast.makeText(getApplicationContext(), "Encendiendo Las Luces De La Entrada",
+                    Toast.LENGTH_LONG).show();
+
+        } else if(Entluz.equals("Encendida")){
+            publicarMqtt(Topic2, "apagarentradaluz");
+            Toast.makeText(getApplicationContext(), "Apagando Las Luces De La Entrada",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+
 
     public static void conectarMqtt() {
         try {
